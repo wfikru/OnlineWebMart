@@ -30,7 +30,6 @@
 		<property name="dataSource" ref="dataSource" />
 		<property name="packagesToScan" value="edu.mum.cs490.model" />
 
-
 		<property name="hibernateProperties">
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>

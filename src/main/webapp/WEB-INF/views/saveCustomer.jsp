@@ -14,12 +14,12 @@
 	<springForm:form method="POST" commandName="customer" action="customer/add">
 		<table>
 			<tr>
-				<td>Name:</td>
+				<td>First Name:</td>
 				<td><springForm:input path="firstName" /></td>
 				<td><springForm:errors path="firstName" cssClass="error" /></td>
 			</tr>
 			<tr>
-				<td>Name:</td>
+				<td>Last Name:</td>
 				<td><springForm:input path="lastName" /></td>
 				<td><springForm:errors path="lastName" cssClass="error" /></td>
 			</tr>

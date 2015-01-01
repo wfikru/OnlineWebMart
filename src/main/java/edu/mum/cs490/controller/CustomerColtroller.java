@@ -36,6 +36,6 @@ public class CustomerColtroller {
 	@RequestMapping("/customer")
 	public String addCustomerpage(Model model) {
 		model.addAttribute("customer", new Customer());
-		return "customerSave";
+		return "saveCustomer";
 	}
 }

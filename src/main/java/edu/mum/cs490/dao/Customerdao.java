@@ -4,7 +4,7 @@ import java.util.List;
 
 import edu.mum.cs490.model.Customer;
 
-public interface Customerdoa {
+public interface Customerdao {
 
 	public void addCustomer(Customer c);
 

@@ -25,9 +25,7 @@
 	</beans:bean>
 
 	<context:component-scan base-package="edu.mum.cs490.controller" />
-	<context:component-scan base-package="edu.mum.cs490.service" />
-	<context:component-scan base-package="cedu.mum.cs490.model" />
-	<context:component-scan base-package="edu.mum.cs490.dao" />
+
 
 
 </beans:beans>
