@@ -1,1 +1,5 @@
 /target/
+
+*.jsp
+src/main/webapp/WEB-INF/views/home.jsp
+target/classes/edu/mum/cs490/dao/CustomerdaoImpl.class
