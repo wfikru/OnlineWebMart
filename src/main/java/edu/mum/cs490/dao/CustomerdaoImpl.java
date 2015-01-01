@@ -4,14 +4,16 @@ import java.util.List;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.springframework.stereotype.Repository;
 
 import edu.mum.cs490.model.Customer;
 
-public class CustomerdaoImpl implements Customerdoa{
+@Repository
+public class CustomerdaoImpl implements Customerdoa {
 
-private SessionFactory sessionFactory;
-	
-	public void setSessionFactory(SessionFactory sf){
+	private SessionFactory sessionFactory;
+
+	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
 	}
 
@@ -19,29 +21,30 @@ private SessionFactory sessionFactory;
 	public void addCustomer(Customer c) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(c);
-		}
+	}
 
 	@Override
 	public void updateCustomer(Customer c) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(c);
-	
+
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Customer> allCustomers() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Customer> customerList = session.createCriteria(Customer.class).list();
-		
+		List<Customer> customerList = session.createCriteria(Customer.class)
+				.list();
+
 		return customerList;
 	}
 
 	@Override
 	public Customer getCustomerById(int id) {
-		Session session = this.sessionFactory.getCurrentSession();		
+		Session session = this.sessionFactory.getCurrentSession();
 		Customer c = (Customer) session.load(Customer.class, new Integer(id));
-		
+
 		return c;
 	}
 
@@ -49,9 +52,9 @@ private SessionFactory sessionFactory;
 	public void removeCustomer(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Customer c = (Customer) session.load(Customer.class, new Integer(id));
-		if(null != c){
+		if (null != c) {
 			session.delete(c);
 		}
-		
+
 	}
 }
