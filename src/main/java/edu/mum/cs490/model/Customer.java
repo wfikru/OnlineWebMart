@@ -1,13 +1,16 @@
 package edu.mum.cs490.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.xml.bind.annotation.XmlRootElement;
-
-
 
 @Entity(name = "CUSTOMER")
 public class Customer {
@@ -23,8 +26,37 @@ public class Customer {
 	@Column(name = "lastname")
 	private String lastName;
 	
-	@Column(name = "address")
-	private String address;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfBirth;
+	
+	
+	private String password;
+	private String role = "customer";
+	
+	
+	public String getRole() {
+		return role;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	@Embedded
+	private Address address;
+
+	
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
 
 	public int getId() {
 		return id;
@@ -48,13 +80,13 @@ public class Customer {
 
 	public void setLastName(String lastName) {
 		this.lastName = lastName;
-	}
+	}	
 
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
 
