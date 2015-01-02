@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ page session="false" %>
 
 <div class="container">
 <!-- Navbar ================================================== -->
@@ -126,17 +123,3 @@
 </div>
 
 </div>
-=======
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ page session="false"%>
-<html>
-<head>
-<title>Home</title>
-</head>
-<body>
-	<h1>Hello world!</h1>
-
-	<a href="customer">Register Customer</a>
-</body>
-</html>
->>>>>>> branch 'master' of https://github.com/wfikru/OnlineWebMart.git
