@@ -36,7 +36,7 @@ public class UserController {
 			
 
 		
-		if(authUser.getRole() !=null){
+		if(authUser !=null){
 			if(authUser.getRole().equals("customer"))
 				authUser = (Registered) authUser;
 			else if (authUser.getRole().equals("admin"))
