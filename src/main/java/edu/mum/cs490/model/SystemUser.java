@@ -3,6 +3,7 @@ package edu.mum.cs490.model;
 import javax.persistence.Entity;
 import javax.xml.bind.annotation.XmlRootElement;
 
+@Entity(name = "USER")
 public class SystemUser {
 
 	private int id;
