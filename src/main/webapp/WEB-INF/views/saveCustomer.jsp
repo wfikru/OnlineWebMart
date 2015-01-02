@@ -1,41 +1,68 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<link rel="stylesheet"
+	href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+<title>Customers</title>
 </head>
 <body>
+	<section class="container">
+		<form:form modelAttribute="customer" class="form-horizontal"
+			enctype="multipart/form-data" action="customer/add">
+			<fieldset>
+				<legend>Add new customer</legend>
 
-	<springForm:form method="POST" commandName="customer" action="customer/add">
-		<table>
-			<tr>
-				<td>First Name:</td>
-				<td><springForm:input path="firstName" /></td>
-				<td><springForm:errors path="firstName" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Last Name:</td>
-				<td><springForm:input path="lastName" /></td>
-				<td><springForm:errors path="lastName" cssClass="error" /></td>
-			</tr>
-			<tr>
-				<td>Age:</td>
-				<td><springForm:input path="address" /></td>
-				<td><springForm:errors path="address" cssClass="error" /></td>
-			</tr>
+				<form:errors path="*" cssClass="alert alert-danger" element="div" />
 
-			<tr>
-				<td colspan="3"><input type="submit" value="Save Customer"></td>
-			</tr>
-		</table>
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="firstName">First
+						Name</label>
+					<div class="col-lg-10">
+						<form:input id="firstName" path="firstName" type="text"
+							class="form:input-large" />
 
-	</springForm:form>
+					</div>
+				</div>
 
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="lastName">First
+						Name</label>
+					<div class="col-lg-10">
+						<form:input id="lastName" path="lastName" type="text"
+							class="form:input-large" />
+					</div>
+				</div>
 
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="address.email">First
+						Name</label>
+					<div class="col-lg-10">
+						<form:input id="address.email" path="address.email" type="text"
+							class="form:input-large" />
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="control-label col-lg-2" for="password">First
+						Name</label>
+					<div class="col-lg-10">
+						<form:input id="password" path="password" type="text"
+							class="form:input-large" />
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-lg-offset-2 col-lg-10">
+						<input type="submit" id="btnAdd" class="btn btn-primary"
+							value="Register" />
+					</div>
+				</div>
+
+			</fieldset>
+		</form:form>
+	</section>
 </body>
 </html>
