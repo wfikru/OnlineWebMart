@@ -6,10 +6,12 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.cs490.model.Customer;
 
 @Repository
+@Transactional
 public class CustomerdaoImpl implements Customerdao {
 
 	@Autowired
@@ -29,7 +31,6 @@ public class CustomerdaoImpl implements Customerdao {
 	public void updateCustomer(Customer c) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(c);
-
 	}
 
 	@SuppressWarnings("unchecked")

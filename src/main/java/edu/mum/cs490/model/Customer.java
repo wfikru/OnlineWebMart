@@ -20,7 +20,7 @@ public class Customer {
 	@Column(name = "customer_id")
 	private int id;
 	
-	@Column(name = "firstname")
+	//@Column(name = "firstname")
 	private String firstName;
 	
 	@Column(name = "lastname")
@@ -46,8 +46,8 @@ public class Customer {
 		this.password = password;
 	}
 
-	@Embedded
-	private Address address;
+//	@Embedded
+//	private Address address;
 
 	
 	public Date getDateOfBirth() {
@@ -82,13 +82,13 @@ public class Customer {
 		this.lastName = lastName;
 	}	
 
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
+//	public Address getAddress() {
+//		return address;
+//	}
+//
+//	public void setAddress(Address address) {
+//		this.address = address;
+//	}
 
 	@Override
 	public int hashCode() {
