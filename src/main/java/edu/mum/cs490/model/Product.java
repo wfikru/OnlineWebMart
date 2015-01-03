@@ -7,8 +7,13 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
+import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity(name = "PRODUCT")
@@ -22,8 +27,10 @@ public class Product {
 	@Column(name = "product_name")
 	private String name;
 	
+	
+	@Lob
 	@Column(name = "product_image")
-	private Byte[] image;
+	private byte[] image;
 	
 	@Column(name = "product_description")
 	private String description;
@@ -34,6 +41,29 @@ public class Product {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cat_id", nullable = false)
 	private Category category;
+	
+	@JsonIgnore
+	@Transient 
+	private MultipartFile productImage;
+
+	
+	
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
+
+	public MultipartFile getProductImage() {
+		return productImage;
+	}
+
+	public void setProductImage(MultipartFile productImage) {
+		this.productImage = productImage;
+	}
 
 	public int getId() {
 		return id;
@@ -51,13 +81,7 @@ public class Product {
 		this.name = name;
 	}
 
-	public Byte[] getImage() {
-		return image;
-	}
 
-	public void setImage(Byte[] image) {
-		this.image = image;
-	}
 
 	public String getDescription() {
 		return description;

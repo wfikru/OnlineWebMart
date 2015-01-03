@@ -1,6 +1,9 @@
 package edu.mum.cs490.controller;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -9,11 +12,13 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.service.CustomerService;
@@ -37,7 +42,40 @@ public class ProductController {
 	}
 	
 	@RequestMapping("/addit")
-	public String addProduct(@ModelAttribute Product product){
+	public String addProduct(@ModelAttribute Product product, BindingResult result, HttpServletRequest request){
+		
+		
+		MultipartFile productImage = product.getProductImage();
+	
+		
+		
+		try {
+			product.setImage(productImage.getBytes());
+		} catch (IOException e1) {
+			
+			e1.printStackTrace();
+		}
+		
+		String rootDirectory = request.getSession().getServletContext()
+				.getRealPath("/");
+
+	/*	
+		if (productImage != null && !productImage.isEmpty()) {
+			try {
+				
+				Random random = new Random();
+				//Math.abs(random.nextInt())
+				
+				productImage.transferTo(new File(rootDirectory
+						+ "\\resources\\images\\" + product.getId() + ".png"));
+
+			} catch (Exception e) {
+				throw new RuntimeException("Product Image saving failed", e);
+			}
+		}
+		*/
+		
+		
 		productService.addProduct(product);
 		
 		return "redirect:/product/list";
@@ -47,7 +85,7 @@ public class ProductController {
 	@RequestMapping("/add")
 	public String addProductPage(Model model){
 		model.addAttribute("product", new Product());
-		return "addProduct";
+		return "registerProduct";
 	}
 	
 	@RequestMapping("/list")

@@ -52,6 +52,15 @@
 			</tr>
 
 			<tr>
+				<td>Add picture:</td>
+				<td><springForm:input path="productImage" type="file"/></td>
+				<td><springForm:errors path="productImage" cssClass="error" /></td>
+			</tr>
+
+
+
+
+			<tr>
 				<td colspan="3"><input type="submit" value="Save Product"></td>
 			</tr>
 		</table>
