@@ -17,26 +17,28 @@ public class CustomerColtroller {
 
 	private CustomerService customerService;
 
-	//List<Customer> productList = new ArrayList<Customer>();
-	
+	// List<Customer> productList = new ArrayList<Customer>();
+
 	@Autowired
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
 	}
 
 	@RequestMapping("/customer/add")
-	public String addCustomeraction(@ModelAttribute("customer") Customer customer) {
-	
-		customerService.addCustomer(customer);
-		
+	public String addCustomeraction(
+			@ModelAttribute("customer") Customer customer) {
+
 		customer.setRole("customer");
+		
+		customerService.addCustomer(customer);
+
 		return "redirect:/";
 	}
 
 	@RequestMapping("/customer")
 	public String addCustomerpage(Model model) {
 		model.addAttribute("customer", new Customer());
-		
+
 		return "registerCustomer";
 	}
 }

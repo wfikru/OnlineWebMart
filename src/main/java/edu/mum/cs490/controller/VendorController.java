@@ -39,15 +39,16 @@ public class VendorController {
 			try {
 				
 				Random random = new Random();
+				//Math.abs(random.nextInt())
+				
 				productImage.transferTo(new File(rootDirectory
-						+ "\\resources\\images\\" + Math.abs(random.nextInt()) + ".png"));
+						+ "\\resources\\images\\" + vendor.getUserId() + ".png"));
 
 			} catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
 		}
 		vendorService.addVendor(vendor);
-
 		vendor.setRole("vendor");
 		return "redirect:/";
 	}
