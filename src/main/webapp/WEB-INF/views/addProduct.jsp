@@ -10,6 +10,23 @@
 <title>Add new product</title>
 </head>
 <body>
+<div class="wrapper row-offcanvas row-offcanvas-left">
+ 		<aside class="right-side">
+							<!-- Content Header (Page header) -->
+			<section class="content-header">
+				<h1>
+					Edit Product
+				</h1>
+				<ol class="breadcrumb">
+					<li><a href="/cs490"><i class="fa fa-dashboard"></i> Home</a></li>
+					<li><a href="/cs490/product/list">Products</a></li>
+					<li class="active">Add</li>
+				</ol>
+				
+			</section>
+			
+						<section class="container">
+			<br><br>
 
 	<springForm:form method="POST" commandName="product" action="addit">
 		<table>
@@ -40,7 +57,9 @@
 		</table>
 
 	</springForm:form>
-
+			</section>
+		</aside>
+	</div>    
 
 </body>
 </html>

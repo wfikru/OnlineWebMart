@@ -99,12 +99,12 @@ public class ProductController {
 	}
 
 	@RequestMapping(value="/update")
-	public String updateApplication(Model model,
+	public String updateProduct(Model model,
 			@ModelAttribute("product") Product product,
 			@RequestParam("pid") String productId,
 			HttpServletRequest request){				
 
-		System.out.println(product.getName());
+		product.setId(Integer.parseInt(productId));
 		productService.updateProduct(product);
 		return "redirect:/product/list";
 	}

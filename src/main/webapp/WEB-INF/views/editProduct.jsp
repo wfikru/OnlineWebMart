@@ -33,7 +33,7 @@
 				<springForm:form method="POST" commandName="product" action="update?pid=${product.id}">
 				
 					<fieldset>
-						<legend>Edit product</legend>
+						<legend>Product details</legend>
 				
 						
 				
