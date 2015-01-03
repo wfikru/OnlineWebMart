@@ -32,14 +32,13 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public List<Vendor> allVendors() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		return this.vendordao.allVendors();
 	}
 
 	@Override
 	public Vendor getVendorById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.vendordao.getVendorById(id);
 	}
 
 	@Override

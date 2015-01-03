@@ -3,8 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
-<%@ taglib uri="http://www.springframework.org/tags/form"
-	prefix="springForm"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -13,26 +11,18 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<legend>Customers</legend>
-
-	<table class="table table-bordered">
-		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Edit</th>
-			<th>Delete</th>
-		</tr>
-		<c:forEach var="customer" items="${ customers}">
-
-			<tr>
-				<td><c:out value="${customer.firstName}" /></td>
-				<td><c:out value="${customer.lastName}" /></td>
-				<td><a>Edit</a></td>
-				<td><a>Delete</a></td>
-			</tr>
-
-		</c:forEach>
-	</table>
-
+	<legend>Registration Succesfull</legend>
+	
+	<form:form>
+	First Name:	<p>${customer.firstName }</p>
+	Last Name:	<p>${customer.lastName }</p>
+	Email:	<p>${customer.email }</p>
+	State:	<p>${customer.address.state }</p>
+	Street:	<p>${customer.address.street }</p>
+	ZIP:	<p>${customer.address.zip }</p>
+	
+		<a href="back" class="glyphicon glyphicon-home">Back to home</a>
+		
+	</form:form>
 </body>
 </html>

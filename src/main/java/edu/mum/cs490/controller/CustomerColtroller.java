@@ -12,13 +12,11 @@ import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CustomerService;
 
 @Controller
-@SessionAttributes("productList")
 public class CustomerColtroller {
 
 	private CustomerService customerService;
 
 	// List<Customer> productList = new ArrayList<Customer>();
-
 	@Autowired
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
@@ -28,15 +26,17 @@ public class CustomerColtroller {
 	public String addCustomeraction(
 			@ModelAttribute("customer") Customer customer) {
 
+		System.out.println("/customer/add****************");
+
 		customer.setRole("customer");
-		
 		customerService.addCustomer(customer);
 
-		return "redirect:/";
+		return "customerRegSuccess";
 	}
 
 	@RequestMapping("/customer")
 	public String addCustomerpage(Model model) {
+		System.out.println("/customer****************");
 		model.addAttribute("customer", new Customer());
 
 		return "registerCustomer";

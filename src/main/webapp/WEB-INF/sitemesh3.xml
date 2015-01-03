@@ -1,6 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
+<<<<<<< HEAD
+
+	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
+	<mapping path="/customer" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/vendor" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/customer/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/vendor/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	
+=======
 	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />  
 	<mapping path="/product/*" decorator="/WEB-INF/decorators/productDecorator.jsp" />
+>>>>>>> branch 'master' of https://github.com/wfikru/OnlineWebMart.git
 	<mapping path="/resources/*" exclue="true"/>
 </sitemesh>

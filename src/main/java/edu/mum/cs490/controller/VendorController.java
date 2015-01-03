@@ -1,6 +1,7 @@
 package edu.mum.cs490.controller;
 
 import java.io.File;
+import java.nio.file.Files;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
@@ -32,25 +33,21 @@ public class VendorController {
 			BindingResult result, HttpServletRequest request) {
 
 		MultipartFile productImage = vendor.getProductImage();
-		String rootDirectory = request.getSession().getServletContext()
-				.getRealPath("/");
 
 		if (productImage != null && !productImage.isEmpty()) {
 			try {
-				
-				Random random = new Random();
-				//Math.abs(random.nextInt())
-				
-				productImage.transferTo(new File(rootDirectory
-						+ "\\resources\\images\\" + vendor.getUserId() + ".png"));
 
+				vendor.setImage(productImage.getBytes());
+				
 			} catch (Exception e) {
 				throw new RuntimeException("Product Image saving failed", e);
 			}
 		}
-		vendorService.addVendor(vendor);
+		
 		vendor.setRole("vendor");
-		return "redirect:/";
+		vendorService.addVendor(vendor);
+		
+		return "vendorRegSuccess";
 	}
 
 	@RequestMapping("/vendor")

@@ -7,32 +7,27 @@
 	prefix="springForm"%>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
-</head>
-<body>
-	<legend>Customers</legend>
+
+<div class="container">
+
+	<legend>Vendors</legend>
 
 	<table class="table table-bordered">
 		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
+			<th>Vendor Name</th>
+			<th>Logo</th>
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
-		<c:forEach var="customer" items="${ customers}">
+		<c:forEach var="vendor" items="${ vendors}">
 
 			<tr>
-				<td><c:out value="${customer.firstName}" /></td>
-				<td><c:out value="${customer.lastName}" /></td>
+				<td><c:out value="${vendor.vendorName}" /></td>
+				<td><img alt="logo" src="${vendor.filePath }" width="50px"></td>
 				<td><a>Edit</a></td>
 				<td><a>Delete</a></td>
 			</tr>
 
 		</c:forEach>
 	</table>
-
-</body>
-</html>
+</div>

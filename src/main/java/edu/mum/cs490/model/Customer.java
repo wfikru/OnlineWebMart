@@ -20,16 +20,7 @@ public class Customer extends SystemUser {
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateOfBirth;
 
-	private String email;
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
-
+	
 	@Embedded
 	private Address address;
 

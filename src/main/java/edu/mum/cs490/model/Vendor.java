@@ -1,6 +1,7 @@
 package edu.mum.cs490.model;
 
 import javax.persistence.Entity;
+import javax.persistence.Lob;
 import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
@@ -10,9 +11,22 @@ import org.springframework.web.multipart.MultipartFile;
 public class Vendor extends SystemUser {
 
 	private String vendorName;
-//	private Byte[] image;
+	@Lob
+	private byte[] image;
 	private Address address;
 	private double vendorCharge;
+	
+	@Transient
+	private String filePath;
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
 
 	@JsonIgnore
 	@Transient
@@ -42,13 +56,13 @@ public class Vendor extends SystemUser {
 		this.address = address;
 	}
 
-//	public Byte[] getImage() {
-//		return image;
-//	}
-//
-//	public void setImage(Byte[] image) {
-//		this.image = image;
-//	}
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 	public double getVendorCharge() {
 		return vendorCharge;

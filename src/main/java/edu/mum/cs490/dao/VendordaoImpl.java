@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Vendor;
 
 @Repository
@@ -34,16 +35,20 @@ public class VendordaoImpl implements Vendordao {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Vendor> allVendors() {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Vendor> vendorList = session.createCriteria(Vendor.class).list();
+		return vendorList;
 	}
 
 	@Override
 	public Vendor getVendorById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		Session session = this.sessionFactory.getCurrentSession();
+		Vendor v = (Vendor) session.get(Vendor.class, new Integer(id));
+
+		return v;
 	}
 
 	@Override

@@ -46,6 +46,26 @@
 			</div>
 		</div>
 
+		<hr>
+		<div class="form-group">
+			<label class="control-label col-lg-2" for="email">Email </label>
+			<div class="col-lg-10">
+				<form:input id="email" path="email" type="text"
+					class="form:input-large" />
+
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label class="control-label col-lg-2" for="password">Password
+			</label>
+			<div class="col-lg-10">
+				<form:input id="password" path="password" type="text"
+					class="form:input-large" />
+
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label class="control-label col-lg-2" for="productImage"> Add
 				Logo </label>
