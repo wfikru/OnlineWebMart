@@ -8,5 +8,7 @@
 	<h1>Hello world!</h1>
 
 	<a href="customer">Register Customer</a>
+	<a href="product/add">Register Product</a>
+	<a href="product/list">Product list</a>
 </body>
 </html>
