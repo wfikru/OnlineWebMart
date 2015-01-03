@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
-	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
+	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />  
+	<mapping path="/product/*" decorator="/WEB-INF/decorators/productDecorator.jsp" />
 	<mapping path="/resources/*" exclue="true"/>
 </sitemesh>
