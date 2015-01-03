@@ -1,7 +1,13 @@
 package edu.mum.cs490.model;
 
-public class Guest {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
-	private int id;
+@Entity(name = "GUEST")
+public class Guest extends Customer{
 	
+
+
 }

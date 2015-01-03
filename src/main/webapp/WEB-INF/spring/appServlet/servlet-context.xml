@@ -26,6 +26,4 @@
 
 	<context:component-scan base-package="edu.mum.cs490.controller" />
 
-
-
 </beans:beans>

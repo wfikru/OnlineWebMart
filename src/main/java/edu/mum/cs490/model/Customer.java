@@ -1,37 +1,44 @@
 package edu.mum.cs490.model;
 
+import java.util.Date;
+
 import javax.persistence.Column;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
-
-
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "CUSTOMER")
-public class Customer {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Column(name = "customer_id")
-	private int id;
-	
+public class Customer extends SystemUser {
+
 	@Column(name = "firstname")
 	private String firstName;
-	
+
 	@Column(name = "lastname")
 	private String lastName;
-	
-	@Column(name = "address")
-	private String address;
 
-	public int getId() {
-		return id;
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date dateOfBirth;
+
+	private String email;
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setId(int id) {
-		this.id = id;
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Embedded
+	private Address address;
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
 	}
 
 	public String getFirstName() {
@@ -50,37 +57,11 @@ public class Customer {
 		this.lastName = lastName;
 	}
 
-	public String getAddress() {
+	public Address getAddress() {
 		return address;
 	}
 
-	public void setAddress(String address) {
+	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Customer other = (Customer) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-	
-	
-	
-	
 }
