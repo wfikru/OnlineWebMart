@@ -8,8 +8,6 @@ public class Address {
 	private String state;
 	private String street;
 	private String zip;
-	private String email;
-	
 	
 	public String getState() {
 		return state;
@@ -29,12 +27,5 @@ public class Address {
 	public void setZip(String zip) {
 		this.zip = zip;
 	}
-	public String getEmail() {
-		return email;
-	}
-	public void setEmail(String email) {
-		this.email = email;
-	}
-	
 	
 }

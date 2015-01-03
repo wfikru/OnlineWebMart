@@ -1,8 +1,5 @@
 package edu.mum.cs490.controller;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +17,7 @@ public class CustomerColtroller {
 
 	private CustomerService customerService;
 
-	List<Customer> productList = new ArrayList<Customer>();
+	//List<Customer> productList = new ArrayList<Customer>();
 	
 	@Autowired
 	public void setCustomerService(CustomerService customerService) {
@@ -29,18 +26,17 @@ public class CustomerColtroller {
 
 	@RequestMapping("/customer/add")
 	public String addCustomeraction(@ModelAttribute("customer") Customer customer) {
-
+	
 		customerService.addCustomer(customer);
 		
-		productList = customerService.allCustomers();
+		customer.setRole("customer");
 		return "redirect:/";
 	}
 
 	@RequestMapping("/customer")
 	public String addCustomerpage(Model model) {
 		model.addAttribute("customer", new Customer());
-		model.addAttribute("vendor", new Vendor());
-
+		
 		return "registerCustomer";
 	}
 }

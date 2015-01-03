@@ -58,6 +58,5 @@ public class CustomerdaoImpl implements Customerdao {
 		if (null != c) {
 			session.delete(c);
 		}
-
 	}
 }

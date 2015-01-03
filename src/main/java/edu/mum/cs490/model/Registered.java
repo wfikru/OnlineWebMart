@@ -6,6 +6,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "REGISTERED_USER")
-public class Registered extends SystemUser {
-	
+public class Registered extends Customer {
+
+
+
 }

@@ -4,23 +4,27 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.xml.bind.annotation.XmlRootElement;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 
 @Entity
+@Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
 public class SystemUser {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	private int id;
-	private String username;
+	@GeneratedValue(strategy = GenerationType.TABLE)
+	private int userId;
+	
+	private String username;//email
 	private String password;
 	private String role;
 	private boolean status;
 	
-	public int getId() {
-		return id;
+	
+	public int getUserId() {
+		return userId;
 	}
-	public void setId(int id) {
-		this.id = id;
+	public void setUserId(int userId) {
+		this.userId = userId;
 	}
 	public String getUsername() {
 		return username;
