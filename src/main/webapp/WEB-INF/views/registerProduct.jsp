@@ -4,66 +4,52 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 
+<table>
+	<tr>
+	    <td><h3>Add New Product</h3></td>
+	    <td>
+	        </td>
+	    </tr>
+</table>
 <div class="container">
-	<form:form modelAttribute="product" class="form-horizontal"
-		action="addit" enctype="multipart/form-data">
-
-		<legend>Add new product</legend>
-
-		<form:errors path="*" cssClass="alert alert-danger" element="div" />
-
-		<div class="form-group">
-			<label class="control-label col-lg-2" for="name">Product
-				Name</label>
-			<div class="col-lg-10">
-				<form:input id="name" path="name" type="text"
-					class="form:input-large" />
-
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-lg-2" for="description">Description</label>
-			<div class="col-lg-10">
-				<form:input id="description" path="description" type="text"
-					class="form:input-large" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-lg-2" for="name">Price</label>
-			<div class="col-lg-10">
-				<form:input id="price" path="price" type="text"
-					class="form:input-large" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-lg-2" for="category.id">Category</label>
-			<div class="col-lg-10">
-				<form:input id="category.id" path="category.id" type="text"
-					class="form:input-large" />
-			</div>
-		</div>
-
-		<div class="form-group">
-			<label class="control-label col-lg-2" for="productImage"> Add
-				image </label>
-			<div class="col-lg-10">
-				<form:input id="productImage" path="productImage" type="file"
-					class="form:input-large" />
-			</div>
-		</div>
-
-
-
-		<div class="form-group">
-			<div class="col-lg-offset-2 col-lg-10">
-				<input type="submit" id="btnAdd" class="btn btn-primary"
-					value="Register" />
-			</div>
-		</div>
-
-	</form:form>
-
+	<springForm:form modelAttribute="product" class="form-horizontal" action="addit" enctype="multipart/form-data">
+	<springForm:errors path="*" cssClass="alert alert-danger" element="div" />
+	<fieldset>
+		<legend>Product details</legend>
+		<table>
+			<tr>
+				<td style="width:130px">Product Name:</td>
+				<td><springForm:input id="name" path="name" type="text" /></td>
+				<td><springForm:errors path="name" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Description:</td>
+				<td><springForm:input id="description" path="description" type="text" /></td>
+				<td><springForm:errors path="description" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Price:</td>
+				<td><springForm:input id="price" path="price" type="text" /></td>
+				<td><springForm:errors path="description" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Category:</td>
+				<td><springForm:input id="category.id" path="category.id" type="text" /></td>
+				<td><springForm:errors path="category.id" cssClass="error" /></td>
+			</tr>
+			<tr>
+				<td>Image:</td>
+				<td><springForm:input id="productImage" path="productImage" type="file" /></td>
+				<td><springForm:errors path="productImage" cssClass="error" /></td>
+			</tr>
+		</table>
+	</fieldset>
+	<div class="form-group" style="padding-top: 20px;">
+         <div style="display:inline-block; padding-right: 10px;">
+             <input type="submit" id="btnAdd" class="btn btn-primary"
+		value="Register" /> 
+         </div>
+     </div>
+	</springForm:form>
+	
 </div>

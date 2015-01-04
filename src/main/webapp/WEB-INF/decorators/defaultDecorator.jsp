@@ -20,15 +20,6 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!--Less styles -->
-<!-- Other Less css file //different less files has different color scheam
-	<link rel="stylesheet/less" type="text/css" href="themes/less/simplex.less">
-	<link rel="stylesheet/less" type="text/css" href="themes/less/classified.less">
-	<link rel="stylesheet/less" type="text/css" href="themes/less/amelia.less">  MOVE DOWN TO activate
-	-->
-<!--<link rel="stylesheet/less" type="text/css" href="themes/less/bootshop.less">
-	<script src="themes/js/less.js" type="text/javascript"></script> -->
-
 <!-- Bootstrap style -->
 <link id="callCss" rel="stylesheet"
 	href="/cs490/resources/themes/bootshop/bootstrap.min.css"
@@ -44,17 +35,6 @@
 <link
 	href="/cs490/resources/themes/js/google-code-prettify/prettify.css"
 	rel="stylesheet" />
-<!-- Fav and Touch Icons -->
-<link rel="shortcut icon" href="themes/images/ico/favicon.ico">
-<link rel="apple-touch-icon-precomposed" sizes="144x144"
-	href="/cs490/resources/themes/images/ico/apple-touch-icon-144-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="114x114"
-	href="/cs490/resources/themes/images/ico/apple-touch-icon-114-precomposed.png">
-<link rel="apple-touch-icon-precomposed" sizes="72x72"
-	href="/cs490/resources/themes/images/ico/apple-touch-icon-72-precomposed.png">
-<link rel="apple-touch-icon-precomposed"
-	href="/cs490/resources/themes/images/ico/apple-touch-icon-57-precomposed.png">
-<style type="text/css" id="enject"></style>
 </head>
 <body>
 	<div id="header">
