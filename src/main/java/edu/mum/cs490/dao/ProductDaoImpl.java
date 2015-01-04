@@ -1,12 +1,16 @@
 package edu.mum.cs490.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 
@@ -63,6 +67,52 @@ public class ProductDaoImpl implements ProductDao {
 	}
 	
 	
+	@Override
+	public ArrayList<Product> listProductsByCategory(int catId) {
+		// TODO Auto-generated method stub
+		
+		Session session = this.sessionFactory.openSession();
+		Criteria cr = session.createCriteria(Product.class);
+		Criteria cr2 = session.createCriteria(Category.class);
+		ArrayList<Category> categories =(ArrayList<Category>) cr2.add(Restrictions.eq("id", catId)).list();
+		Category cat = categories.get(0);
+
+		ArrayList<Product> list =(ArrayList<Product>) cr.add(Restrictions.eq("category", cat)).list();
+		
+//		List<Customer> customerList = session.createCriteria(Customer.class)
+//				.list();
+//
+//		String SQL_QUERY = " from Product p where p.category.id=?";
+//		Query query = session.createQuery(SQL_QUERY);
+//		query.setParameter(0, catId);
+//		ArrayList<Product> list = (ArrayList<Product>) query.list();
+		System.out.print("+++" + list.size());
+		if ((list != null) && (list.size() > 0)) {
+			return  list;
+		}
+
+		session.close();
+		return null;
+	}
 	
+	@Override
+	public ArrayList<Product> getProductsByName(String name) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Product.class);
+		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.eq("name", name).ignoreCase()).list();
+		return products;
+
+	}
+	
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Product> allProducts() {
+		Session session = this.sessionFactory.getCurrentSession();
+		ArrayList<Product> productList = (ArrayList<Product>) session.createCriteria(Product.class)
+				.list();
+
+		return productList;
+	}
+
 
 }

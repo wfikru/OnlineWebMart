@@ -11,6 +11,7 @@ import javax.persistence.TemporalType;
 @Entity(name = "CUSTOMER")
 public class Customer extends SystemUser {
 
+	
 	@Column(name = "firstname")
 	private String firstName;
 

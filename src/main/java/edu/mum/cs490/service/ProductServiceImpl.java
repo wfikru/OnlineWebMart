@@ -1,6 +1,8 @@
 package edu.mum.cs490.service;
 
+import java.util.ArrayList;
 import java.util.List;
+
 
 
 
@@ -54,6 +56,25 @@ public class ProductServiceImpl implements ProductService {
 	public void updateProduct(Product product) {
 		productDao.updateProduct(product);
 		
+	}
+	@Override
+	@Transactional
+	public ArrayList<Product> listProductsByCriteria(int id) {
+		// TODO Auto-generated method stub
+		return productDao.listProductsByCategory(id);
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Product> getProductsByName(String name) {
+		// TODO Auto-generated method stub
+		return productDao.getProductsByName(name);
+	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Product> allProducts(){
+		return productDao.allProducts();
 	}
 
 }

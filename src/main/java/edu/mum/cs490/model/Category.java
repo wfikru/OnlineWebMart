@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity(name = "CATEGORY")
 public class Category {
 	
+	
 	@Id	
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "cat_id")
