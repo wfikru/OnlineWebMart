@@ -35,8 +35,8 @@ import edu.mum.cs490.service.ProductService;
 public class ProductController {
 	
 
-	private static final Logger logger = LoggerFactory
-			.getLogger(ProductController.class);
+	//private static final Logger logger = LoggerFactory
+	//		.getLogger(ProductController.class);
 	
 
 	@Autowired
