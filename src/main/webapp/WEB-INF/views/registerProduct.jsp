@@ -4,6 +4,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 
+
 <table>
 	<tr>
 	    <td><h3>Add New Product</h3></td>

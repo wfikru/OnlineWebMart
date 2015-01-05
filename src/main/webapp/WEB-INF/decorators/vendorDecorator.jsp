@@ -48,7 +48,7 @@
 				<div class="span6">
 					<div class="pull-right">
 						<a
-							href="product_summary.html"><span
+							href="/cs490/logout"><span
 							class="btn btn-mini btn-primary">Logout </span> </a>
 
 					</div>

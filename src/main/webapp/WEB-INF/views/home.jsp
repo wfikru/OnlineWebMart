@@ -65,7 +65,7 @@
 		<div class="carousel-inner">
 			<div class="item active">
 				<div class="container">
-					<a href="customer"><img style="width: 100%"
+					<a href="customer/add"><img style="width: 100%"
 						src="/cs490/resources/themes/images/carousel/1.png"
 						alt="special offers" /></a>
 					<div class="carousel-caption">
@@ -78,7 +78,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="customer"><img style="width: 100%"
+					<a href="customer/add"><img style="width: 100%"
 						src="/cs490/resources/themes/images/carousel/2.png" alt="" /></a>
 					<div class="carousel-caption">
 						<h4>Second Thumbnail label</h4>
@@ -90,7 +90,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="customer"><img
+					<a href="customer/add"><img
 						src="/cs490/resources/themes/images/carousel/3.png" alt="" /></a>
 					<div class="carousel-caption">
 						<h4>Second Thumbnail label</h4>
@@ -103,7 +103,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="customer"><img
+					<a href="customer/add"><img
 						src="/cs490/resources/themes/images/carousel/4.png" alt="" /></a>
 					<div class="carousel-caption">
 						<h4>Second Thumbnail label</h4>
@@ -116,7 +116,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="customer"><img
+					<a href="customer/add"><img
 						src="/cs490/resources/themes/images/carousel/5.png" alt="" /></a>
 					<div class="carousel-caption">
 						<h4>Second Thumbnail label</h4>
@@ -128,7 +128,7 @@
 			</div>
 			<div class="item">
 				<div class="container">
-					<a href="customer"><img
+					<a href="customer/add"><img
 						src="/cs490/resources/themes/images/carousel/6.png" alt="" /></a>
 					<div class="carousel-caption">
 						<h4>Second Thumbnail label</h4>
