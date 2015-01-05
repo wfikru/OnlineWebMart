@@ -46,6 +46,6 @@ public class CustomerColtroller {
 		System.out.println("/customer****************");
 		model.addAttribute("customer", new Customer());
 
-		return "saveCustomer";
+		return "registerCustomer";
 	}
 }
