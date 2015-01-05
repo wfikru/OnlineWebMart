@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.h2.constant.SysProperties;
 import org.slf4j.Logger;
@@ -52,10 +53,12 @@ public class ProductController {
 	}
 	@RequestMapping(value="/admin/vendor/product/edit", method = RequestMethod.GET)
 	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpServletRequest request){				
-		
+		System.out.println("prodddddd+++++"+productId);
 		int id = Integer.parseInt(productId);
 		model.addAttribute("product",productService.getProductById(id));
 		model.addAttribute("categories", categoryService.listCategories());	
+		
+		System.out.println("PPPPP+++"+productService.getProductById(id).getName());
 		return "/admin/vendor/product_edit";
 	}
 	@RequestMapping("/admin/vendor/product/add")
@@ -66,7 +69,7 @@ public class ProductController {
 	}
 	@RequestMapping(value="/admin/vendor/product/update")
 	public String doUpdateProduct(Model model,
-			@ModelAttribute("product") Product product,
+			@Valid @ModelAttribute("product") Product product, BindingResult result,
 			@RequestParam("pid") String productId,
 			HttpServletRequest request){	
 		MultipartFile productImage = product.getProductImage();
@@ -80,12 +83,21 @@ public class ProductController {
 		}
 		
 		
-		product.setId(Integer.parseInt(productId));
-		productService.updateProduct(product);
-		return "redirect:/admin/vendor/product";
+		if (result.hasErrors()) {
+			System.out.println("/admin/vendor/product/edit?pid="+productId);
+			return "redirect:/admin/vendor/product/edit?pid="+productId;
+			
+			
+		} else {
+			product.setId(Integer.parseInt(productId));
+			productService.updateProduct(product);
+			return "redirect:/admin/vendor/product";
+		}
+		
+
 	}
 	@RequestMapping("/admin/vendor/product/doAdd")
-	public String doAddProduct(@ModelAttribute Product product, BindingResult result, HttpServletRequest request){
+	public String doAddProduct( @Valid @ModelAttribute Product product, BindingResult result, HttpServletRequest request){
 		
 		
 		MultipartFile productImage = product.getProductImage();
@@ -115,10 +127,15 @@ public class ProductController {
 		}
 		*/
 		
-
-		productService.addProduct(product);
+		if (result.hasErrors()) {
+			return "/admin/vendor/product_add";
+		} else {
+			productService.addProduct(product);
+			
+			return "redirect:/admin/vendor/product";
+		}
 		
-		return "redirect:/admin/vendor/product";
+		
 		
 	}
 

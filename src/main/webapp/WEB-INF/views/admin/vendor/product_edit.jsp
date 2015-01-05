@@ -45,6 +45,13 @@
 								<td><springForm:errors path="price" cssClass="error" /></td>
 							</tr>
 							<tr>
+								<td>Quantity:</td>
+								<td><springForm:input id="quantity" path="quantity"
+										type="text" /></td>
+								<td><springForm:errors path="quantity"
+										cssClass="alert alert-danger" /></td>
+							</tr>
+							<tr>
 								<td>Category:</td>
 								<td><form:select multiple="single" path="category.id"
 										id="category.id" cssClass="dropDownSelect-small" tabindex="3"

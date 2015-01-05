@@ -39,6 +39,7 @@
 							<th>Name</th>
 							<th>Description</th>
 							<th>Price</th>
+							<th>Quantity</th>
 							<th>Category</th>
 							<th>Action</th>
 						</tr>
@@ -53,6 +54,7 @@
 								<td>${product.name}</td>
 								<td>${product.description}</td>
 								<td>${product.price}</td>
+								<td>${product.quantity}</td>
 								<td>${product.category.name}</td>
 								<td>
 									<button
