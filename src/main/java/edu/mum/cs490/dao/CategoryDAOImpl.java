@@ -58,6 +58,7 @@ public class CategoryDAOImpl implements CategoryDAO {
 	public Category getCategoryById(int pid) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Category p = (Category) session.load(Category.class, new Integer(pid));
+		System.out.println(p.getName());
 		return p;
 		
 	}

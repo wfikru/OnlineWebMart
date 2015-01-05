@@ -47,7 +47,7 @@
 					<tbody>
 						<c:forEach items="${products}" var="product">
 							<tr>
-								<td><img src="pic?pid=${product.id}"
+								<td><img src="/cs490/admin/vendor/product/pic?pid=${product.id}"
 									style="width: 100px; height: 100px" /></td>
 								<td>${product.name}</td>
 								<td>${product.description}</td>

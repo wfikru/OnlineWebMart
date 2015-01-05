@@ -47,6 +47,7 @@ public class CategoryController {
 	public String showCategoryEdit(Model model, @RequestParam("pid") String categoryId, HttpServletRequest request){				
 		
 		int id = Integer.parseInt(categoryId);
+		
 		model.addAttribute("category",categoryService.getCategoryById(id));
 		return "/admin/vendor/category_edit";
 	}
