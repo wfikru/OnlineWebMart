@@ -5,20 +5,13 @@
 	prefix="springForm"%>
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form"
-	prefix="springForm"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <div class="container-fluid" style="padding: 0">
 	<div class="row-fluid">
 		<div class="span2">
 			<!--Sidebar content-->
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
-				<li class="active"><a href="#">Manage my product</a></li>
+				<li class="active"><a href="/cs490/admin/vendor/product">Manage my product</a></li>
 				<li><a href="#">Product Category</a></li>
 			</ul>
 		</div>
@@ -26,20 +19,20 @@
 			<!--Body content-->
 			<table>
 				<tr>
-					<td><h3>Add New Product</h3></td>
+					<td><h3>Add New Category</h3></td>
 					<td></td>
 				</tr>
 			</table>
 			<div>
-				<springForm:form modelAttribute="product" class="form-horizontal"
-					action="addit" enctype="multipart/form-data">
+				<springForm:form modelAttribute="category" class="form-horizontal"
+					action="doAdd" enctype="multipart/form-data">
 					<springForm:errors path="*" cssClass="alert alert-danger"
 						element="div" />
 					<fieldset>
-						<legend>Product details</legend>
+						<legend>Category details</legend>
 						<table>
 							<tr>
-								<td style="width: 130px">Product Name:</td>
+								<td style="width: 130px">Category Name:</td>
 								<td><springForm:input id="name" path="name" type="text" /></td>
 								<td><springForm:errors path="name" cssClass="error" /></td>
 							</tr>
@@ -48,23 +41,6 @@
 								<td><springForm:input id="description" path="description"
 										type="text" /></td>
 								<td><springForm:errors path="description" cssClass="error" /></td>
-							</tr>
-							<tr>
-								<td>Price:</td>
-								<td><springForm:input id="price" path="price" type="text" /></td>
-								<td><springForm:errors path="description" cssClass="error" /></td>
-							</tr>
-							<tr>
-								<td>Category:</td>
-								<td><springForm:input id="category.id" path="category.id"
-										type="text" /></td>
-								<td><springForm:errors path="category.id" cssClass="error" /></td>
-							</tr>
-							<tr>
-								<td>Image:</td>
-								<td><springForm:input id="productImage" path="productImage"
-										type="file" /></td>
-								<td><springForm:errors path="productImage" cssClass="error" /></td>
 							</tr>
 						</table>
 					</fieldset>
@@ -75,7 +51,6 @@
 						</div>
 					</div>
 				</springForm:form>
-
 			</div>
 		</div>
 	</div>

@@ -5,13 +5,6 @@
 	prefix="springForm"%>
 
 
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-	pageEncoding="ISO-8859-1"%>
-<%@ taglib uri="http://www.springframework.org/tags/form"
-	prefix="springForm"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
 <div class="container-fluid" style="padding: 0">
 	<div class="row-fluid">
 		<div class="span2">
@@ -19,7 +12,7 @@
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
-				<li><a href="#">Product Category</a></li>
+				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -32,7 +25,7 @@
 			</table>
 			<div>
 				<springForm:form modelAttribute="product" class="form-horizontal"
-					action="addit" enctype="multipart/form-data">
+					action="doAdd" enctype="multipart/form-data">
 					<springForm:errors path="*" cssClass="alert alert-danger"
 						element="div" />
 					<fieldset>

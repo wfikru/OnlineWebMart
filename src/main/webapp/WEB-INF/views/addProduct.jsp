@@ -1,34 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="springForm"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Add new product</title>
+<title>Product list</title>
 </head>
 <body>
-<div class="wrapper row-offcanvas row-offcanvas-left">
- 		<aside class="right-side">
-							<!-- Content Header (Page header) -->
-			<section class="content-header">
-				<h1>
-					Edit Product
-				</h1>
-				<ol class="breadcrumb">
-					<li><a href="/cs490"><i class="fa fa-dashboard"></i> Home</a></li>
-					<li><a href="/cs490/product/list">Products</a></li>
-					<li class="active">Add</li>
-				</ol>
-				
-			</section>
-			
-						<section class="container">
-			<br><br>
-
-	<springForm:form method="POST" commandName="product" action="addit">
+	
+   <div class="container">
+		<table>
+            <tr>
+                <td><h3>Add New Product</h3></td>
+                <td>
+                </td>
+            </tr>
+        </table>
+		<springForm:form method="POST" commandName="product" action="addit">
 		<table>
 			<tr>
 				<td>name:</td>
@@ -66,9 +57,6 @@
 		</table>
 
 	</springForm:form>
-			</section>
-		</aside>
-	</div>    
-
+</div>
 </body>
 </html>

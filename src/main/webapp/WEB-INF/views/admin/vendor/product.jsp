@@ -12,7 +12,7 @@
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
-				<li><a href="#">Product Category</a></li>
+				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -23,7 +23,7 @@
 						<td><h3>Product List</h3></td>
 						<td>
 							<div style="padding-left: 20px; padding-top: 10px;">
-								<form action="/cs490/product/add">
+								<form action="/cs490/admin/vendor/product/add">
 									<input type="submit" id="btnAdd"
 										class="btn btn-mini btn-success" value="Add Product" />
 								</form>
@@ -52,9 +52,9 @@
 								<td>${product.price}</td>
 								<td>${product.category.id}</td>
 								<td>
-									<button onclick="location.href = 'edit?pid=${product.id}';"
+									<button onclick="location.href = '/cs490/admin/vendor/product/edit?pid=${product.id}';"
 										id="btnEdit" class="btn btn-mini">Edit</button>
-									<button onclick="location.href = 'delete?pid=${product.id}';"
+									<button onclick="location.href = '/cs490/admin/vendor/product/delete?pid=${product.id}';"
 										id="btnDelete" class="btn btn-mini btn-danger">Delete</button>
 								</td>
 							</tr>
