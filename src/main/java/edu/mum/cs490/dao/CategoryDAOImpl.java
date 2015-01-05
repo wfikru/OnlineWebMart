@@ -26,4 +26,46 @@ public class CategoryDAOImpl implements CategoryDAO {
 		return cList;
 
 	}
+	
+
+	@Override
+	public void addCategory(Category category) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.persist(category);
+	}
+
+	@Override
+	public List<Category> getAllCategories() {
+		Session session = this.sessionFactory.getCurrentSession();
+		List<Category> categoryList = session.createCriteria(Category.class).list();
+
+		return categoryList;
+	}
+
+	@Override
+	public void deleteCategory(int pid) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		Category p = (Category) session.load(Category.class, new Integer(pid));
+		if (null != p) {
+			session.delete(p);
+		}
+		
+				
+	}
+
+	@Override
+	public Category getCategoryById(int pid) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Category p = (Category) session.load(Category.class, new Integer(pid));
+		return p;
+		
+	}
+
+	@Override
+	public void updateCategory(Category category) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(category);
+		
+	}
 }

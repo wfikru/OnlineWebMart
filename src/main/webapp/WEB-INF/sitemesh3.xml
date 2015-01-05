@@ -2,9 +2,8 @@
 <sitemesh>
 	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
 	<mapping path="/customer" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
-	<mapping path="/vendor" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/customer/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
-	<mapping path="/vendor/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
-	<mapping path="/product/*" decorator="/WEB-INF/decorators/productDecorator.jsp" />
+	<mapping path="/admin/vendor/*" decorator="/WEB-INF/decorators/vendorDecorator.jsp" />
+	<mapping path="/registration/*" decorator="/WEB-INF/decorators/vendorDecorator.jsp" />
 	<mapping path="/resources/*" exclue="true"/>
 </sitemesh>
