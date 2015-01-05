@@ -48,16 +48,7 @@ public class Cart {
 		this.grandTotal = grandTotal;
 	}
 
-	@OneToMany
-	private List<Product> products = new ArrayList<Product>();
 
-	public List<Product> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<Product> product) {
-		this.products = product;
-	}
 
 	@Override
 	public int hashCode() {
