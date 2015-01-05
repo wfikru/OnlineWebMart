@@ -28,6 +28,8 @@ public class Product {
 	@Column(name = "product_name")
 	private String name;
 	
+	@Column(name = "product_image_path")
+	private String imagePath;
 	
 	@Lob
 	@Column(name = "product_image")

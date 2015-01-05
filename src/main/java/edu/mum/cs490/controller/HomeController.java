@@ -1,5 +1,7 @@
 package edu.mum.cs490.controller;
 
+import groovyx.gpars.remote.netty.NettyTransportProvider.Client;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import antlr.collections.List;
@@ -83,6 +86,12 @@ public class HomeController {
 		System.out.println("+++++++++" + size);
 		model.addAttribute("size", size);
 		return "home2";
+
 	}
 
+	@RequestMapping("/back")
+	public String backToHome() {
+
+		return "home2";
+	}
 }

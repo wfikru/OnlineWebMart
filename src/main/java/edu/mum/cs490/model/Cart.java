@@ -37,6 +37,28 @@ public class Cart {
 		this.products = products;
 	}
 
+	private double grandTotal;
+	
+	
+	public double getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
+	@OneToMany
+	private List<Product> products = new ArrayList<Product>();
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> product) {
+		this.products = product;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;

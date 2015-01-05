@@ -103,7 +103,8 @@ public class UserController {
 		SystemUser user = new SystemUser();
 		// newUser.setRole("default");
 		map.put("user", user);
-		map.replace("status", false);
+		map.remove("status");
+		map.put("status", false);
 		status = false;
 		return "home2";
 

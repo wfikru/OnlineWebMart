@@ -3,6 +3,7 @@ package edu.mum.cs490.model;
 import javax.persistence.Entity;
 import javax.persistence.Lob;
 import javax.persistence.Transient;
+import javax.validation.constraints.Size;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity
 public class Vendor extends SystemUser {
 
+	@Size(max=10,min=2)
 	private String vendorName;
 	@Lob
 	private byte[] image;
