@@ -3,6 +3,9 @@
 	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
 	<mapping path="/customer" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/vendor" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/vendors" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/cart" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/cart/payment" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/customer/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/vendor/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/product/*" decorator="/WEB-INF/decorators/productDecorator.jsp" />

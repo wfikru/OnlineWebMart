@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cart {
@@ -21,6 +22,28 @@ public class Cart {
 
 	public void setId(int id) {
 		Id = id;
+	}
+
+	private double grandTotal;
+	
+	
+	public double getGrandTotal() {
+		return grandTotal;
+	}
+
+	public void setGrandTotal(double grandTotal) {
+		this.grandTotal = grandTotal;
+	}
+
+	@OneToMany
+	private List<Product> products = new ArrayList<Product>();
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> product) {
+		this.products = product;
 	}
 
 	@Override

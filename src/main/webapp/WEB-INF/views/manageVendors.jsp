@@ -23,7 +23,7 @@
 
 			<tr>
 				<td><c:out value="${vendor.vendorName}" /></td>
-				<td><img alt="logo" src="${vendor.filePath }" width="50px"></td>
+				<td>${sessionScope.size}</td>
 				<td><a>Edit</a></td>
 				<td><a>Delete</a></td>
 			</tr>

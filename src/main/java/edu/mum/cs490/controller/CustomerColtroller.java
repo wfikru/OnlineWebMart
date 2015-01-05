@@ -1,10 +1,14 @@
 package edu.mum.cs490.controller;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.mum.cs490.model.Customer;
@@ -22,11 +26,14 @@ public class CustomerColtroller {
 		this.customerService = customerService;
 	}
 
-	@RequestMapping("/customer/add")
+	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
 	public String addCustomeraction(
-			@ModelAttribute("customer") Customer customer) {
+			@ModelAttribute("customer") @Valid Customer customer,
+			BindingResult result) {
 
-		System.out.println("/customer/add****************");
+		if (result.hasErrors()) {
+			return "registerCustomer";
+		}
 
 		customer.setRole("customer");
 		customerService.addCustomer(customer);
@@ -34,11 +41,11 @@ public class CustomerColtroller {
 		return "customerRegSuccess";
 	}
 
-	@RequestMapping("/customer")
+	@RequestMapping(value = "/customer/add", method = RequestMethod.GET)
 	public String addCustomerpage(Model model) {
 		System.out.println("/customer****************");
 		model.addAttribute("customer", new Customer());
 
-		return "registerCustomer";
+		return "saveCustomer";
 	}
 }

@@ -59,23 +59,30 @@
 <body>
 	<div id="header">
 		<div class="container">
+			<!-- Navbar ================================================== -->
+
 			<div id="welcomeLine" class="row">
 				<div class="span6">
 					Welcome!<strong> User</strong>
 				</div>
-				<div class="span6">
-					<div class="pull-right">
-						<a href="product_summary.html"><span class="">Fr</span></a> <a
-							href="product_summary.html"><span class="">Es</span></a> <span
-							class="btn btn-mini">En</span> <a href="product_summary.html"><span>&pound;</span></a>
-						<span class="btn btn-mini">$155.00</span> <a
-							href="product_summary.html"><span class="">$</span></a> <a
-							href="product_summary.html"><span
-							class="btn btn-mini btn-primary"><i
-								class="icon-shopping-cart icon-white"></i> ${productList.size()}
-								Itemes in your cart </span> </a>
-
-					</div>
+				<div class="span6"></div>
+			</div>
+			<div id="logoArea" class="navbar">
+				<a id="smallScreen" data-target="#topMenu" data-toggle="collapse"
+					class="btn btn-navbar"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a>
+				<div class="navbar-inner">
+					<!-- Logo Image -->
+					<a class="brand" href="index.html"><img
+						src="/cs490/resources/themes/images/logo.png" alt="Bootsshop" /></a>
+					
+					<ul id="topMenu" class="nav pull-right">
+						<li class=""><a href="special_offer.html">Home</a></li>
+						<li class=""><a href="normal.html">Delivery</a></li>
+						<li class=""><a href="contact.html">Contact</a></li>
+						
+					</ul>
 				</div>
 			</div>
 
@@ -84,7 +91,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<script
 		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
 	<script

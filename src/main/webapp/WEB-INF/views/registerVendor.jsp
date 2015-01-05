@@ -6,7 +6,7 @@
 
 <div class="container">
 	<form:form modelAttribute="vendor" class="form-horizontal"
-		action="vendor/add" enctype="multipart/form-data">
+		enctype="multipart/form-data">
 
 		<legend>Add new vendor</legend>
 
