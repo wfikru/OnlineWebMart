@@ -12,7 +12,7 @@
 	    </tr>
 </table>
 <div class="container">
-	<springForm:form method="POST" commandName="product" action="update?pid=${product.id}">		
+	<springForm:form method="POST" commandName="product" action="update?pid=${product.id}" enctype="multipart/form-data">		
 	<fieldset>
 		<legend>Product details</legend>
 		<table>
@@ -33,8 +33,17 @@
 			</tr>			
 			<tr>
 				<td>Category:</td>
-				<td><springForm:input path="category.id" /></td>
-				<td><springForm:errors path="category.id" cssClass="error" /></td>
+				<td>	
+				<form:select multiple="single" path="category.id" id="category.id" cssClass="dropDownSelect-small" tabindex="3" onchange="changeState()">
+    				<form:options items="${categories}" itemValue="id" itemLabel="name" />
+				</form:select>
+				</td>
+			</tr>
+			
+						<tr>
+				<td>Image:</td>
+				<td><springForm:input id="productImage" path="productImage" type="file" /></td>
+				<td><springForm:errors path="productImage" cssClass="error" /></td>
 			</tr>
 
 			<tr>

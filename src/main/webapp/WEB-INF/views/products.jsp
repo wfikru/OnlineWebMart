@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <div class="container">
+
 	<table>
              <tr>
                  <td><h3>Product List</h3></td>
@@ -27,14 +28,16 @@
            </tr>
      		</thead>
      		
-     		
+
      		<tbody>
       		<c:forEach items="${products}" var = "product">
           	<tr>
+
+               <td><img src="pic?pid=${product.id}" style="width:100px;height:100px"/></td>
                <td>${product.name}</td>
                <td>${product.description}</td>
                <td>${product.price}</td>
-               <td>${product.category.id}</td>
+               <td>${product.category.name}</td>
                <td>
                	<button onclick="location.href = 'edit?pid=${product.id}';" id="btnEdit" class="btn btn-mini" >
                		Edit
