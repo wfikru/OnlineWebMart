@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import antlr.collections.List;
+import edu.mum.cs490.model.Cart;
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.service.CategoryService;
@@ -28,20 +29,27 @@ import edu.mum.cs490.service.ProductService;
  * Handles requests for the application home page.
  */
 @Controller
-@SessionAttributes({"listCategories","searchProduct","name","allProducts"})
+@SessionAttributes({ "listCategories", "searchProduct", "name", "allProducts",
+		"shoppingCart", "size", "cartProducts" })
 public class HomeController {
-	
+
 	CategoryService categoryService;
+
 	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
-		this.categoryService =  categoryService;
+		this.categoryService = categoryService;
 	}
+
 	ProductService productService;
+
 	@Autowired
 	public void setProductService(ProductService productService) {
-		this.productService =  productService;
+		this.productService = productService;
 	}
-	
+
+	Cart shoppingCart = new Cart();
+	int size;
+
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
@@ -59,19 +67,21 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		model.addAttribute("serverTime", formattedDate);
 		model.addAttribute("category", new Category());
-		Product searchProduct= new Product();
+		Product searchProduct = new Product();
 		ArrayList<Product> allProducts = new ArrayList<Product>();
 		allProducts = productService.allProducts();
 		model.addAttribute("allProducts", allProducts);
 		String name;
 		session.setAttribute("searchProduct", searchProduct);
-		model.addAttribute("searchProduct",searchProduct);
-		ArrayList<Category> listCategories= new ArrayList<Category>();
-		listCategories= categoryService.listCategories();
+		model.addAttribute("searchProduct", searchProduct);
+		ArrayList<Category> listCategories = new ArrayList<Category>();
+		listCategories = categoryService.listCategories();
 		model.addAttribute("listCategories", categoryService.listCategories());
-//		Session session;
-//		session.s
-
+		// Session session;
+		// session.s
+//		size = shoppingCart.getProducts().size();
+		System.out.println("+++++++++" + size);
+		model.addAttribute("size", size);
 		return "home2";
 	}
 

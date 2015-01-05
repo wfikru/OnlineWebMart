@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Cart {
@@ -14,6 +15,10 @@ public class Cart {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int Id;
+	
+	@OneToMany
+	private List<Product> products = new ArrayList<Product>();
+	
 
 	public int getId() {
 		return Id;
@@ -21,6 +26,15 @@ public class Cart {
 
 	public void setId(int id) {
 		Id = id;
+	}
+	
+
+	public List<Product> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 
 	@Override

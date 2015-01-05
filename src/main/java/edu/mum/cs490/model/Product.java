@@ -39,6 +39,12 @@ public class Product {
 	@Column(name= "product_price")
 	private double price;
 	
+	@Column(name= "quantity")
+	private int quantity;
+	
+	@Transient
+	private int cartQuantity;
+	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cat_id", nullable = false)
 	private Category category;
@@ -82,8 +88,6 @@ public class Product {
 		this.name = name;
 	}
 
-
-
 	public String getDescription() {
 		return description;
 	}
@@ -98,6 +102,24 @@ public class Product {
 
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+	
+
+	public int getCartQuantity() {
+		return cartQuantity;
+	}
+
+	public void setCartQuantity(int cartQuantity) {
+		this.cartQuantity = cartQuantity;
 	}
 
 	public Category getCategory() {

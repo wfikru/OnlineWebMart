@@ -32,7 +32,7 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" })
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts"})
 public class UserController {
 
 	@Autowired
@@ -50,7 +50,7 @@ public class UserController {
 	public String loginCheck(@ModelAttribute("user") SystemUser userLogin,
 			BindingResult result, ModelMap map, HttpSession session) {
 
-		SystemUser user = userService.loginCheck(userLogin.getUsername(),
+		SystemUser user = userService.loginCheck(userLogin.getEmail(),
 				userLogin.getPassword());
 		boolean status;
 		boolean error;

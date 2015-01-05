@@ -13,8 +13,8 @@
 							<p style="color: red">User name or password incorrect</p>
 							</c:if></div>
 							<div class="control-group">
-								User name: <form:input type="text" id="inputEmail" path="username"
-									placeholder="User Name"/>
+								User name: <form:input type="text" id="inputEmail" path="email"
+									placeholder="Email"/>
 							</div>
 							<div class="control-group">
 								Password: &nbsp<form:input type="password" id="inputPassword" path="password"

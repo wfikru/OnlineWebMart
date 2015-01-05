@@ -19,13 +19,13 @@ public class SystemUserDAOImpl implements SystemUserDAO{
 	SessionFactory sessionFactory;
 
 	@Override
-	public SystemUser checkLogin(String userName, String password) {
+	public SystemUser checkLogin(String email, String password) {
 	      Session session = sessionFactory.openSession();
 	      boolean userFound = false;
 	      //Query using Hibernate Query Language
-	      String SQL_QUERY =" from SystemUser u where u.username=? and u.password=?";
+	      String SQL_QUERY =" from SystemUser u where u.email=? and u.password=?";
 	      Query query = session.createQuery(SQL_QUERY);
-	      query.setParameter(0,userName);
+	      query.setParameter(0,email);
 	      query.setParameter(1,password);
 	      List list = query.list();
 

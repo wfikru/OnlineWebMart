@@ -58,14 +58,12 @@
 				</div>
 				<div class="span6">
 					<div class="pull-right">
-						<a href="product_summary.html"><span class="">Fr</span></a> <a
-							href="product_summary.html"><span class="">Es</span></a> <span
-							class="btn btn-mini">En</span> <a href="product_summary.html"><span>&pound;</span></a>
-						<span class="btn btn-mini">$155.00</span> <a
+						<a href="product_summary.html"><span>&pound;</span></a>
+						<span class="btn btn-mini">${total}</span> <a
 							href="product_summary.html"><span class="">$</span></a> <a
 							href="product_summary.html"><span
 							class="btn btn-mini btn-primary"><i
-								class="icon-shopping-cart icon-white"></i> [ 3 ] Itemes in your
+								class="icon-shopping-cart icon-white"></i>${size} Items in your
 								cart </span> </a>
 					</div>
 				</div>
@@ -86,9 +84,9 @@
 							<div id="sidebar" class="span3" style="float: left">
 								<div class="well well-small">
 									<a id="myCart" href="product_summary.html"><img
-										src="/cs490/resources/themes/images/ico-cart.png" alt="cart">3
+										src="/cs490/resources/themes/images/ico-cart.png" alt="cart">${size}
 										Items in your cart <span
-										class="badge badge-warning pull-right">$155.00</span></a>
+										class="badge badge-warning pull-right">$ ${total}</span></a>
 								</div>
 								<ul id="sideManu" class="nav nav-tabs nav-stacked">
 									<li class="subMenu open"><a>Products</a>
