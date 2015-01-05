@@ -35,6 +35,7 @@
 					width="75%">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Name</th>
 							<th>Description</th>
 							<th>Price</th>
@@ -52,7 +53,7 @@
 								<td>${product.name}</td>
 								<td>${product.description}</td>
 								<td>${product.price}</td>
-								<td>${product.category.id}</td>
+								<td>${product.category.name}</td>
 								<td>
 									<button
 										onclick="location.href = '/cs490/admin/vendor/product/edit?pid=${product.id}';"
