@@ -13,6 +13,8 @@
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
 				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
+				<li class="nav-header">Reports</li>
+				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -35,9 +37,11 @@
 					width="75%">
 					<thead>
 						<tr>
+							<th></th>
 							<th>Name</th>
 							<th>Description</th>
 							<th>Price</th>
+							<th>Quantity</th>
 							<th>Category</th>
 							<th>Action</th>
 						</tr>
@@ -52,7 +56,8 @@
 								<td>${product.name}</td>
 								<td>${product.description}</td>
 								<td>${product.price}</td>
-								<td>${product.category.id}</td>
+								<td>${product.quantity}</td>
+								<td>${product.category.name}</td>
 								<td>
 									<button
 										onclick="location.href = '/cs490/admin/vendor/product/edit?pid=${product.id}';"

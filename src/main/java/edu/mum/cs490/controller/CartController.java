@@ -205,8 +205,7 @@ public class CartController {
 		}
 
 		Cart cart = (Cart) request.getSession().getAttribute("shoppingCart");
-		
-		
+
 		double getGrandTotal = (Double) request.getSession().getAttribute(
 				"total");
 
@@ -245,7 +244,7 @@ public class CartController {
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
-				
+
 				// guest.setCreditCard(creditCard);
 				customerService.addCustomer(guest);
 			}
@@ -255,12 +254,10 @@ public class CartController {
 
 			String strAddress = "STATE:" + address.getState() + "_STREET:"
 					+ address.getStreet() + "_ZIP:" + address.getZip();
-			String url2 = "http://localhost:8080/payment/finance?ccn=111&address="
-					+ strAddress
-					+ "&profit="
-					+ profit
-					+ "&total="
-					+ getGrandTotal + "&myprofit=" + myprofit + "";
+			String url2 = "http://localhost:8080/payment/finance?ccn="
+					+ creditCard.getCardNo() + "&address=" + strAddress
+					+ "&profit=" + profit + "&total=" + getGrandTotal
+					+ "&myprofit=" + myprofit + "";
 
 			// String url2 =
 			// "http://localhost:8080/payment/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
