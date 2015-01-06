@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
@@ -36,9 +37,6 @@ import edu.mum.cs490.service.ProductService;
 public class ProductController {
 	
 
-	//private static final Logger logger = LoggerFactory
-	//		.getLogger(ProductController.class);
-	
 
 	@Autowired
 	private ProductService productService;
@@ -46,6 +44,8 @@ public class ProductController {
 	@Autowired
 	private CategoryService categoryService;
 
+	
+	
 	@RequestMapping("/admin/vendor/product")
 	public String showProducList(Model model){
 		model.addAttribute("products", productService.getAllProducts());
@@ -53,12 +53,12 @@ public class ProductController {
 	}
 	@RequestMapping(value="/admin/vendor/product/edit", method = RequestMethod.GET)
 	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpServletRequest request){				
-		System.out.println("prodddddd+++++"+productId);
+		
 		int id = Integer.parseInt(productId);
 		model.addAttribute("product",productService.getProductById(id));
 		model.addAttribute("categories", categoryService.listCategories());	
 		
-		System.out.println("PPPPP+++"+productService.getProductById(id).getName());
+		
 		return "/admin/vendor/product_edit";
 	}
 	@RequestMapping("/admin/vendor/product/add")
