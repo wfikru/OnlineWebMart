@@ -1,7 +1,9 @@
 package edu.mum.cs490.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,22 +11,25 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.client.RestTemplate;
 
+import edu.mum.cs490.model.Address;
 import edu.mum.cs490.model.Cart;
 import edu.mum.cs490.model.CreditCard;
 import edu.mum.cs490.model.Customer;
+import edu.mum.cs490.model.Guest;
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.Registered;
+import edu.mum.cs490.model.SystemUser;
+import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
 
 @Controller
-
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
-		"listCategories", "size", "cartProducts" })
+		"listCategories", "size", "cartProducts", "user" })
 public class CartController {
 	//
 	// private List<String> productList ;
@@ -43,6 +48,9 @@ public class CartController {
 	HomeController homeController;
 
 	@Autowired
+	private CustomerService customerService;
+
+	@Autowired
 	ProductService productService;
 	double total;
 	int size;
@@ -50,6 +58,7 @@ public class CartController {
 	@RequestMapping(value = "/addToCart")
 	public String addItemToCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
+
 		Product product = productService.getProductById(id);
 		map.addAttribute("product", product);
 		System.out.println(product.getName());
@@ -87,7 +96,7 @@ public class CartController {
 		size++;
 		map.addAttribute("size", size);
 		map.addAttribute("total", total);
-		
+
 		return "product_summary";
 	}
 
@@ -102,9 +111,9 @@ public class CartController {
 				break;
 			}
 		}
-		size-=product.getCartQuantity();
+		size -= product.getCartQuantity();
 		cartProducts.remove(product);
-		total -= product.getPrice()*product.getCartQuantity();
+		total -= product.getPrice() * product.getCartQuantity();
 		map.addAttribute("cartProducts", cartProducts);
 		map.addAttribute("size", size);
 		map.addAttribute("total", total);
@@ -137,6 +146,7 @@ public class CartController {
 //				total -= p.getPrice();
 				map.addAttribute("cartProducts", cartProducts);
 //				size=homeController.size-1;
+
 				map.addAttribute("size", size);
 				map.addAttribute("total", total);
 
@@ -157,19 +167,19 @@ public class CartController {
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
-				if(productService.getProductById(p.getId()).getQuantity()-p.getCartQuantity()>0){
-				p.setQuantity(p.getQuantity() - 1);
-				p.setCartQuantity(p.getCartQuantity() + 1);
-				productService.updateProduct(p);
-				total = total + p.getPrice();
-				System.out.println("+++++++++" + total + "++++++++");
-				map.addAttribute("cartProducts", cartProducts);
-				map.addAttribute("total", total);
-				size++;
-				map.addAttribute("size", size);
-				return "product_summary";
-				}
-				else
+				if (productService.getProductById(p.getId()).getQuantity()
+						- p.getCartQuantity() > 0) {
+					p.setQuantity(p.getQuantity() - 1);
+					p.setCartQuantity(p.getCartQuantity() + 1);
+					productService.updateProduct(p);
+					total = total + p.getPrice();
+					System.out.println("+++++++++" + total + "++++++++");
+					map.addAttribute("cartProducts", cartProducts);
+					map.addAttribute("total", total);
+					size++;
+					map.addAttribute("size", size);
+					return "product_summary";
+				} else
 					return "outOfStoke";
 			}
 		}
@@ -183,55 +193,85 @@ public class CartController {
 		return "product_summary";
 	}
 	
-	@RequestMapping("/payment")
-	public String makePayment(Model model) {
+	
+	@RequestMapping(value = "/payment", method = RequestMethod.GET)
+	public String makePayment(Model model, HttpServletRequest request) {
+
 		model.addAttribute("creditCard", new CreditCard());
+
 		return "payment";
 	}
 
-	@RequestMapping("/payment/validate")
+	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String validateCard(
-			@ModelAttribute("creditCard") CreditCard creditCard) {
+			@ModelAttribute("creditCard") @Valid CreditCard creditCard,
+			BindingResult bindresult, HttpServletRequest request) {
 
-		Cart cart = new Cart();
+		if (bindresult.hasErrors()) {
+			return "payment";
+		}
+
+		Cart cart = (Cart) request.getSession().getAttribute("shoppingCart");
+
+		double getGrandTotal = (Double) request.getSession().getAttribute(
+				"total");
+
 		creditCard.setCardNo(creditCard.getFirst(), creditCard.getSecond(),
 				creditCard.getThird(), creditCard.getFourth());
-		System.out.println(creditCard.getCardNo());
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		String url = "http://localhost:8080/gateway/validate?ccn="
-				+ creditCard.getCardNo() + "&amount=" + cart.getGrandTotal()
-				+ "";
+				+ creditCard.getCardNo() + "&amount=" + getGrandTotal + "";
+
+		// String url =
+		// "http://localhost:8080/gateway/validate?ccn=111&amount=100";
 
 		String result = restTemplate.postForObject(url, null, String.class);
 
 		if (result.equals("y")) {
-			
-			Customer customer = new Customer();
-			String address = "State_" + customer.getAddress().getState()
-					+ "_Street" + customer.getAddress().getStreet() + "_"
-					+ customer.getAddress().getZip();
-			
-			double profit = cart.getGrandTotal() * 0.2;
-			double myprofit = profit*0.1;
-			
-			String url2 = "http://localhost:8080/payment/finance?ccn=111&address="
-					+ address + "&profit="+profit+"&total="+cart.getGrandTotal()+"&myprofit="+myprofit+"";
-			
+
+			Address address = new Address();
+			address.setState(request.getParameter("state"));
+			address.setStreet(request.getParameter("street"));
+			address.setZip(request.getParameter("zip"));
+
+			Customer user = (Customer) request.getSession()
+					.getAttribute("user");
+
+			if (user != null) {
+
+				creditCard.setCustomer(user);
+
+				Registered customer = (Registered) customerService
+						.getCustomerById(user.getUserId());
+				customer.setAddress(address);
+				// customer.setCreditCard(creditCard);
+				customerService.updateCustomer(customer);
+			} else {
+				Guest guest = new Guest();
+				guest.setAddress(address);
+
+				// guest.setCreditCard(creditCard);
+				customerService.addCustomer(guest);
+			}
+
+			double profit = getGrandTotal * 0.2;
+			double myprofit = profit * 0.1;
+
+			String strAddress = "STATE:" + address.getState() + "_STREET:"
+					+ address.getStreet() + "_ZIP:" + address.getZip();
+			String url2 = "http://localhost:8080/payment/finance?ccn="
+					+ creditCard.getCardNo() + "&address=" + strAddress
+					+ "&profit=" + profit + "&total=" + getGrandTotal
+					+ "&myprofit=" + myprofit + "";
+
+			// String url2 =
+			// "http://localhost:8080/payment/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
+			restTemplate.postForObject(url2, null, String.class);
+
 			return "paymentSucces";
 		} else
-			return "payment";
-
+			return "paymentSucces";
 	}
-	// @RequestMapping(value = "/productPerCategory")
-	// public String listProducts(@ModelAttribute("catId") int categoryId,
-	// BindingResult result, ModelMap map) {
-	// ArrayList<Product> listOfProducts = productService
-	// .listProductsByCriteria(categoryId);
-	// map.addAttribute("productsByCat", listOfProducts);
-	// return "listProductsByCategory";
-	//
-	// }
-
 }

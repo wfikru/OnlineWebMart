@@ -7,8 +7,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class CreditCard {
@@ -16,10 +21,35 @@ public class CreditCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int Id;
+	@Size(max=15, min=2)
 	private String cardholderName;
-	private String SecurityCode;
-	private double amount;
+	//@NotNull(message = "Select card type")
+	private String cardType;
+	
+	public String getCardType() {
+		return cardType;
+	}
 
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
+
+	@NotBlank	
+	private String SecurityCode;
+
+
+	@OneToOne
+	private Customer customer;
+	
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
+
+	
 	@Transient
 	private String first;
 	@Transient
@@ -114,14 +144,6 @@ public class CreditCard {
 
 	public void setCardholderName(String cardholderName) {
 		this.cardholderName = cardholderName;
-	}
-
-	public double getAmount() {
-		return amount;
-	}
-
-	public void setAmount(double amount) {
-		this.amount = amount;
 	}
 
 	public int getId() {

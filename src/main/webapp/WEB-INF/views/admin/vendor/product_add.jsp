@@ -13,6 +13,8 @@
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
 				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
+				<li class="nav-header">Reports</li>
+				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -26,27 +28,32 @@
 			<div>
 				<springForm:form modelAttribute="product" class="form-horizontal"
 					action="doAdd" enctype="multipart/form-data">
-					<springForm:errors path="*" cssClass="alert alert-danger"
-						element="div" />
+
 					<fieldset>
 						<legend>Product details</legend>
 						<table>
 							<tr>
 								<td style="width: 130px">Product Name:</td>
 								<td><springForm:input id="name" path="name" type="text" /></td>
-								<td><springForm:errors path="name" cssClass="error" /></td>
+								<td><springForm:errors path="name" cssClass="alert alert-danger" /></td>
 							</tr>
 							<tr>
 								<td>Description:</td>
 								<td><springForm:input id="description" path="description"
 										type="text" /></td>
-								<td><springForm:errors path="description" cssClass="error" /></td>
+								<td><springForm:errors path="description" cssClass="alert alert-danger" /></td>
 							</tr>
 							<tr>
 								<td>Price:</td>
 								<td><springForm:input id="price" path="price" type="text" /></td>
-								<td><springForm:errors path="description" cssClass="error" /></td>
+								<td><springForm:errors path="price" cssClass="alert alert-danger" /></td>
 							</tr>
+							<tr>
+								<td>Quantity:</td>
+								<td><springForm:input id="quantity" path="quantity" type="text" /></td>
+								<td><springForm:errors path="quantity" cssClass="alert alert-danger" /></td>
+							</tr>
+							
 							<tr>
 								<td>Category:</td>
 								<td><form:select multiple="single" path="category.id"
@@ -60,7 +67,7 @@
 								<td>Image:</td>
 								<td><springForm:input id="productImage" path="productImage"
 										type="file" /></td>
-								<td><springForm:errors path="productImage" cssClass="error" /></td>
+								<td><springForm:errors path="productImage" cssClass="alert alert-danger" /></td>
 							</tr>
 						</table>
 					</fieldset>

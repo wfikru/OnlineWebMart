@@ -18,13 +18,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import antlr.collections.List;
 import edu.mum.cs490.model.Cart;
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CategoryService;
 import edu.mum.cs490.service.ProductService;
 
@@ -63,6 +63,22 @@ public class HomeController {
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
+		SystemUser user;
+		try{
+			user = (SystemUser)session.getAttribute("user");	
+			System.out.println("User role is : " + user.getRole());
+			if (user.getRole().equals("vendor")){
+				
+				return "redirect:/admin/vendor/product";
+			}else if (user.getRole().equals("admin")){
+				return "redirect:/admin/system";
+			}else{
+				return "redirect:/admin/customer";
+			}
+		}catch(Exception ex){
+			
+		}
+		
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,

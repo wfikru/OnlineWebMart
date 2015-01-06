@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
@@ -20,6 +21,8 @@ public class SystemUser {
 	private boolean status;
 	
 	private String email;
+	
+	
 	
 	public String getEmail() {
 		return email;

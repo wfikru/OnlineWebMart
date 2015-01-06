@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemesh>
 	<mapping path="/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
-	
+
 	<mapping path="/vendor/add" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/vendors" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
-	
-	<mapping path="/customer/add" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+
+	<mapping path="/cart" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/cart/payment" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
+
+	<mapping path="/admin/customer" decorator="/WEB-INF/decorators/customerDecorator.jsp" />
+	<mapping path="/admin/customer/*" decorator="/WEB-INF/decorators/customerDecorator.jsp" />
 	<mapping path="/admin/vendor/*" decorator="/WEB-INF/decorators/vendorDecorator.jsp" />
-	<mapping path="/registration/*" decorator="/WEB-INF/decorators/vendorDecorator.jsp" />
-	<mapping path="/resources/*" exclue="true"/>
+
+	<mapping path="/registration/*" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
+
+	<mapping path="/admin/system" decorator="/WEB-INF/decorators/adminDecorator.jsp" />
+	<mapping path="/admin/system/*" decorator="/WEB-INF/decorators/adminDecorator.jsp" />
+	<mapping path="/registration" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+	<mapping path="/registration/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+
+	<mapping path="/resources/*" exclue="true" />
 </sitemesh>

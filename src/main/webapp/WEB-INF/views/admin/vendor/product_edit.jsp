@@ -13,6 +13,8 @@
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
 				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
+				<li class="nav-header">Reports</li>
+				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -43,6 +45,13 @@
 								<td>Price:</td>
 								<td><springForm:input path="price" /></td>
 								<td><springForm:errors path="price" cssClass="error" /></td>
+							</tr>
+							<tr>
+								<td>Quantity:</td>
+								<td><springForm:input id="quantity" path="quantity"
+										type="text" /></td>
+								<td><springForm:errors path="quantity"
+										cssClass="alert alert-danger" /></td>
 							</tr>
 							<tr>
 								<td>Category:</td>

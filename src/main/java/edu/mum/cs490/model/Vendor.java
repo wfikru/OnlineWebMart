@@ -10,8 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity
 public class Vendor extends SystemUser {
-
-	@Size(max=10,min=2)
+	
 	private String vendorName;
 	@Lob
 	private byte[] image;

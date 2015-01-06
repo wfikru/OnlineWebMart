@@ -13,6 +13,8 @@ import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
+import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 
@@ -26,6 +28,7 @@ public class Product {
 	private int id;
 	
 	@Column(name = "product_name")
+	@NotEmpty
 	private String name;
 	
 	@Column(name = "product_image_path")
@@ -39,9 +42,11 @@ public class Product {
 	private String description;
 
 	@Column(name= "product_price")
+	@Range(min = 0)
 	private double price;
 	
 	@Column(name= "quantity")
+	@Range(min = 0)
 	private int quantity;
 	
 	@Transient

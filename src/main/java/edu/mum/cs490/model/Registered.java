@@ -8,6 +8,4 @@ import javax.persistence.Id;
 @Entity(name = "REGISTERED_USER")
 public class Registered extends Customer {
 
-
-
 }
