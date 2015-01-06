@@ -36,6 +36,7 @@
 	<link
 		href="/cs490/resources/themes/js/google-code-prettify/prettify.css"
 		rel="stylesheet" />
+	<link rel="stylesheet" href="/cs490/resources/css/default.css" media="screen" />
 </head>
 <body>
 	<div>

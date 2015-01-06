@@ -15,6 +15,7 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -26,26 +27,29 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
+@SessionAttributes({ "user" })
 public class VendorController {
-
-	private VendorService vendorService;
-	private static final Logger logger = LoggerFactory.getLogger(VendorController.class);
-
-	@Autowired
-	public void setVendorService(VendorService vendorService) {
-		this.vendorService = vendorService;
-	}
 	
+	@Autowired
+	private VendorService vendorService;
+
+	@RequestMapping("/admin/vendor/profile")
+	public String showProducList(Model model, HttpSession session){
+		SystemUser user = (SystemUser)session.getAttribute("user");
+		model.addAttribute("profile", user);
+		return "/admin/vendor/profile";
+	}
 
 
 	@RequestMapping(value = "/vendor/add", method = RequestMethod.POST)
