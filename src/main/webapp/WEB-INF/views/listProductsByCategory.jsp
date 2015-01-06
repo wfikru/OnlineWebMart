@@ -6,7 +6,7 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 
-<div class="container">
+<div class="span9">
 	<ul class="thumbnails">
 		<c:forEach items="${productsByCat}" var="product"
 			varStatus="loopCounter">

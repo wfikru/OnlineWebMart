@@ -12,6 +12,7 @@ import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CustomerService;
 
 @Controller
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class RegistrationColtroller {
 
 	private CustomerService customerService;

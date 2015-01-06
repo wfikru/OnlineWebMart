@@ -33,7 +33,7 @@ import edu.mum.cs490.service.ProductService;
  */
 @Controller
 @SessionAttributes({ "listCategories", "searchProduct", "name", "allProducts",
-		"shoppingCart", "size", "cartProducts" })
+		"shoppingCart", "size", "cartProducts", "total" })
 public class HomeController {
 
 	CategoryService categoryService;
@@ -52,6 +52,7 @@ public class HomeController {
 
 	Cart shoppingCart = new Cart();
 	int size;
+	int total;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -72,7 +73,7 @@ public class HomeController {
 		model.addAttribute("category", new Category());
 		Product searchProduct = new Product();
 		ArrayList<Product> allProducts = new ArrayList<Product>();
-		allProducts = productService.allProducts();
+		allProducts = (ArrayList<Product>) productService.getAvailableProducts();
 		model.addAttribute("allProducts", allProducts);
 		String name;
 		session.setAttribute("searchProduct", searchProduct);

@@ -50,6 +50,12 @@ public class ProductServiceImpl implements ProductService {
 	public Product getProductById(int pid) {
 		return productDao.getProductById(pid);
 	}
+	
+	@Override
+	@Transactional
+	public List<Product> getAvailableProducts() {
+		return productDao.getAvailableProducts();
+	}
 
 	@Override
 	@Transactional

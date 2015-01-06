@@ -32,7 +32,7 @@ import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
-@SessionAttributes("size")
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class AdminController {
 
 	@Autowired

@@ -56,8 +56,8 @@
 			
 		</div>
 	</div>
-	<ul>
-		<c:forEach items="${allProducts}" var="product"
+<div class="span9">
+	<ul class="thumbnails">		<c:forEach items="${allProducts}" var="product"
 			varStatus="loopCounter">
 
 			<li class="span3">

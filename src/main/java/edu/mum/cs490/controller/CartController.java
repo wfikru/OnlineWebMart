@@ -23,7 +23,6 @@ import edu.mum.cs490.service.ProductService;
 
 @Controller
 
-@RequestMapping("/cart")
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
 		"listCategories", "size", "cartProducts" })
 public class CartController {
@@ -45,7 +44,7 @@ public class CartController {
 
 	@Autowired
 	ProductService productService;
-	double total = 0;
+	double total;
 	int size;
 
 	@RequestMapping(value = "/addToCart")
@@ -135,9 +134,9 @@ public class CartController {
 					return "product_summary";
 				} else
 					cartProducts.remove(p);
-				total -= p.getPrice();
+//				total -= p.getPrice();
 				map.addAttribute("cartProducts", cartProducts);
-				size=homeController.size-1;
+//				size=homeController.size-1;
 				map.addAttribute("size", size);
 				map.addAttribute("total", total);
 
@@ -178,15 +177,12 @@ public class CartController {
 		return "product_summary";
 
 	}
-	@RequestMapping
-	public String addToCart() {
-		// Cart cart = new Cart();
-		// cart.getProductList().add("product1");
-		// productList = cart.getProductList();
-		return "cart";
-
+	
+	@RequestMapping("product_summary")
+	public String showSummary() {
+		return "product_summary";
 	}
-
+	
 	@RequestMapping("/payment")
 	public String makePayment(Model model) {
 		model.addAttribute("creditCard", new CreditCard());

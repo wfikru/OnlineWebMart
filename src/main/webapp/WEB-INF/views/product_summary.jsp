@@ -23,7 +23,7 @@
 				varStatus="loopCounter">
 
 				<tr>
-					<td><img width="60" src="/cs490/resources/themes/images/products/4.jpg" alt="" /></td>
+					<td>${product.image}</td>
 					<td>${product.name }</td>
 					<td>
 						<div class="input-append">
@@ -57,14 +57,15 @@
 				<td class="label label-important" style="display: block"><strong>
 						$ ${total} </strong></td>
 			</tr>
-			<tr>
-			<td class="label label-important" style="display: block"><strong>
-						Order </strong></td>
-				<td colspan="4" style="text-align: right"><strong>TOTAL
-						</strong></td>
-			</tr>
+			
 		</tbody>
 	</table>
+	<div style="">
+	<a href="payment" ><span
+							class="btn btn-primary"><i
+								class="icon-shopping-cart icon-white"></i>&nbsp;&nbsp;   Check Out   &nbsp;&nbsp;</span> </a>
+	</div>
+	<br/>
 	<div class="thumbnail">
 				<img src="/cs490/resources/themes/images/payment_methods.png" title="Bootshop Payment Methods" alt="Payments Methods">
 				<div class="caption">
