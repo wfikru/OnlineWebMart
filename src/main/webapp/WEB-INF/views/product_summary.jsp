@@ -23,7 +23,7 @@
 				varStatus="loopCounter">
 
 				<tr>
-					<td><img src="/cs490/admin/vendor/product/pic?pid=${product.id}"/></td>
+					<td>${product.image}</td>
 
 					<td>${product.name }</td>
 					<td>
@@ -60,7 +60,16 @@
 				<td class="label label-important" style="display: block"><strong>
 						$ ${total} </strong></td>
 			</tr>
-
+<<<<<<< HEAD
+			
+=======
+			<tr>
+				<td class="label label-important" style="display: block"><strong>
+						Order </strong></td>
+				<td colspan="4" style="text-align: right"><strong>TOTAL
+				</strong></td>
+			</tr>
+>>>>>>> origin/master
 		</tbody>
 	</table>
 	<div style="">
