@@ -38,7 +38,7 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
-@SessionAttributes({ "user" })
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class VendorController {
 	
 	@Autowired

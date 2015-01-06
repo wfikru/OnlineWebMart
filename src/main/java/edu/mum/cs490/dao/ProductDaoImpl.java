@@ -37,6 +37,15 @@ public class ProductDaoImpl implements ProductDao {
 
 		return productList;
 	}
+	
+	@Override
+	public List<Product> getAvailableProducts() {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Product.class);
+		List<Product> productList  = cr.add(Restrictions.gt("quantity", 0)).list();
+
+		return productList;
+	}
 
 	@Override
 	public void deleteProduct(int pid) {
@@ -77,8 +86,9 @@ public class ProductDaoImpl implements ProductDao {
 		ArrayList<Category> categories =(ArrayList<Category>) cr2.add(Restrictions.eq("id", catId)).list();
 		Category cat = categories.get(0);
 
-		ArrayList<Product> list =(ArrayList<Product>) cr.add(Restrictions.eq("category", cat)).list();
-		
+		Criteria cr3 = cr.add(Restrictions.eq("category", cat));
+		Criteria cr4 = cr.add(Restrictions.gt("quantity", 0));
+		 ArrayList<Product> list= (ArrayList<Product>) cr3.add(Restrictions.gt("quantity", 0)).list();
 //		List<Customer> customerList = session.createCriteria(Customer.class)
 //				.list();
 //
@@ -99,7 +109,7 @@ public class ProductDaoImpl implements ProductDao {
 	public ArrayList<Product> getProductsByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr = session.createCriteria(Product.class);
-		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.eq("name", name).ignoreCase()).list();
+		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.eq("name", name).ignoreCase()).add(Restrictions.gt("quantity", 0)).list();
 		return products;
 
 	}

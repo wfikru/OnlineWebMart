@@ -4,6 +4,7 @@
 
 	<mapping path="/vendor/add" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/vendors" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
+
 	<mapping path="/cart" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/cart/payment" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
 

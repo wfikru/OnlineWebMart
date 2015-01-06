@@ -30,6 +30,7 @@ import edu.mum.cs490.validator.RegistrationUser;
 import edu.mum.cs490.validator.RegistrationValidator;
 
 @Controller
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class RegistrationColtroller {
 
 	@Autowired
