@@ -2,9 +2,11 @@ package edu.mum.cs490.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
@@ -26,6 +28,28 @@ public class Customer extends SystemUser {
 
 	@Embedded
 	private Address address;
+	
+	@OneToOne
+	private Cart cart;
+	
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
+	@OneToOne(cascade = CascadeType.PERSIST)
+	private CreditCard creditCard;
+	
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;

@@ -18,7 +18,6 @@
 			<div class="col-lg-10">
 				<form:input id="vendorName" path="vendorName" type="text"
 					class="form:input-large" />
-
 			</div>
 		</div>
 

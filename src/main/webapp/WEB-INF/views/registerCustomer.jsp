@@ -6,7 +6,7 @@
 <div class="container">
 
 
-	<form:form modelAttribute="customer" class="form-horizontal">
+	<form:form modelAttribute="customer" class="form-horizontal" method="POST">
 
 		<legend>Add new customer</legend>
 
