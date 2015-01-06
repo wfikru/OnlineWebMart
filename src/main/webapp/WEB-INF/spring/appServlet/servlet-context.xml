@@ -29,17 +29,11 @@
 
 	<context:component-scan base-package="edu.mum.cs490.controller" />
 
-
-
-
 	<beans:bean id="messageSource"
 		class="org.springframework.context.support.ResourceBundleMessageSource">
 		<beans:property name="basename">
 			<beans:value>messages</beans:value>
 		</beans:property>
 	</beans:bean>
-
-
-
 
 </beans:beans>

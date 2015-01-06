@@ -23,16 +23,19 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import edu.mum.cs490.model.Customer;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.VendorService;
+import edu.mum.cs490.validator.RegistrationUser;
 
 @Controller
-@SessionAttributes("size")
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class AdminController {
 
 	@Autowired
@@ -40,9 +43,11 @@ public class AdminController {
 
 	@Autowired
 	private VendorService vendorService;
+	
+	@RequestMapping("/admin/system")
+	public String showAdminPage(ModelMap map) {
 
-	public void setCustomerService(CustomerService customerService) {
-		this.customerService = customerService;
+		return "/admin/system/home";
 	}
 
 	@RequestMapping("/customers")

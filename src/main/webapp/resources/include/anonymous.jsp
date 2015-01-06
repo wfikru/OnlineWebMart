@@ -16,12 +16,7 @@
 			<button type="submit" id="submitButton" class="btn btn-primary" >Search</button>
 		</form:form>
 		<ul id="topMenu" class="nav pull-right">
-			<li class=""><a href="special_offer.html">Specials Offer</a></li>
-			<li class=""><a href="normal.html">Delivery</a></li>
-			<li class=""><a href="contact.html">Contact</a></li>
-			<li class=""><a href="login" 
-				style="padding-right: 0"><span class="btn btn-large btn-success">Login</span></a>
-				</li>
+	 		<li class=""><a href="/cs490/registration">Login / Register</a></li>
 		</ul>
 	</div>
 </div>

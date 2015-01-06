@@ -1,9 +1,13 @@
 package edu.mum.cs490.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "ORDERT")
 public class Order {
@@ -14,8 +18,18 @@ public class Order {
 	private double total;
 	private double profit_total;
 	private double profit_for_mycompany;
-	private String customer_address;
+	private Address customer_address;
 	
+	@OneToMany
+	private List<Product> products = new ArrayList<Product>();
+	
+	
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
+	}
 	public int getId() {
 		return id;
 	}
@@ -40,12 +54,11 @@ public class Order {
 	public void setProfit_for_mycompany(double profit_for_mycompany) {
 		this.profit_for_mycompany = profit_for_mycompany;
 	}
-	public String getCustomer_address() {
+	public Address getCustomer_address() {
 		return customer_address;
 	}
-	public void setCustomer_address(String customer_address) {
+	public void setCustomer_address(Address customer_address) {
 		this.customer_address = customer_address;
 	}
-	
 	
 }

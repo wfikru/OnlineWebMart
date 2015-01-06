@@ -54,15 +54,12 @@
 		<div class="container">
 			<div id="welcomeLine" class="row">
 				<div class="span6">
-					Welcome <strong> <c:out value="${user.username }" /></strong> !
+					Welcome <strong> <c:out value="${user.email }" /></strong>!
 				</div>
 				<div class="span6">
 					<div class="pull-right">
-						<a href="product_summary.html"><span>&pound;</span></a>
-						<span class="btn btn-mini">${total}</span> <a
-							href="product_summary.html"><span class="">$</span></a> <a
-							href="product_summary.html"><span
-							class="btn btn-mini btn-primary"><i
+						<a href="product_summary"><span></span></a> </a> <a
+							href="product_summary"><span class="btn btn-mini btn-primary"><i
 								class="icon-shopping-cart icon-white"></i>${size} Items in your
 								cart </span> </a>
 					</div>
@@ -80,46 +77,45 @@
 			<div id="mainBody">
 				<div class="container">
 
-						<div class="row">
-							<div id="sidebar" class="span3" style="float: left">
-								<div class="well well-small">
-									<a id="myCart" href="product_summary.html"><img
-										src="/cs490/resources/themes/images/ico-cart.png" alt="cart">${size}
-										Items in your cart <span
-										class="badge badge-warning pull-right">$ ${total}</span></a>
-								</div>
-								<ul id="sideManu" class="nav nav-tabs nav-stacked">
-									<li class="subMenu open"><a>Products</a>
-										<ul>
-											<li><a class="active" href="allProducts"><i
-													class="icon-chevron-right"></i>All</a></li>
-											<c:forEach items="${listCategories}" var="cat"
-												varStatus="loopCounter">
+					<div class="row">
+						<div id="sidebar" class="span3" style="float: left">
+							<div class="well well-small">
+								<a id="myCart" href="product_summary"><img
+									src="/cs490/resources/themes/images/ico-cart.png" alt="cart">${size}
+									Items in your cart <span class="badge badge-warning pull-right">$
+										${total}</span></a>
+							</div>
+							<ul id="sideManu" class="nav nav-tabs nav-stacked">
+								<li class="subMenu open"><a>Products</a>
+									<ul>
+										<li><a class="active" href="allProducts"><i
+												class="icon-chevron-right"></i>All</a></li>
+										<c:forEach items="${listCategories}" var="cat"
+											varStatus="loopCounter">
 
-												<li><a class="active"
-													href="<c:url value='productPerCategory'>
+											<li><a class="active"
+												href="<c:url value='productPerCategory'>
 								<c:param name='catId' value='${cat.id }'/>
 								</c:url>"><i
-														class="icon-chevron-right"></i>
-													<c:out value="${cat.name}" /></a></li>
+													class="icon-chevron-right"></i> <c:out value="${cat.name}" /></a></li>
 
-											</c:forEach>
+										</c:forEach>
 
-										</ul></li>
-								</ul>
-							</div>
+									</ul></li>
+							</ul>
+						</div>
 						<!-- End of side bar========================================= -->
 
 						<sitemesh:write property='body' />
-												</div>
-						
-						<script
-							src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-						<script
-							src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 					</div>
+
+					<script
+						src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+					<script
+						src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 				</div>
 			</div>
 		</div>
-	
+	</div>
+
 </body>

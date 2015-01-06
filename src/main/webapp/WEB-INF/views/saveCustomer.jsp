@@ -37,13 +37,7 @@
 					Date</label>
 				<div class="row">
 					<div class="col-xs-4 col-md-4">
-						<form:select path="firstName" id="">
-							<c:forEach begin="1" end="5" var="i">
-								<form:option value="">
-									<c:out value="${i }"></c:out>
-								</form:option>
-							</c:forEach>
-						</form:select>
+						
 						<select name="month" class="form-control input-lg">
 							<option value="01">Jan</option>
 							<option value="02">Feb</option>
