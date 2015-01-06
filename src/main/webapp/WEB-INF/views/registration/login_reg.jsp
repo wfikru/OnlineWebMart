@@ -76,12 +76,13 @@
 					<fieldset>
 						<legend>Registration Type</legend>
 						<div>
-							<label class="radio-inline"> <input type="radio"
-								name="role" value="customer" id=male /> I want to register as a
-								customer
-							</label> <label class="radio-inline"> <input type="radio"
-								name="role" value="V" id=female /> I want to register as a
-								vendor
+							<label class="radio-inline" for="rd_customer"> 
+							<form:radiobutton path="role" value="customer" id="rd_customer" /> I want to register as a customer
+							 </label> <br />
+							
+			
+							<label class="radio-inline"  for="rd_vendor">  
+							<form:radiobutton path="role" value="vendor" id="rd_vendor" /> I want to register as a vendor
 							</label> <br />
 						</div>
 					</fieldset>

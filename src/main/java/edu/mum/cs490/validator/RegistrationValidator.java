@@ -13,17 +13,20 @@ public class RegistrationValidator implements Validator {
  
 	@Override
 	public void validate(Object target, Errors errors) {
+		
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email",
+				"required.registrationUser.email", "Field name is required.");
  
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password",
-			"required.password", "Field name is required.");
+			"required.registrationUser.password", "Field name is required.");
  
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "confirmPassword",
-				"required.confirmPassword", "Field name is required.");
+				"required.registrationUser.confirmPassword", "Field name is required.");
  
 		RegistrationUser cust = (RegistrationUser)target;
- 
+		
 		if(!(cust.getPassword().equals(cust.getConfirmPassword()))){
-			errors.rejectValue("password", "notmatch.password");
+			if (cust.getPassword().length()>0)	errors.rejectValue("password", "notmatch.registrationUser.password");
 		}
  
 	}

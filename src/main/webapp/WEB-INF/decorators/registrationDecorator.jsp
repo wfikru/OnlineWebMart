@@ -44,15 +44,9 @@
 		<div class="container">
 			<div id="welcomeLine" class="row">
 				<div class="span6">
-					Welcome!<strong> User</strong>
+					Welcome!
 				</div>
 				<div class="span6">
-					<div class="pull-right">
-						<a
-							href="/cs490/logout"><span
-							class="btn btn-mini btn-primary">Logout </span> </a>
-
-					</div>
 				</div>
 			</div>
 			<div class="container">
@@ -64,10 +58,6 @@
 						<a class="brand" href="/cs490"><img
 							src="/cs490/resources/themes/images/logo.png" alt="Bootsshop" /></a>
 						
-						<ul class="nav nav-pills pull-right">
-							<li class=""><a href="normal.html">Home</a></li>
-							<li class=""><a href="normal.html">Profile</a></li>
-						</ul>
 					</div>
 				</div>
 			</div>

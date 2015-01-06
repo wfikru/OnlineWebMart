@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,12 @@ public class CustomerColtroller {
 	@Autowired
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+	
+	@RequestMapping("/admin/customer")
+	public String showCustomerPage(ModelMap map) {
+
+		return "/admin/customer/home";
 	}
 
 	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)

@@ -1,15 +1,14 @@
 package edu.mum.cs490.validator;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class RegistrationUser {
-	@NotEmpty
+	@Email
 	private String email;
-	@NotEmpty
 	private String password;
-	@NotEmpty
 	private String confirmPassword;
-	private String role;
+	private String role="customer";
 	public String getEmail() {
 		return email;
 	}
