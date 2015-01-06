@@ -62,7 +62,7 @@
 
 			<li class="span3">
 				<div class="thumbnail">
-					<a href="product_details.html"><c:out value="${product.image}" /></a>
+					<a href="product_details.html"><img src="/cs490/admin/vendor/product/pic?pid=${product.id}"/></a>
 					<div class="caption">
 						<h5>
 							<c:out value="${product.name}" />

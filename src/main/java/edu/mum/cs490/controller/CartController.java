@@ -1,3 +1,7 @@
+/** 
+ * Authors: Hiwot & Fikru
+ * 
+ **/
 package edu.mum.cs490.controller;
 
 import java.util.List;
@@ -21,6 +25,7 @@ import edu.mum.cs490.model.Cart;
 import edu.mum.cs490.model.CreditCard;
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Guest;
+import edu.mum.cs490.model.Order;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.Registered;
 import edu.mum.cs490.model.SystemUser;
@@ -205,7 +210,7 @@ public class CartController {
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String validateCard(
 			@ModelAttribute("creditCard") @Valid CreditCard creditCard,
-			BindingResult bindresult, HttpServletRequest request) {
+			BindingResult bindresult, HttpServletRequest request, ModelMap map) {
 
 		if (bindresult.hasErrors()) {
 			return "payment";
@@ -221,11 +226,11 @@ public class CartController {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String url = "http://localhost:8080/gateway/validate?ccn="
-				+ creditCard.getCardNo() + "&amount=" + getGrandTotal + "";
+//		String url = "http://localhost:8082/gateway/validate?ccn="
+//				+ creditCard.getCardNo() + "&amount=" + getGrandTotal + "";
 
-		// String url =
-		// "http://localhost:8080/gateway/validate?ccn=111&amount=100";
+		 String url =
+		 "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
 
 		String result = restTemplate.postForObject(url, null, String.class);
 
@@ -248,30 +253,53 @@ public class CartController {
 				customer.setAddress(address);
 				// customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
+				Order order= new Order();
+				order.setCustomer_address(address);
+				List<Product> cartProducts = homeController.shoppingCart.getProducts();
+				
+				order.setProducts(cartProducts);
+				cartProducts.clear();
+				map.addAttribute("cartProducts", cartProducts);
+				total=0;
+				map.addAttribute("total", total);
+				size=0;
+				map.addAttribute("size", size);
+				
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
 
 				// guest.setCreditCard(creditCard);
 				customerService.addCustomer(guest);
+				Order order= new Order();
+				order.setCustomer_address(address);
+				List<Product> cartProducts = homeController.shoppingCart.getProducts();
+				
+				order.setProducts(cartProducts);
+				cartProducts.clear();
+				map.addAttribute("cartProducts", cartProducts);
+				total=0;
+				map.addAttribute("total", total);
+				size=0;
+				map.addAttribute("size", size);
 			}
 
 			double profit = getGrandTotal * 0.2;
 			double myprofit = profit * 0.1;
 
-			String strAddress = "STATE:" + address.getState() + "_STREET:"
-					+ address.getStreet() + "_ZIP:" + address.getZip();
-			String url2 = "http://localhost:8080/payment/finance?ccn="
-					+ creditCard.getCardNo() + "&address=" + strAddress
-					+ "&profit=" + profit + "&total=" + getGrandTotal
-					+ "&myprofit=" + myprofit + "";
+//			String strAddress = "STATE:" + address.getState() + "_STREET:"
+//					+ address.getStreet() + "_ZIP:" + address.getZip();
+//			String url2 = "http://localhost:8082/payment/finance?ccn="
+//					+ creditCard.getCardNo() + "&address=" + strAddress
+//					+ "&profit=" + profit + "&total=" + getGrandTotal
+//					+ "&myprofit=" + myprofit + "";
 
-			// String url2 =
-			// "http://localhost:8080/payment/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
+			 String url2 =
+			 "http://localhost:8082/payment/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
 			restTemplate.postForObject(url2, null, String.class);
 
 			return "paymentSucces";
 		} else
-			return "paymentSucces";
+			return "paymentFailure";
 	}
 }
