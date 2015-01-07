@@ -26,7 +26,7 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public void updateVendor(Vendor v) {
-		// TODO Auto-generated method stub
+		vendordao.updateVendor(v);
 
 	}
 

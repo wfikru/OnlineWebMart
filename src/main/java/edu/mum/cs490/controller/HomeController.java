@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -61,7 +62,7 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model, HttpSession session) {
+	public String home(Locale locale, ModelMap map, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		SystemUser user;
 		try{
@@ -85,23 +86,18 @@ public class HomeController {
 				DateFormat.LONG, locale);
 
 		String formattedDate = dateFormat.format(date);
-		model.addAttribute("serverTime", formattedDate);
-		model.addAttribute("category", new Category());
-		Product searchProduct = new Product();
-		ArrayList<Product> allProducts = new ArrayList<Product>();
-		allProducts = (ArrayList<Product>) productService.getAvailableProducts();
-		model.addAttribute("allProducts", allProducts);
-		String name;
-		session.setAttribute("searchProduct", searchProduct);
-		model.addAttribute("searchProduct", searchProduct);
-		ArrayList<Category> listCategories = new ArrayList<Category>();
-		listCategories = categoryService.listCategories();
-		model.addAttribute("listCategories", categoryService.listCategories());
-		// Session session;
-		// session.s
-//		size = shoppingCart.getProducts().size();
-		System.out.println("+++++++++" + size);
-		model.addAttribute("size", size);
+		map.addAttribute("serverTime", formattedDate);
+		
+		
+		ArrayList<Product> products = productService.allProducts();
+		ArrayList<Category> categories = new ArrayList<Category>();
+		categories = categoryService.listCategories();
+		
+		
+		map.addAttribute("products", products);
+		map.addAttribute("query", "");
+		map.addAttribute("categories", categories);
+		
 		return "home2";
 
 	}
@@ -115,8 +111,5 @@ public class HomeController {
 	public Cart getShoppingCart() {
 		return shoppingCart;
 	}
-	
-	
-	
 	
 }

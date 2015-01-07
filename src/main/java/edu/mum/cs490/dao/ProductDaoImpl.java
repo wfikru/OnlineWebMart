@@ -123,6 +123,15 @@ public class ProductDaoImpl implements ProductDao {
 
 		return productList;
 	}
+	
+	
+	@Override
+	public ArrayList<Product> find(String query) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Product.class);
+		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.ilike("name", "%"+query+"%")).list();
+		return products;
 
+	}
 
 }

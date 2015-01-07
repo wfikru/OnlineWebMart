@@ -74,13 +74,13 @@
 				</a>
 				<div class="navbar-inner">
 					<!-- Logo Image -->
-					<a class="brand" href="/cs490"><img
+					<a class="brand" href="home"><img
 						src="/cs490/resources/themes/images/logo.png" alt="Mercato" /></a>
 
 					<form:form action="/cs490/product/search" methodParam="query"
 					 	class="form-inline navbar-search"
 						method="POST">
-						<input type="text" name="query" value="${query}" />
+						<input type="text" name="query" />
 						<button type="submit" id="submitButton" class="btn btn-primary">Search</button>
 					</form:form>
 					<ul id="topMenu" class="nav pull-right">
@@ -92,7 +92,53 @@
 			<!-- Side bar ======================================= -->
 			<div>
 				<div class="container">
-					
+					<div class="row-fluid" style="height: 500px;">
+						<div id="myCarousel" class="carousel slide">
+							<div class="carousel-inner">
+								<div class="item active">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/3.png"
+										alt="special offers" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/2.png" alt="" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/1.png" alt="" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/4.png" alt="" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/5.png" alt="" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/6.png" alt="" /></a>
+								</div>
+								<div class="item">
+
+									<a href="register.html"><img
+										src="/cs490/resources/themes/images/carousel/7.png" alt="" /></a>
+								</div>
+							</div>
+							<a class="left carousel-control" href="#myCarousel"
+								data-slide="prev">&lsaquo;</a> <a class="right carousel-control"
+								href="#myCarousel" data-slide="next">&rsaquo;</a>
+						</div>
+
+					</div>
+
 					<div class="row">
 
 						<!-- End of side bar========================================= -->

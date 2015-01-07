@@ -65,7 +65,6 @@ public class RegistrationColtroller {
 			// else
 			// authUser = (Vendor) authUser;
 
-			user.setStatus(true);
 			session.setAttribute("user", user);
 			session.setAttribute("status", true);
 			map.addAttribute("user", user);
@@ -92,7 +91,7 @@ public class RegistrationColtroller {
 
 	}
 	@RequestMapping("/registration/register")
-	public String doRegister(ModelMap map, @Valid @ModelAttribute RegistrationUser reg_user, BindingResult result, HttpServletRequest request){
+	public String doRegister(ModelMap map, @Valid @ModelAttribute RegistrationUser reg_user, BindingResult result, HttpSession session){
 		
 		RegistrationValidator userValidator = new RegistrationValidator();
         userValidator.validate(reg_user, result);
@@ -109,6 +108,7 @@ public class RegistrationColtroller {
 				c.setPassword(reg_user.getPassword());
 				c.setRole("customer");
 				customerService.addCustomer(c);
+				session.setAttribute("user", c);
 				return "redirect:/";
 			}else{
 				Vendor c = new Vendor();
@@ -117,6 +117,7 @@ public class RegistrationColtroller {
 				c.setRole("vendor");
 				c.setVendorName(reg_user.getEmail());
 				vendorService.addVendor(c);
+				session.setAttribute("user", c);
 				return "redirect:/admin/vendor/product";
 			}
 			

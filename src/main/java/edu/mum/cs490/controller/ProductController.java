@@ -8,6 +8,7 @@ import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.h2.constant.SysProperties;
@@ -16,6 +17,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,13 +31,16 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.SystemUser;
+import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CategoryService;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
+import edu.mum.cs490.service.VendorService;
 
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user", "shoppingCart"})
 public class ProductController {
 	
 
@@ -45,16 +50,69 @@ public class ProductController {
 	
 	@Autowired
 	private CategoryService categoryService;
-
+	@Autowired
+	private VendorService vendorService;
 	
+	
+	
+	@RequestMapping(value = "/product/search")
+	public String doSearch(@ModelAttribute("query") String query,
+			BindingResult result, ModelMap map) {
+		ArrayList<Product> products = productService.find(query);
+		ArrayList<Category> categories = new ArrayList<Category>();
+		categories = categoryService.listCategories();
+		
+		map.addAttribute("products", products);
+		map.addAttribute("query", query);
+		map.addAttribute("categories", categories);
+		
+		return "/product/result";
+
+	}
+	@RequestMapping(value = "/product/search_by_cat")
+	public String doSearchByCat(@ModelAttribute("id") int catid,
+			BindingResult result, ModelMap map) {
+		ArrayList<Product> products = productService.listProductsByCriteria(catid);
+		ArrayList<Category> categories = new ArrayList<Category>();
+		categories = categoryService.listCategories();
+		
+		
+		map.addAttribute("products", products);
+		map.addAttribute("query", "");
+		map.addAttribute("categories", categories);
+		
+		return "/product/result";
+
+	}
+	
+	@RequestMapping(value = "/product/search_all")
+	public String doSearchAll(ModelMap map) {
+		ArrayList<Product> products = productService.allProducts();
+		ArrayList<Category> categories = new ArrayList<Category>();
+		categories = categoryService.listCategories();
+		
+		
+		map.addAttribute("products", products);
+		map.addAttribute("query", "");
+		map.addAttribute("categories", categories);
+		
+		return "/product/result";
+	}
 	
 	@RequestMapping("/admin/vendor/product")
-	public String showProducList(Model model){
+	public String showProducList(Model model, HttpSession session){
+		SystemUser user = (SystemUser) session.getAttribute("user");
+		Vendor v = vendorService.getVendorById(user.getUserId());
+		if (v.getStatus()!=1) return "/admin/vendor/waiting";
 		model.addAttribute("products", productService.getAllProducts());
 		return "/admin/vendor/product";
 	}
 	@RequestMapping(value="/admin/vendor/product/edit", method = RequestMethod.GET)
-	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpServletRequest request){				
+	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpSession session){				
+		SystemUser user = (SystemUser) session.getAttribute("user");
+		Vendor v = vendorService.getVendorById(user.getUserId());
+		if (v.getStatus()!=1) return "/admin/vendor/waiting";
+		
 		
 		int id = Integer.parseInt(productId);
 		model.addAttribute("product",productService.getProductById(id));

@@ -1,4 +1,3 @@
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -6,18 +5,17 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
-<!-- body================================== -->
 
 <div id="sidebar" class="span3">
 	<ul id="sideManu" class="nav nav-tabs nav-stacked">
 		<li class="subMenu open"><a>Category</a>
 			<ul>
-				<li><a class="active" href="/cs490/product/search_all"><i
+				<li><a class="active" href="search_all"><i
 						class="icon-chevron-right"></i>All</a></li>
 				<c:forEach items="${categories}" var="cat" varStatus="loopCounter">
 
-					<li><a class="active"  
-						href="<c:url value='/product/search_by_cat'>
+					<li><a class="active"
+						href="<c:url value='search_by_cat'>
 								<c:param name='id' value='${cat.id }'/>
 								</c:url>"><i
 							class="icon-chevron-right"></i> <c:out value="${cat.name}" /></a></li>
@@ -46,7 +44,7 @@
 
 						<h4 style="text-align: center">
 							<a
-								href="<c:url value='/product/addtocart'>
+								href="<c:url value='addtocart'>
 								<c:param name='id' value='${product.id }'/>
 								</c:url>"
 								class="btn"> Add to <i class="icon-shopping-cart"></i></a> <a

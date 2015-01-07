@@ -1,5 +1,6 @@
 package edu.mum.cs490.service;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
 
 @Service
-public class CategoryServiceImpl implements CategoryService {
+public class CategoryServiceImpl implements CategoryService, Serializable {
 
 	@Autowired
 	CategoryDAO categoryDao;

@@ -4,7 +4,10 @@
  **/
 package edu.mum.cs490.controller;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -59,11 +62,14 @@ public class CartController {
 	ProductService productService;
 	double total;
 	int size;
-
-	@RequestMapping(value = "/addToCart")
+	
+	@RequestMapping(value = "/product/cart")
+	public String doShowCart(ModelMap map) {
+		return "/product/cart";
+	}
+	@RequestMapping(value = "/product/addtocart")
 	public String addItemToCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
-
 		Product product = productService.getProductById(id);
 		map.addAttribute("product", product);
 		System.out.println(product.getName());
@@ -75,20 +81,16 @@ public class CartController {
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
 			if (p.getId() == product.getId()) {
-				if (product.getQuantity() > 0) {
-					p.setQuantity(p.getQuantity() - 1);
-					p.setCartQuantity(p.getCartQuantity() + 1);
-					productService.updateProduct(p);
-					total = total + p.getPrice();
-					System.out.println("+++++++++" + total + "++++++++");
-					map.addAttribute("cartProducts", cartProducts);
-					map.addAttribute("total", total);
-					size++;
-					map.addAttribute("size", size);
-					return "product_summary";
-				} else {
-					return "outOfStoke";
-				}
+				p.setQuantity(p.getQuantity() - 1);
+				p.setCartQuantity(p.getCartQuantity() + 1);
+				productService.updateProduct(p);
+				total = total + p.getPrice();
+				System.out.println("+++++++++" + total + "++++++++");
+				map.addAttribute("cartProducts", cartProducts);
+				map.addAttribute("total", total);
+				size++;
+				map.addAttribute("size", size);
+				return "/product/cart";
 			}
 
 		}
@@ -102,10 +104,11 @@ public class CartController {
 		map.addAttribute("size", size);
 		map.addAttribute("total", total);
 
-		return "product_summary";
+		return "/product/cart";
 	}
 
-	@RequestMapping(value = "/removeFromCart")
+
+	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
@@ -123,11 +126,11 @@ public class CartController {
 		map.addAttribute("size", size);
 		map.addAttribute("total", total);
 
-		return "product_summary";
+		return "/product/cart";
 
 	}
 
-	@RequestMapping(value = "/minusOne")
+	@RequestMapping(value = "/product/minusOne")
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
@@ -145,7 +148,7 @@ public class CartController {
 					map.addAttribute("total", total);
 					size--;
 					map.addAttribute("size", size);
-					return "product_summary";
+					return "/product/cart";
 				} else
 					cartProducts.remove(p);
 //				total -= p.getPrice();
@@ -155,16 +158,16 @@ public class CartController {
 				map.addAttribute("size", size);
 				map.addAttribute("total", total);
 
-				return "product_summary";
+				return "/product/cart";
 
 			}
 		}
 
-		return "product_summary";
+		return "/product/cart";
 
 	}
 
-	@RequestMapping(value = "/plusOne")
+	@RequestMapping(value = "/product/plusOne")
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
@@ -172,30 +175,21 @@ public class CartController {
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
-				if (productService.getProductById(p.getId()).getQuantity()
-						- p.getCartQuantity() > 0) {
-					p.setQuantity(p.getQuantity() - 1);
-					p.setCartQuantity(p.getCartQuantity() + 1);
-					productService.updateProduct(p);
-					total = total + p.getPrice();
-					System.out.println("+++++++++" + total + "++++++++");
-					map.addAttribute("cartProducts", cartProducts);
-					map.addAttribute("total", total);
-					size++;
-					map.addAttribute("size", size);
-					return "product_summary";
-				} else
-					return "outOfStoke";
+				p.setQuantity(p.getQuantity() - 1);
+				p.setCartQuantity(p.getCartQuantity() + 1);
+				productService.updateProduct(p);
+				total = total + p.getPrice();
+				System.out.println("+++++++++" + total + "++++++++");
+				map.addAttribute("cartProducts", cartProducts);
+				map.addAttribute("total", total);
+				size++;
+				map.addAttribute("size", size);
+				return "/product/cart";
 			}
 		}
 
-		return "product_summary";
+		return "/product/cart";
 
-	}
-	
-	@RequestMapping("product_summary")
-	public String showSummary() {
-		return "product_summary";
 	}
 	
 	

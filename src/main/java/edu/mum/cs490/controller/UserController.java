@@ -61,7 +61,6 @@ public class UserController {
 			// else
 			// authUser = (Vendor) authUser;
 
-			user.setStatus(true);
 			session.setAttribute("user", user);
 			map.addAttribute("user", user);
 			map.addAttribute("status", true);
@@ -109,42 +108,4 @@ public class UserController {
 		return "home2";
 
 	}
-
-	@RequestMapping(value = "/productPerCategory")
-	public String listProducts(@ModelAttribute("catId") int categoryId,
-			BindingResult result, ModelMap map) {
-		ArrayList<Product> listOfProducts = productService
-				.listProductsByCriteria(categoryId);
-		map.addAttribute("productsByCat", listOfProducts);
-		return "listProductsByCategory";
-
-	}
-
-	@RequestMapping(value = "/productByName", method = RequestMethod.POST)
-	public String searchProductsByName(
-			@ModelAttribute("searchProduct") Product p, BindingResult result,
-			ModelMap map) {
-		ArrayList<Product> products = productService.getProductsByName(p
-				.getName());
-		map.addAttribute("products", products);
-		if (products.size() == 0)
-			return "noItem";
-		else
-			return "searchProductsByName";
-	}
-
-	@RequestMapping(value = "/allProducts", method = RequestMethod.GET)
-	public String getAllProducts(Model model) {
-		ArrayList<Product> allProducts = (ArrayList<Product>) productService.getAvailableProducts();
-		model.addAttribute("allProducts", allProducts);
-		return "allProducts";
-	}
-	// @RequestMapping(value = "/listCategories", method = RequestMethod.GET)
-	// public List<Category> listOfCategories(Model model) {
-	// // model.addAttribute("category", new Category());
-	// System.out.print("+++++++++++++++++++");
-	// // model.addAttribute("listCategories",
-	// categoryService.listCategories());
-	// return categoryService.listCategories();
-	// }
 }

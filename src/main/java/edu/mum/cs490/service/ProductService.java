@@ -16,5 +16,6 @@ public interface ProductService {
 	public ArrayList<Product> getProductsByName(String name);
 	public ArrayList<Product> allProducts();
 	public List<Product> getAvailableProducts();
+	public ArrayList<Product> find(String name);
 	
 }

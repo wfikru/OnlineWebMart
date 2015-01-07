@@ -1,5 +1,6 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity(name = "ORDERT")
-public class Order {
+public class Order implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

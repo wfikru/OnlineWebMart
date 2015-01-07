@@ -1,5 +1,7 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,7 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity(name = "PRODUCT")
-public class Product {
+public class Product implements Serializable{
 	
 	
 	@Id

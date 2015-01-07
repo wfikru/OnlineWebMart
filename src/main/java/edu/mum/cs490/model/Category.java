@@ -1,5 +1,6 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.persistence.Column;
@@ -13,7 +14,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 @Entity(name = "CATEGORY")
-public class Category {
+public class Category implements Serializable{
 	
 	
 	@Id	

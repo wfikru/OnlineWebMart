@@ -16,5 +16,6 @@ public interface ProductDao {
 	public ArrayList<Product> getProductsByName(String name);
 	public List<Product> getAvailableProducts();
 	public ArrayList<Product> allProducts();
+	public ArrayList<Product> find(String query);
 	
 }
