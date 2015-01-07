@@ -23,7 +23,6 @@ import org.springframework.web.multipart.MultipartFile;
 @Entity(name = "PRODUCT")
 public class Product implements Serializable{
 	
-	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "product_id")
@@ -62,7 +61,9 @@ public class Product implements Serializable{
 	@Transient 
 	private MultipartFile productImage;
 
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vendor_id", nullable = false)
+	private Vendor vendor;
 	
 
 	public byte[] getImage() {
@@ -137,6 +138,14 @@ public class Product implements Serializable{
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Vendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 	
 	

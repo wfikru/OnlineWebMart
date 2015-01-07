@@ -30,6 +30,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Category;
+import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
@@ -104,8 +105,13 @@ public class ProductController {
 		SystemUser user = (SystemUser) session.getAttribute("user");
 		Vendor v = vendorService.getVendorById(user.getUserId());
 		if (v.getStatus()!=1) return "/admin/vendor/waiting";
-		model.addAttribute("products", productService.getAllProducts());
+		
+		if (user.getRole().equals("vendor")){
+		model.addAttribute("products", productService.getAllProductsByVendor(user.getUserId()));
 		return "/admin/vendor/product";
+		
+		}
+		else return "redirect:/";
 	}
 	@RequestMapping(value="/admin/vendor/product/edit", method = RequestMethod.GET)
 	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpSession session){				
@@ -190,6 +196,9 @@ public class ProductController {
 		if (result.hasErrors()) {
 			return "/admin/vendor/product_add";
 		} else {
+			Vendor vendor = (Vendor)request.getSession().getAttribute("user");
+
+			product.setVendor(vendor);
 			productService.addProduct(product);
 			
 			return "redirect:/admin/vendor/product";

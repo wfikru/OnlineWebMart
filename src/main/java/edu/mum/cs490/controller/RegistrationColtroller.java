@@ -1,5 +1,10 @@
 package edu.mum.cs490.controller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
 
@@ -7,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +30,7 @@ import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.SystemUserService;
 import edu.mum.cs490.service.VendorService;
 import edu.mum.cs490.validator.RegistrationUser;
@@ -39,7 +46,9 @@ public class RegistrationColtroller {
 	CustomerService customerService;
 	@Autowired
 	VendorService vendorService;
-	
+	@Autowired
+	private MailService mailService;
+
 	@RequestMapping("/registration")
 	public String showRegistrationPage(ModelMap map) {
 		System.out.println("/registration ****************");
@@ -50,10 +59,11 @@ public class RegistrationColtroller {
 
 		return "/registration/login_reg";
 	}
-	@RequestMapping(value="/registration/login", method = RequestMethod.POST)
+
+	@RequestMapping(value = "/registration/login", method = RequestMethod.POST)
 	public String doLogin(@ModelAttribute("user") SystemUser userLogin,
 			BindingResult result, ModelMap map, HttpSession session) {
-		
+
 		SystemUser user = userService.loginCheck(userLogin.getEmail(),
 				userLogin.getPassword());
 		boolean status;
@@ -69,14 +79,14 @@ public class RegistrationColtroller {
 			session.setAttribute("status", true);
 			map.addAttribute("user", user);
 			map.addAttribute("status", true);
-			
+
 			System.out.print(user.getUsername());
-			
-			if (user.getRole().equals("customer")){
+
+			if (user.getRole().equals("customer")) {
 				return "redirect:/admin/customer";
-			}else if (user.getRole().equals("vendor")){
+			} else if (user.getRole().equals("vendor")) {
 				return "redirect:/admin/vendor/product";
-			}else {
+			} else {
 				return "redirect:/admin/system";
 			}
 		} else {
@@ -90,27 +100,46 @@ public class RegistrationColtroller {
 		}
 
 	}
+
 	@RequestMapping("/registration/register")
 	public String doRegister(ModelMap map, @Valid @ModelAttribute RegistrationUser reg_user, BindingResult result, HttpSession session){
+
+		String rootDirectory = session.getServletContext().
+				getRealPath("/");
+		String message=null;
+		FileInputStream fisTargetFile = null;
+		try {			
+			fisTargetFile = new FileInputStream(new File(rootDirectory+"\\resources\\message\\greeting"));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+
+		try {
+			message = IOUtils.toString(fisTargetFile, "UTF-8");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		RegistrationValidator userValidator = new RegistrationValidator();
-        userValidator.validate(reg_user, result);
+		userValidator.validate(reg_user, result);
 		if (result.hasErrors()) {
 			SystemUser user = new SystemUser();
 			map.addAttribute("user", user);
-			//map.addAttribute("reg_user", reg_user);
+			// map.addAttribute("reg_user", reg_user);
 			map.put(BindingResult.class.getName() + ".reg_user", result);
 			return "/registration/login_reg";
 		} else {
-			if (reg_user.getRole().equals("customer")){
+			if (reg_user.getRole().equals("customer")) {
 				Customer c = new Customer();
 				c.setEmail(reg_user.getEmail());
 				c.setPassword(reg_user.getPassword());
 				c.setRole("customer");
 				customerService.addCustomer(c);
 				session.setAttribute("user", c);
+				mailService.sendMail(reg_user.getEmail(), "Greeting",
+						message);
 				return "redirect:/";
-			}else{
+			} else {
 				Vendor c = new Vendor();
 				c.setEmail(reg_user.getEmail());
 				c.setPassword(reg_user.getPassword());
@@ -118,9 +147,11 @@ public class RegistrationColtroller {
 				c.setVendorName(reg_user.getEmail());
 				vendorService.addVendor(c);
 				session.setAttribute("user", c);
+				mailService.sendMail(reg_user.getEmail(), "Greeting",
+						message);
 				return "redirect:/admin/vendor/product";
 			}
-			
+
 		}
 	}
 }

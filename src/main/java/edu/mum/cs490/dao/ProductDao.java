@@ -9,6 +9,7 @@ public interface ProductDao {
 
 	public void addProduct(Product product);
 	public List<Product> getAllProducts();
+	public List<Product> getAllProductsByVendor(int vid);
 	public void deleteProduct(int pid);
 	public Product getProductById(int pid);
 	public void updateProduct(Product product);
