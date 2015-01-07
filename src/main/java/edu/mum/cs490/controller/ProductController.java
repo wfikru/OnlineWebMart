@@ -137,7 +137,7 @@ public class ProductController {
 	public String doUpdateProduct(Model model,
 			@Valid @ModelAttribute("product") Product product, BindingResult result,
 			@RequestParam("pid") String productId,
-			HttpServletRequest request){	
+			HttpServletRequest request, HttpSession session){	
 		MultipartFile productImage = product.getProductImage();
 	
 		
@@ -156,6 +156,9 @@ public class ProductController {
 			
 		} else {
 			product.setId(Integer.parseInt(productId));
+			Vendor user = (Vendor) session.getAttribute("user");
+			//Vendor v = vendorService.getVendorById(user.getUserId());
+			product.setVendor(user);
 			productService.updateProduct(product);
 			return "redirect:/admin/vendor/product";
 		}
