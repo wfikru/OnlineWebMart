@@ -111,4 +111,12 @@ public class HomeController {
 
 		return "home2";
 	}
+
+	public Cart getShoppingCart() {
+		return shoppingCart;
+	}
+	
+	
+	
+	
 }

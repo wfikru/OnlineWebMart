@@ -71,7 +71,7 @@ public class CartController {
 		Product searchProduct = new Product();
 
 		map.addAttribute("searchProduct", searchProduct);
-		List<Product> cartProducts = homeController.shoppingCart.getProducts();
+		List<Product> cartProducts = homeController.getShoppingCart().getProducts();
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
 			if (p.getId() == product.getId()) {
