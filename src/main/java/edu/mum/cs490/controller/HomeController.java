@@ -74,7 +74,7 @@ public class HomeController {
 			}else if (user.getRole().equals("admin")){
 				return "redirect:/admin/system";
 			}else{
-				return "redirect:/admin/customer";
+//				return "redirect:/admin/customer";
 			}
 		}catch(Exception ex){
 			

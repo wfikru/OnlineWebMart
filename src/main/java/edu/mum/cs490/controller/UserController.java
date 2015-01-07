@@ -32,7 +32,7 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total","userId"})
 public class UserController {
 
 	@Autowired
@@ -43,6 +43,7 @@ public class UserController {
 	ProductService productService;
 
 	Product searchProduct = new Product();
+	int userId;
 
 	// public ModelMap model= new ModelMap();
 
@@ -68,6 +69,8 @@ public class UserController {
 			System.out.print("++++++++++++");
 
 			System.out.print(user.getUsername());
+			userId = user.getUserId();
+			map.addAttribute("userId",userId);
 			return "redirect:/allProducts";
 		} else {
 			System.out.print(userLogin.getUsername());

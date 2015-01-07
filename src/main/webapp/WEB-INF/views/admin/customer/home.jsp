@@ -11,7 +11,7 @@
 			<!--Sidebar content-->
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
-				<li class="active"><a href="#">View order history</a></li>
+				<li class="active"><a href="customer/viewHistory">View order history</a></li>
 			</ul>
 		</div>
 		<div class="span10">

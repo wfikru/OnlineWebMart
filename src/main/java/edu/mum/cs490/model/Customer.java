@@ -1,11 +1,16 @@
 package edu.mum.cs490.model;
 
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,6 +34,19 @@ public class Customer extends SystemUser {
 	@OneToOne
 	private Cart cart;
 	
+//	@OneToMany
+//
+//	ArrayList<Order> orders= new ArrayList<Order>();
+//	
+//	
+//	public ArrayList<Order> getOrders() {
+//		return orders;
+//	}
+//
+//	public void setOrders(ArrayList<Order> orders) {
+//		this.orders = orders;
+//	}
+
 	public Cart getCart() {
 		return cart;
 	}
