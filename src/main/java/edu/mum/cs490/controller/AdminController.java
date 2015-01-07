@@ -35,7 +35,7 @@ import edu.mum.cs490.service.VendorService;
 import edu.mum.cs490.validator.RegistrationUser;
 
 @Controller
-@SessionAttributes("size")
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class AdminController {
 
 	@Autowired

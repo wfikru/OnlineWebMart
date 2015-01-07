@@ -6,11 +6,17 @@ import javax.validation.constraints.Size;
 @Embeddable
 public class Address {
 
-	@Size(max=10,min=2)
 	private String state;
 	private String street;
 	private String zip;
+	private String city;
 	
+	public String getCity() {
+		return city;
+	}
+	public void setCity(String city) {
+		this.city = city;
+	}
 	public String getState() {
 		return state;
 	}

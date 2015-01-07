@@ -15,6 +15,7 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.slf4j.Logger;
@@ -26,32 +27,66 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
+@SessionAttributes({ "user" })
 public class VendorController {
 
-	private VendorService vendorService;
-	private static final Logger logger = LoggerFactory.getLogger(VendorController.class);
-
 	@Autowired
-	public void setVendorService(VendorService vendorService) {
-		this.vendorService = vendorService;
-	}
-	
+	private VendorService vendorService;
 
+	@RequestMapping("/admin/vendor/profile")
+	public String showProducList(Model model, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		System.out.println("profile : " + user.getUserId());
+		model.addAttribute("vendor", user);
+		return "/admin/vendor/profile";
+	}
+
+	@RequestMapping("/admin/vendor/profile/edit")
+	public String showProfileEdit(Model model, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		System.out.println("edit profile : " + user.getVendorName());
+		model.addAttribute("vendor", user);
+		return "/admin/vendor/profile_edit";
+	}
+
+	@RequestMapping("/admin/vendor/profile/update")
+	public String doUpdate(Model model,
+			@Valid @ModelAttribute("profile") Vendor profile,
+			BindingResult result, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		MultipartFile productImage = profile.getProductImage();
+
+		try {
+			profile.setImage(productImage.getBytes());
+		} catch (IOException e1) {
+
+			e1.printStackTrace();
+		}
+
+		if (result.hasErrors()) {
+			return "redirect:/admin/vendor/profile_edit";
+
+		} else {
+			profile.setUserId(user.getUserId());
+			vendorService.updateVendor(profile);
+			return "redirect:/admin/vendor/profile";
+		}
+	}
 
 	@RequestMapping(value = "/vendor/add", method = RequestMethod.POST)
 	public String addVendoraction(
 			@ModelAttribute("vendor") @Valid Vendor vendor, BindingResult result) {
-
 
 		if (result.hasErrors()) {
 			return "registerVendor";
@@ -74,10 +109,8 @@ public class VendorController {
 		return "vendorRegSuccess";
 	}
 
-
 	@RequestMapping(value = "/vendor/add", method = RequestMethod.GET)
 	public String addVendorpage(Model model) {
-
 
 		model.addAttribute("vendor", new Vendor());
 		return "registerVendor";

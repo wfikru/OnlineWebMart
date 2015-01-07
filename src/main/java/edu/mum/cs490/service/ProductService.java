@@ -15,5 +15,6 @@ public interface ProductService {
 	public ArrayList<Product> listProductsByCriteria(int id);
 	public ArrayList<Product> getProductsByName(String name);
 	public ArrayList<Product> allProducts();
+	public List<Product> getAvailableProducts();
 	
 }
