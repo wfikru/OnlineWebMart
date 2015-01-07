@@ -31,6 +31,7 @@ import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
+import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CategoryService;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
@@ -144,6 +145,9 @@ public class ProductController {
 		if (result.hasErrors()) {
 			return "/admin/vendor/product_add";
 		} else {
+			Vendor vendor = (Vendor)request.getSession().getAttribute("user");
+
+			product.setVendor(vendor);
 			productService.addProduct(product);
 			
 			return "redirect:/admin/vendor/product";
