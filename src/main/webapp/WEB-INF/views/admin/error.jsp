@@ -10,7 +10,7 @@
 		<div class="container-fluid" style="padding: 0">
 	<div class="row-fluid">
 		
-			 <img src="http://www.sjrtour.com/images/404error.jpg" alt="404 page not found" id="error404-image">
+			 <img src="/cs490/resources/404error.jpg" alt="404 page not found" id="error404-image">
 		
 		
 	</div>
