@@ -38,24 +38,55 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user" })
 public class VendorController {
-	
+
 	@Autowired
 	private VendorService vendorService;
 
 	@RequestMapping("/admin/vendor/profile")
-	public String showProducList(Model model, HttpSession session){
-		SystemUser user = (SystemUser)session.getAttribute("user");
-		model.addAttribute("profile", user);
+	public String showProducList(Model model, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		System.out.println("profile : " + user.getUserId());
+		model.addAttribute("vendor", user);
 		return "/admin/vendor/profile";
 	}
 
+	@RequestMapping("/admin/vendor/profile/edit")
+	public String showProfileEdit(Model model, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		System.out.println("edit profile : " + user.getVendorName());
+		model.addAttribute("vendor", user);
+		return "/admin/vendor/profile_edit";
+	}
+
+	@RequestMapping("/admin/vendor/profile/update")
+	public String doUpdate(Model model,
+			@Valid @ModelAttribute("profile") Vendor profile,
+			BindingResult result, HttpSession session) {
+		Vendor user = (Vendor) session.getAttribute("user");
+		MultipartFile productImage = profile.getProductImage();
+
+		try {
+			profile.setImage(productImage.getBytes());
+		} catch (IOException e1) {
+
+			e1.printStackTrace();
+		}
+
+		if (result.hasErrors()) {
+			return "redirect:/admin/vendor/profile_edit";
+
+		} else {
+			profile.setUserId(user.getUserId());
+			vendorService.updateVendor(profile);
+			return "redirect:/admin/vendor/profile";
+		}
+	}
 
 	@RequestMapping(value = "/vendor/add", method = RequestMethod.POST)
 	public String addVendoraction(
 			@ModelAttribute("vendor") @Valid Vendor vendor, BindingResult result) {
-
 
 		if (result.hasErrors()) {
 			return "registerVendor";
@@ -78,10 +109,8 @@ public class VendorController {
 		return "vendorRegSuccess";
 	}
 
-
 	@RequestMapping(value = "/vendor/add", method = RequestMethod.GET)
 	public String addVendorpage(Model model) {
-
 
 		model.addAttribute("vendor", new Vendor());
 		return "registerVendor";
