@@ -41,7 +41,7 @@
 					</div>
 				</div>
 
-				<legend>Payment</legend>
+				<legend>Payment Information</legend>
 
 				<div class="control-group">
 					<label class="control-label">Card Type</label>
@@ -100,15 +100,15 @@
 						<div class="row-fluid">
 							<div class="span8">
 								<form:select id="month" path="month" class="input-block-level">
-									<form:option value="01">January</form:option>
-									<form:option value="02">February</form:option>
-									<form:option value="03">March</form:option>
-									<form:option value="04">April</form:option>
-									<form:option value="05">May</form:option>
-									<form:option value="06">June</form:option>
-									<form:option value="07">July</form:option>
-									<form:option value="08">August</form:option>
-									<form:option value="09">September</form:option>
+									<form:option value="1">January</form:option>
+									<form:option value="2">February</form:option>
+									<form:option value="3">March</form:option>
+									<form:option value="4">April</form:option>
+									<form:option value="5">May</form:option>
+									<form:option value="6">June</form:option>
+									<form:option value="7">July</form:option>
+									<form:option value="8">August</form:option>
+									<form:option value="9">September</form:option>
 									<form:option value="10">October</form:option>
 									<form:option value="11">November</form:option>
 									<form:option value="12">December</form:option>
@@ -118,7 +118,7 @@
 								<form:select id="year" path="year" class="input-block-level">
 									<c:forEach begin="2000" end="2015" var="i">
 
-										<form:option value="">
+										<form:option value="${i}">
 											<c:out value="${i}" />
 										</form:option>
 									</c:forEach>
@@ -146,10 +146,10 @@
 				<hr>
 				<div class="span4">
 					<div class="control-group">
-						<div class="col-lg-offset-2 col-lg-10">
+						<div class=" col-lg-8">
 							<input type="submit" id="btnAdd"
-								class="btn btn-large btn-block btn-primary" value="Pay" /> <a
-								href="/addToCart" class="btn  btn-block pull-right">Cancel</a>
+								class="btn btn-large btn-block btn-primary pull-right" value="Pay" /> <a
+								href="/addToCart" class="btn  btn-block ">Cancel</a>
 
 						</div>
 					</div>

@@ -1,11 +1,19 @@
 package edu.mum.cs490.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
+import org.apache.commons.io.IOUtils;
+import org.codehaus.groovy.control.messages.SimpleMessage;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailSender;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,6 +33,7 @@ import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.Registered;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.ProductService;
 
 @Controller
@@ -49,6 +58,9 @@ public class CartController {
 
 	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private MailService mailService;
 
 	@Autowired
 	ProductService productService;
@@ -211,7 +223,8 @@ public class CartController {
 
 		creditCard.setCardNo(creditCard.getFirst(), creditCard.getSecond(),
 				creditCard.getThird(), creditCard.getFourth());
-
+		creditCard.setExpDate(creditCard.getMonth(), creditCard.getYear());
+		
 		RestTemplate restTemplate = new RestTemplate();
 
 		String url = "http://localhost:8080/gateway/validate?ccn="
@@ -231,21 +244,42 @@ public class CartController {
 
 			Customer user = (Customer) request.getSession()
 					.getAttribute("user");
-
 			if (user != null) {
-
-				creditCard.setCustomer(user);
 
 				Registered customer = (Registered) customerService
 						.getCustomerById(user.getUserId());
+
 				customer.setAddress(address);
-				// customer.setCreditCard(creditCard);
+				creditCard.setCustomer(user);
+				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
+
+				String rootDirectory = request.getSession().getServletContext()
+						.getRealPath("/");
+				String message = null;
+
+				// read message file
+				FileInputStream fisTargetFile = null;
+				try {
+					fisTargetFile = new FileInputStream(new File(rootDirectory
+							+ "\\resources\\message\\confirmation"));
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				}
+
+				try {
+					message = IOUtils.toString(fisTargetFile, "UTF-8");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				mailService.sendMail(customer.getEmail(), "Confirmation",
+						message);
+
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
-
-				// guest.setCreditCard(creditCard);
+				creditCard.setCustomer(guest);
+				guest.setCreditCard(creditCard);
 				customerService.addCustomer(guest);
 			}
 
@@ -265,6 +299,6 @@ public class CartController {
 
 			return "paymentSucces";
 		} else
-			return "paymentSucces";
+			return "paymentFailure";
 	}
 }

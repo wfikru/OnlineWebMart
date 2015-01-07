@@ -20,8 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Entity(name = "PRODUCT")
 public class Product {
-	
-	
+		
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "product_id")
@@ -59,8 +58,6 @@ public class Product {
 	@JsonIgnore
 	@Transient 
 	private MultipartFile productImage;
-
-	
 	
 
 	public byte[] getImage() {

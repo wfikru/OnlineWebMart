@@ -13,7 +13,6 @@ import javax.validation.constraints.Size;
 
 @Entity(name = "CUSTOMER")
 public class Customer extends SystemUser {
-
 	
 	@Column(name = "firstname")
 	private String firstName;
