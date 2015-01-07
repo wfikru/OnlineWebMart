@@ -6,12 +6,11 @@
 <div class="container">
 	<div class="row">
 		<div class="span5">
-			<legend>Payment Successful</legend>
-			<h3>Thank You for shopping on our site</h3>
-			<h4>Your orders will be shipped to you soon.</h4>
-			
+			<legend>Connection Error</legend>
+
+			<h4>We were unable to process your credit card payment due to connection problems!</h4>
 			<div class=" spacer">
-				<a href="" class="btn pull-right ">Back to home page</a>
+				<a href="payment" class="btn pull-right ">Back</a>
 			</div>
 		</div>
 	</div>

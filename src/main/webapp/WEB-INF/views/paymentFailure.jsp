@@ -7,8 +7,12 @@
 	<div class="row">
 		<div class="span5">
 			<legend>Error</legend>
-			
+
 			<h4>Not sufficient amount in your account</h4>
+
+			<div class=" spacer">
+				<a href="payment" class="btn pull-right ">Back</a>
+			</div>
 		</div>
 	</div>
 </div>

@@ -16,8 +16,7 @@
 				<div class="control-group">
 					<label class="control-label">State</label>
 					<div class="controls">
-						<form:input id="state" type="text"
-							class="input-block-level" 
+						<form:input id="state" type="text" class="input-block-level"
 							title="Fill your first and last name"
 							path="customer.address.state" />
 					</div>
@@ -26,8 +25,7 @@
 				<div class="control-group">
 					<label class="control-label">Street</label>
 					<div class="controls">
-						<form:input id="street" type="text"
-							class="input-block-level" 
+						<form:input id="street" type="text" class="input-block-level"
 							title="Fill your first and last name"
 							path="customer.address.street" />
 					</div>
@@ -144,12 +142,12 @@
 					</div>
 				</div>
 				<hr>
-				<div class="span4">
+				<div class="span4 pull-right">
 					<div class="control-group">
-						<div class=" col-lg-8">
+						<div class=" spacer">
 							<input type="submit" id="btnAdd"
-								class="btn btn-large btn-block btn-primary pull-right" value="Pay" /> <a
-								href="/addToCart" class="btn  btn-block ">Cancel</a>
+								class="btn btn-block btn-default btn-primary" value="Pay" /> <a
+								href="product_summary" class="btn  btn-block ">Cancel</a>
 
 						</div>
 					</div>
