@@ -23,7 +23,6 @@ public class SystemUser {
 	private String email;
 	
 	
-	
 	public String getEmail() {
 		return email;
 	}

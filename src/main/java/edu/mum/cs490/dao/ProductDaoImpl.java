@@ -23,7 +23,7 @@ public class ProductDaoImpl implements ProductDao {
 	public void setSessionFactory(SessionFactory sf) {
 		this.sessionFactory = sf;
 	}
-	
+
 	@Override
 	public void addProduct(Product product) {
 		Session session = this.sessionFactory.getCurrentSession();
@@ -33,16 +33,18 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public List<Product> getAllProducts() {
 		Session session = this.sessionFactory.getCurrentSession();
-		List<Product> productList = session.createCriteria(Product.class).list();
+		List<Product> productList = session.createCriteria(Product.class)
+				.list();
 
 		return productList;
 	}
-	
+
 	@Override
 	public List<Product> getAvailableProducts() {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr = session.createCriteria(Product.class);
-		List<Product> productList  = cr.add(Restrictions.gt("quantity", 0)).list();
+		List<Product> productList = cr.add(Restrictions.gt("quantity", 0))
+				.list();
 
 		return productList;
 	}
@@ -50,79 +52,79 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public void deleteProduct(int pid) {
 		Session session = this.sessionFactory.getCurrentSession();
-		
+
 		Product p = (Product) session.load(Product.class, new Integer(pid));
 		if (null != p) {
 			session.delete(p);
 		}
-		
-				
+
 	}
 
 	@Override
 	public Product getProductById(int pid) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Product p = (Product) session.load(Product.class, new Integer(pid));
-		System.out.println("CATID: "+p.getCategory().getId());
+		System.out.println("CATID: " + p.getCategory().getId());
 		return p;
-		
+
 	}
 
 	@Override
 	public void updateProduct(Product product) {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.update(product);
-		
+
 	}
-	
-	
+
 	@Override
 	public ArrayList<Product> listProductsByCategory(int catId) {
 		// TODO Auto-generated method stub
-		
+
 		Session session = this.sessionFactory.openSession();
 		Criteria cr = session.createCriteria(Product.class);
 		Criteria cr2 = session.createCriteria(Category.class);
-		ArrayList<Category> categories =(ArrayList<Category>) cr2.add(Restrictions.eq("id", catId)).list();
+		ArrayList<Category> categories = (ArrayList<Category>) cr2.add(
+				Restrictions.eq("id", catId)).list();
 		Category cat = categories.get(0);
 
 		Criteria cr3 = cr.add(Restrictions.eq("category", cat));
 		Criteria cr4 = cr.add(Restrictions.gt("quantity", 0));
-		 ArrayList<Product> list= (ArrayList<Product>) cr3.add(Restrictions.gt("quantity", 0)).list();
-//		List<Customer> customerList = session.createCriteria(Customer.class)
-//				.list();
-//
-//		String SQL_QUERY = " from Product p where p.category.id=?";
-//		Query query = session.createQuery(SQL_QUERY);
-//		query.setParameter(0, catId);
-//		ArrayList<Product> list = (ArrayList<Product>) query.list();
+		ArrayList<Product> list = (ArrayList<Product>) cr3.add(
+				Restrictions.gt("quantity", 0)).list();
+		// List<Customer> customerList = session.createCriteria(Customer.class)
+		// .list();
+		//
+		// String SQL_QUERY = " from Product p where p.category.id=?";
+		// Query query = session.createQuery(SQL_QUERY);
+		// query.setParameter(0, catId);
+		// ArrayList<Product> list = (ArrayList<Product>) query.list();
 		System.out.print("+++" + list.size());
 		if ((list != null) && (list.size() > 0)) {
-			return  list;
+			return list;
 		}
 
 		session.close();
 		return null;
 	}
-	
+
 	@Override
 	public ArrayList<Product> getProductsByName(String name) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr = session.createCriteria(Product.class);
-		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.eq("name", name).ignoreCase()).add(Restrictions.gt("quantity", 0)).list();
+		ArrayList<Product> products = (ArrayList<Product>) cr
+				.add(Restrictions.eq("name", name).ignoreCase())
+				.add(Restrictions.gt("quantity", 0)).list();
 		return products;
 
 	}
-	
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Product> allProducts() {
 		Session session = this.sessionFactory.getCurrentSession();
-		ArrayList<Product> productList = (ArrayList<Product>) session.createCriteria(Product.class)
-				.list();
+		ArrayList<Product> productList = (ArrayList<Product>) session
+				.createCriteria(Product.class).list();
 
 		return productList;
 	}
-
-
 }

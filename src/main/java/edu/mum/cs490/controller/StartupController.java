@@ -8,9 +8,7 @@ import org.springframework.stereotype.Component;
 import edu.mum.cs490.model.Admin;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.AdminService;
-import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.SystemUserService;
-import edu.mum.cs490.service.VendorService;
 
 @Component
 public class StartupController implements
@@ -22,7 +20,7 @@ public class StartupController implements
 	@Override
 	public void onApplicationEvent(final ContextRefreshedEvent event) {
 		System.out.println("Initialize admin user ");
-		SystemUser user = userService.loginCheck("admin","123");
+		SystemUser user = userService.checkLogin("admin","123");
 		if (user==null){
 			Admin c = new Admin();
 			c.setEmail("admin");

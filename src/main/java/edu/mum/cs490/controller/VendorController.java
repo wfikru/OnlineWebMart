@@ -29,20 +29,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.ModelAndView;
-
-import edu.mum.cs490.model.Product;
-import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.ProductService;
-import edu.mum.cs490.service.VendorService;
+import edu.mum.cs490.service.SystemUserService;
 
 @Controller
 @SessionAttributes({ "user" })
 public class VendorController {
 
 	@Autowired
-	private VendorService vendorService;
+	private SystemUserService vendorService;
 
 	@RequestMapping("/admin/vendor/profile")
 	public String showProducList(Model model, HttpSession session) {
@@ -79,7 +75,7 @@ public class VendorController {
 
 		} else {
 			profile.setUserId(user.getUserId());
-			vendorService.updateVendor(profile);
+			vendorService.updateUser(profile);
 			return "redirect:/admin/vendor/profile";
 		}
 	}
@@ -104,7 +100,7 @@ public class VendorController {
 		}
 
 		vendor.setRole("vendor");
-		vendorService.addVendor(vendor);
+		vendorService.addUser(vendor);
 
 		return "vendorRegSuccess";
 	}

@@ -32,7 +32,8 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct",
+		"size", "shoppingCart", "cartProducts", "total" })
 public class UserController {
 
 	@Autowired
@@ -50,7 +51,7 @@ public class UserController {
 	public String loginCheck(@ModelAttribute("user") SystemUser userLogin,
 			BindingResult result, ModelMap map, HttpSession session) {
 
-		SystemUser user = userService.loginCheck(userLogin.getEmail(),
+		SystemUser user = userService.checkLogin(userLogin.getEmail(),
 				userLogin.getPassword());
 		boolean status;
 		boolean error;
@@ -81,10 +82,9 @@ public class UserController {
 
 	}
 
-
 	@RequestMapping(value = "home")
 	public String home() {
-		
+
 		return "redirect:/";
 	}
 
@@ -135,7 +135,8 @@ public class UserController {
 
 	@RequestMapping(value = "/allProducts", method = RequestMethod.GET)
 	public String getAllProducts(Model model) {
-		ArrayList<Product> allProducts = (ArrayList<Product>) productService.getAvailableProducts();
+		ArrayList<Product> allProducts = (ArrayList<Product>) productService
+				.getAvailableProducts();
 		model.addAttribute("allProducts", allProducts);
 		return "allProducts";
 	}

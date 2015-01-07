@@ -30,7 +30,6 @@ import org.springframework.web.servlet.ModelAndView;
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.service.CategoryService;
-import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
 
 

@@ -30,8 +30,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
-import edu.mum.cs490.service.CustomerService;
-import edu.mum.cs490.service.VendorService;
+import edu.mum.cs490.service.SystemUserService;
 import edu.mum.cs490.validator.RegistrationUser;
 
 @Controller
@@ -39,10 +38,10 @@ import edu.mum.cs490.validator.RegistrationUser;
 public class AdminController {
 
 	@Autowired
-	private CustomerService customerService;
+	private SystemUserService customerService;
 
 	@Autowired
-	private VendorService vendorService;
+	private SystemUserService vendorService;
 	
 	@RequestMapping("/admin/system")
 	public String showAdminPage(ModelMap map) {
@@ -52,14 +51,14 @@ public class AdminController {
 
 	@RequestMapping("/customers")
 	public String allCustomers(Model model) {
-		List<Customer> customers = customerService.allCustomers();
+		List<Customer> customers = customerService.allCustomerUsers();
 		model.addAttribute("customers", customers);
 		return "manageCustomers";
 	}
 
 	@RequestMapping("/vendors")
 	public String allVendors(Model model, HttpServletRequest request) {
-		List<Vendor> vendors = vendorService.allVendors();
+		List<Vendor> vendors = vendorService.allVendorUsers();
 		
 			
 		for (Vendor vendor : vendors) {
