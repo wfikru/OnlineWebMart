@@ -34,7 +34,7 @@
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				<prop key="hibernate.show_sql">true</prop>
+				
 			</props>
 		</property>
 	</bean>
@@ -51,8 +51,25 @@
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
 		<property name="maxUploadSize" value="10240000" />
 	</bean>
-<!-- 
-	<bean id="mailSender" class="">
+
+	
+
+	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
+		<property name="host" value="smtp.gmail.com" />
+		<property name="port" value="465" />
+		<property name="protocol" value="smtps" />
+
+		<property name="username" value="mercato2015@gmail.com" />
+		<property name="password" value="mercatomum" />
+		<property name="javaMailProperties">
+			<props>
+				<prop key="mail.smtps.auth">true</prop>
+				<prop key="mail.smtps.starttls.enable">true</prop>
+				<prop key="mail.smtps.debug">true</prop>
+
+			</props>
+		</property>
 	</bean>
- -->
+
+
 </beans>

@@ -23,7 +23,8 @@
 				varStatus="loopCounter">
 
 				<tr>
-					<td><img src="/cs490/admin/vendor/product/pic?pid=${product.id}"/></td>
+					<td><img
+						src="/cs490/admin/vendor/product/pic?pid=${product.id}" /></td>
 
 					<td>${product.name }</td>
 					<td>
@@ -63,22 +64,20 @@
 
 		</tbody>
 	</table>
-	<div style="">
-	<a href="payment" ><span
-							class="btn btn-primary"><i
-								class="icon-shopping-cart icon-white"></i>&nbsp;&nbsp;   Check Out   &nbsp;&nbsp;</span> </a>
+	<div class="pull right">
+		<a href="continue" class="btn btn-success "><span
+			class="glyphicon glyphicon-arrow-left"></span>&nbsp;Continue Shopping</a>
+		<a href="payment"><span class="btn btn-primary pull-right"><i
+				class="icon-shopping-cart icon-white"></i>&nbsp;&nbsp; Check Out
+				&nbsp;&nbsp;</span> </a>
 	</div>
-	<br/>
+
+	<br />
 	<div class="thumbnail">
 		<img src="/cs490/resources/themes/images/payment_methods.png"
 			title="Bootshop Payment Methods" alt="Payments Methods">
 		<div class="caption">
 			<h5>Payment Methods</h5>
-		</div>
-		<div class="control-group">
-			<div class="col-lg-offset-2 col-lg-10">
-				<a href="<spring:url value="/payment" />" class="btn btn-primary pull-right">CheckOut</a>
-			</div>
 		</div>
 	</div>
 

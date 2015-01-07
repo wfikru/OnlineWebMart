@@ -17,10 +17,6 @@ public class CustomerServiceImpl implements CustomerService {
 	@Autowired
 	private Customerdao customerdoa;
 
-	public void setPersonDAO(Customerdao customerdoa) {
-		this.customerdoa = customerdoa;
-	}
-
 	@Override
 	public void addCustomer(Customer c) {
 		this.customerdoa.addCustomer(c);

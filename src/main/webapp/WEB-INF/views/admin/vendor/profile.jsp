@@ -11,7 +11,7 @@
 			<!--Sidebar content-->
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
-				<li class="active"><a href="#">Manage my product</a></li>
+				<li><a href="/cs490/admin/vendor/product">Manage my product</a></li>
 				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
 				<li class="nav-header">Reports</li>
 				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
@@ -42,32 +42,32 @@
 									<tr>
 										<td style="width: 130px">Company Name</td>
 										<td style="width:10px;">:</td>
-										<td>${profile.vendorName}</td>
+										<td>${vendor.vendorName}</td>
 									</tr>
 									<tr>
 										<td style="width: 130px">Email </td>
 										<td style="width:10px;">:</td>
-										<td>${profile.email}</td>
+										<td>${vendor.email}</td>
 									</tr>
 									<tr>
 										<td style="width: 130px">Street </td>
 										<td style="width:10px;">:</td>
-										<td>${profile.address.street}</td>
+										<td>${vendor.address.street}</td>
 									</tr>
 									<tr>
 										<td style="width: 130px">City </td>
 										<td style="width:10px;">:</td>
-										<td>${profile.address.city}</td>
+										<td>${vendor.address.city}</td>
 									</tr>
 									<tr>
 										<td style="width: 130px">State </td>
 										<td style="width:10px;">:</td>
-										<td>${profile.address.state}</td>
+										<td>${vendor.address.state}</td>
 									</tr>
 									<tr>
 										<td style="width: 130px">Zip </td>
 										<td style="width:10px;">:</td>
-										<td>${profile.address.zip}</td>
+										<td>${vendor.address.zip}</td>
 									</tr>
 									
 								</table>
@@ -78,7 +78,7 @@
 				</table>
 				<div style="padding-top:10px; padding-bottom:10px;">
 					<button
-					onclick="location.href = '/cs490/admin/vendor/profile/edit?pid=1';"
+					onclick="location.href = '/cs490/admin/vendor/profile/edit';"
 					id="btnEdit" class="btn btn-primary">Edit</button>
 				</div>
 				
