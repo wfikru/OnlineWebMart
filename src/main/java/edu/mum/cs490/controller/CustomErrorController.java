@@ -38,7 +38,7 @@ class CustomErrorController {
    
   //model.addAttribute("errorMessage", message);  
   System.out.println(message);
-  return "redirect:/admin/vendor/error";
+  return "redirect:/error/error";
  }
  
  private String getExceptionMessage(Throwable throwable, Integer statusCode) {
@@ -51,7 +51,7 @@ class CustomErrorController {
  }
  
  
-	@RequestMapping("/admin/vendor/error")
+	@RequestMapping("/error/error")
 	public String showProducList(Model model){
 		return "/admin/error";
 	}
