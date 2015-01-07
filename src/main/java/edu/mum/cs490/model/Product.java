@@ -1,5 +1,7 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -19,8 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 
 @Entity(name = "PRODUCT")
-public class Product {
-		
+public class Product implements Serializable{
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "product_id")
@@ -58,6 +60,10 @@ public class Product {
 	@JsonIgnore
 	@Transient 
 	private MultipartFile productImage;
+
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vendor_id", nullable = false)
+	private Vendor vendor;
 	
 
 	public byte[] getImage() {
@@ -132,6 +138,14 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Vendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 	
 	

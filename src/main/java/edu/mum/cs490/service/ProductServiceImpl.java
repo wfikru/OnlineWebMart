@@ -82,5 +82,18 @@ public class ProductServiceImpl implements ProductService {
 	public ArrayList<Product> allProducts(){
 		return productDao.allProducts();
 	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Product> find(String query) {
+		// TODO Auto-generated method stub
+		return productDao.find(query);
+	}
+
+	@Override
+	@Transactional
+	public List<Product> getAllProductsByVendor(int vid) {
+		return productDao.getAllProductsByVendor(vid);
+	}
 
 }

@@ -5,22 +5,20 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
+
+
 <div class="container-fluid" style="padding: 0">
 	<div class="row-fluid">
-		<div class="span2">
-			<!--Sidebar content-->
-			<ul class="nav nav-list">
-				<li class="nav-header">Administrative</li>
-				<li class="active"><a href="customer/viewHistory">View order history</a></li>
-			</ul>
-		</div>
-		<div class="span10">
-			<!--Body content-->
-			<div>
-				something here
-			</div>
-		</div>
+
+		<h2>Thanks for your registration, please be waiting for the approval of our management team. It's going to take about 24 hours</h2>
+
 	</div>
 </div>
+
+
+
+
+
+
 
 

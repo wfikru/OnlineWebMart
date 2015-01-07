@@ -1,64 +1,85 @@
 package edu.mum.cs490.controller;
 
-import java.awt.Graphics2D;
-import java.awt.Image;
-import java.awt.image.BufferedImage;
-import java.io.ByteArrayInputStream;
-import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.util.Iterator;
-import java.util.Random;
-
-import javax.imageio.ImageIO;
-import javax.imageio.ImageReadParam;
-import javax.imageio.ImageReader;
-import javax.imageio.stream.ImageInputStream;
-import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
+import edu.mum.cs490.model.SystemUser;
+import edu.mum.cs490.service.VendorService;
 
 @Controller
 @SessionAttributes({ "user" })
 public class VendorController {
 
 	@Autowired
-	private SystemUserService vendorService;
+	private SystemUserService systemService;
+	
+	@Autowired
+	private VendorService vendorService;
 
+	@RequestMapping("/admin/vendor/waiting")
+	public String showWaiting(Model model) {
+		return "/admin/vendor/waiting";
+	}
+	
 	@RequestMapping("/admin/vendor/profile")
 	public String showProducList(Model model, HttpSession session) {
-		Vendor user = (Vendor) session.getAttribute("user");
+		SystemUser user = (SystemUser) session.getAttribute("user");
+		Vendor v = vendorService.getVendorById(user.getUserId());
+		if (v.getStatus()!=1) return "/admin/vendor/waiting";
 		System.out.println("profile : " + user.getUserId());
-		model.addAttribute("vendor", user);
+		model.addAttribute("vendor", v);
 		return "/admin/vendor/profile";
 	}
 
 	@RequestMapping("/admin/vendor/profile/edit")
 	public String showProfileEdit(Model model, HttpSession session) {
-		Vendor user = (Vendor) session.getAttribute("user");
-		System.out.println("edit profile : " + user.getVendorName());
-		model.addAttribute("vendor", user);
+		SystemUser user = (SystemUser) session.getAttribute("user");
+		Vendor v = vendorService.getVendorById(user.getUserId());
+		if (v.getStatus()!=1) return "/admin/vendor/waiting";
+		System.out.println("edit profile : " + v.getVendorName());
+		model.addAttribute("vendor", v);
 		return "/admin/vendor/profile_edit";
 	}
 
+	@RequestMapping(value = "/admin/vendor/profile/picture")
+	public void getPic(Model model, HttpSession session,
+			HttpServletResponse response) {
+
+		SystemUser user = (SystemUser) session.getAttribute("user");
+		Vendor v = vendorService.getVendorById(user.getUserId());
+
+		try {
+			byte[] bytes = v.getImage();
+			if (bytes != null && bytes.length > 0) {
+
+				response.setContentType("image/jpg");
+				response.getOutputStream().write(bytes);
+				response.getOutputStream().flush();
+				response.getOutputStream().close();
+			}
+
+		} catch (IOException e1) {
+			System.out.print("eeeee msg" + e1);
+		}
+
+	}
+
 	@RequestMapping("/admin/vendor/profile/update")
-	public String doUpdate(Model model,
-			@Valid @ModelAttribute("profile") Vendor profile,
+	public String doUpdate(ModelMap map,
+			@Valid @ModelAttribute("vendor") Vendor profile,
 			BindingResult result, HttpSession session) {
 		Vendor user = (Vendor) session.getAttribute("user");
 		MultipartFile productImage = profile.getProductImage();
@@ -71,45 +92,21 @@ public class VendorController {
 		}
 
 		if (result.hasErrors()) {
-			return "redirect:/admin/vendor/profile_edit";
+			map.put(BindingResult.class.getName() + ".vendor", result);
+			return "/admin/vendor/profile_edit";
 
 		} else {
-			profile.setUserId(user.getUserId());
-			vendorService.updateUser(profile);
-			return "redirect:/admin/vendor/profile";
+			Vendor v = vendorService.getVendorById(user.getUserId());
+			v.setEmail(profile.getEmail());
+			v.setPassword(profile.getPassword());
+			v.setVendorName(profile.getVendorName());
+			v.setAddress(profile.getAddress());
+			byte[] ib = profile.getImage();
+			if (ib.length>0) v.setImage(profile.getImage());
+
+			vendorService.updateVendor(v);
+			session.setAttribute("user", v);
+			return "/admin/vendor/profile";
 		}
 	}
-
-	@RequestMapping(value = "/vendor/add", method = RequestMethod.POST)
-	public String addVendoraction(
-			@ModelAttribute("vendor") @Valid Vendor vendor, BindingResult result) {
-
-		if (result.hasErrors()) {
-			return "registerVendor";
-		}
-		MultipartFile productImage = vendor.getProductImage();
-
-		if (productImage != null && !productImage.isEmpty()) {
-			try {
-
-				vendor.setImage(productImage.getBytes());
-
-			} catch (Exception e) {
-				throw new RuntimeException("Product Image saving failed", e);
-			}
-		}
-
-		vendor.setRole("vendor");
-		vendorService.addUser(vendor);
-
-		return "vendorRegSuccess";
-	}
-
-	@RequestMapping(value = "/vendor/add", method = RequestMethod.GET)
-	public String addVendorpage(Model model) {
-
-		model.addAttribute("vendor", new Vendor());
-		return "registerVendor";
-	}
-
 }

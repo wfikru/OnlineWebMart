@@ -74,7 +74,6 @@ public class RegistrationColtroller {
 			// else
 			// authUser = (Vendor) authUser;
 
-			user.setStatus(true);
 			session.setAttribute("user", user);
 			session.setAttribute("status", true);
 			map.addAttribute("user", user);
@@ -104,10 +103,9 @@ public class RegistrationColtroller {
 	@RequestMapping("/registration/register")
 	public String doRegister(ModelMap map,
 			@Valid @ModelAttribute RegistrationUser reg_user,
-			BindingResult result, HttpServletRequest request) {
+			BindingResult result, HttpSession session) {
 
-		String rootDirectory = request.getSession().getServletContext()
-				.getRealPath("/");
+		String rootDirectory = session.getServletContext().getRealPath("/");
 		String message = null;
 		FileInputStream fisTargetFile = null;
 		try {
@@ -138,8 +136,9 @@ public class RegistrationColtroller {
 				c.setPassword(reg_user.getPassword());
 				c.setRole("customer");
 				systemUserService.addUser(c);
-				System.out.println("customer added***************************************");
+				session.setAttribute("user", c);
 				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
+
 				return "redirect:/";
 			} else {
 				Vendor c = new Vendor();
@@ -148,8 +147,9 @@ public class RegistrationColtroller {
 				c.setRole("vendor");
 				c.setVendorName(reg_user.getEmail());
 				systemUserService.addUser(c);
-				System.out.println("vendor added***************************************");
+				session.setAttribute("user", c);
 				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
+
 				return "redirect:/admin/vendor/product";
 			}
 

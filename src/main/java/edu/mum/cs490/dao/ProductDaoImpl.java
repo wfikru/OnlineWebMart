@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -126,5 +127,38 @@ public class ProductDaoImpl implements ProductDao {
 				.createCriteria(Product.class).list();
 
 		return productList;
+	}
+	
+	@Override
+	public ArrayList<Product> find(String query) {
+		Session session = this.sessionFactory.getCurrentSession();
+		Criteria cr = session.createCriteria(Product.class);
+		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.ilike("name", "%"+query+"%")).list();
+		return products;
+
+	}
+	@Override
+	public List<Product> getAllProductsByVendor(int vid) {
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		
+			//List list = new ArrayList();
+			//list.add(2);
+		
+			String sql = "SELECT p FROM PRODUCT p WHERE p.vendor.userId = :vid";
+			//String sql = "Select vendor_id FROM PRODUCT WHERE vendor_id = :vid";
+			Query query = session.createQuery(sql).setParameter("vid", vid);
+	
+			
+			
+			//String s = "SELECT p FROM PRODUCT p WHERE p.vendor.userId IN (:list)";
+			//String s = "FROM PRODUCT WHERE vendor_id IN :list";
+			//Query q = session.createQuery(s).setParameterList("list", list);
+			//for (Product pr : (List<Product>)q.list())
+			//	System.out.println("AAAAA+"+pr.getName());
+			
+			
+	        return (List<Product>) query.list();
+	        
 	}
 }

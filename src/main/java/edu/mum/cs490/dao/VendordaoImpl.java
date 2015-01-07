@@ -30,9 +30,10 @@ public class VendordaoImpl implements Vendordao {
 	}
 
 	@Override
-	public void updateCustomer(Vendor v) {
-		// TODO Auto-generated method stub
-
+	public void updateVendor(Vendor v) {
+		Session session = this.sessionFactory.getCurrentSession();
+		session.update(v);
+		
 	}
 
 	@SuppressWarnings("unchecked")

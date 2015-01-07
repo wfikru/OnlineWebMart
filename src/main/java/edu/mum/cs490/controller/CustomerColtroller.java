@@ -1,5 +1,8 @@
 package edu.mum.cs490.controller;
 
+import java.util.ArrayList;
+
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,16 +15,31 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import edu.mum.cs490.dao.OrderDao;
 import edu.mum.cs490.model.Customer;
+import edu.mum.cs490.model.Order;
 import edu.mum.cs490.model.Registered;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
+
 import edu.mum.cs490.service.SystemUserService;
+
+import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.OrderService;
+
 
 @Controller
 @SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class CustomerColtroller {
 
+
 	private SystemUserService customerService;
+
+
+	
+	@Autowired
+	OrderService orderService;
+
 
 	// List<Customer> productList = new ArrayList<Customer>();
 	@Autowired
@@ -56,5 +74,16 @@ public class CustomerColtroller {
 		model.addAttribute("customer", new Registered());
 
 		return "registerCustomer";
+	}
+	@RequestMapping(value = "/admin/customer/viewHistory", method = RequestMethod.GET)
+	public String viewCustomerHistory(Model model, HttpSession session) {
+		
+		SystemUser customer = (SystemUser) session.getAttribute("user");
+		System.out.println("*********"+customer.getEmail());
+		int id= customer.getUserId();
+		ArrayList<Order> orders= orderService.getOrdersByCustomer(id);
+		model.addAttribute("orders", orders);
+		System.out.println("customer");
+		return "/admin/customer/viewOrderHistory";
 	}
 }

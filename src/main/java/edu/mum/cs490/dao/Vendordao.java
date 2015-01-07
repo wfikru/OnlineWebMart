@@ -8,7 +8,7 @@ public interface Vendordao {
 
 	public void addVendor(Vendor v);
 
-	public void updateCustomer(Vendor v);
+	public void updateVendor(Vendor v);
 
 	public List<Vendor> allVendors();
 

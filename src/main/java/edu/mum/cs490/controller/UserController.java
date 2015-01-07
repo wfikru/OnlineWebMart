@@ -32,8 +32,8 @@ import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct",
-		"size", "shoppingCart", "cartProducts", "total" })
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total","userId"})
+
 public class UserController {
 
 	@Autowired
@@ -44,6 +44,7 @@ public class UserController {
 	ProductService productService;
 
 	Product searchProduct = new Product();
+	int userId;
 
 	// public ModelMap model= new ModelMap();
 
@@ -62,7 +63,6 @@ public class UserController {
 			// else
 			// authUser = (Vendor) authUser;
 
-			user.setStatus(true);
 			session.setAttribute("user", user);
 			map.addAttribute("user", user);
 			map.addAttribute("status", true);
@@ -70,6 +70,8 @@ public class UserController {
 			System.out.print("++++++++++++");
 
 			System.out.print(user.getUsername());
+			userId = user.getUserId();
+			map.addAttribute("userId",userId);
 			return "redirect:/allProducts";
 		} else {
 			System.out.print(userLogin.getUsername());
@@ -140,12 +142,4 @@ public class UserController {
 		model.addAttribute("allProducts", allProducts);
 		return "allProducts";
 	}
-	// @RequestMapping(value = "/listCategories", method = RequestMethod.GET)
-	// public List<Category> listOfCategories(Model model) {
-	// // model.addAttribute("category", new Category());
-	// System.out.print("+++++++++++++++++++");
-	// // model.addAttribute("listCategories",
-	// categoryService.listCategories());
-	// return categoryService.listCategories();
-	// }
 }

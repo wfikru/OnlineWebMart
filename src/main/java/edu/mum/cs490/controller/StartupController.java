@@ -26,7 +26,6 @@ public class StartupController implements
 			c.setEmail("admin");
 			c.setPassword("123");
 			c.setRole("admin");
-			c.setStatus(true);
 			c.setUsername("admin");
 			adminService.addAdmin(c);
 		}

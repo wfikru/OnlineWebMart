@@ -1,5 +1,7 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,7 +12,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @Inheritance(strategy= InheritanceType.TABLE_PER_CLASS)
-public class SystemUser {
+public class SystemUser implements Serializable{
 	@Id
 	@GeneratedValue(strategy = GenerationType.TABLE)
 	private int userId;
@@ -18,8 +20,7 @@ public class SystemUser {
 	private String username;//email
 	private String password;
 	private String role;
-	private boolean status;
-	
+	private int status;
 	private String email;
 	
 	
@@ -53,12 +54,10 @@ public class SystemUser {
 	public void setRole(String role) {
 		this.role = role;
 	}
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
-	
-	
 }

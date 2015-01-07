@@ -13,7 +13,7 @@ import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Customer;
 
 @Repository
-public class CategoryDAOImpl implements CategoryDAO {
+public class CategoryDAOImpl implements CategoryDAO,  java.io.Serializable {
 	@Autowired
 	SessionFactory sessionFactory;
 

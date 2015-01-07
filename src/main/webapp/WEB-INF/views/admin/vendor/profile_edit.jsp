@@ -23,6 +23,7 @@
 
 				<springForm:form method="POST" modelAttribute="vendor"
 					action="update" enctype="multipart/form-data">
+					<springForm:hidden path="role" />
 					<table>
 						<tr>
 							<td><h3>My Profile</h3></td>
@@ -35,10 +36,18 @@
 							<tr>
 								<td valign="top" width="300px;">
 									<div class="thumbnail">
-										<img alt="300x200" data-src="holder.js/300x200"
-											style="width: 300px; height: 200px;"
-											src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAADICAYAAABS39xVAAAEsElEQVR4nO3bMVLjSABA0bn/UQgdOXLixKEP4DPoCjORqtqihakaWPZrXvASaCQZSr+6RevXsiy/AQp+/fQFAHyWYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYJ1MG9vb0/u9/t03P1+fxp3Op12j3k+n5/G3m63v77O0+n06fNvP9Pj8ZiOu16vT+Mul8uP/z34WoJ1EI/H492Nvbper09jb7fb7tjtcbdh2TvmV1znNkYfjd2G+HK5TMedz+cf/9vwdQTrIMYbdr3px5nROHaN0Hgzz2YlY9jWQIyzmL2Zzmevcz3mGKbx/OPY9WvrZxpnZOPPryEdZ5BfMSPk/0GwDmIWodkNP97I4yxlHTuGYI3DeMwxDmsIxrCNwRnjtoZkdp3jucbzz2Zz47nWYI7nmf1OLA2PQ7AObLYs2pshzUKw9yxoFoJx6fh4PJ7C9tHzqdU2WHszpFkwZ7FblnmEaROsAxqjtHcTb2cj2+XfbJm1ms2SxsBcLpen5ejeg//Zz67HnC1Hl2W+/Nubte19VroE64C2D6BnS7+vDtbsvJ9djo3jZ8tMwWIlWAc2zrTWm/47g7Us77cgvLrGvf/oCRYzgnVw25nOdwdrPP6r2dUYq+3SVbCYEayD28bjux66L8v7zagfPb96NRPz0J0ZwTqA8eYeZ0Oz/U3fsa1hNdtkOovFdtze55p9Jtsa/m2CdRCzAMw2aY5jX20cnT0D25uhjV+/3W7TPVjbca+WarONr7PZ1CzYNo4ek2AdxEev23z3qzl7e662e7M+Ot7sGryaw5ZgHcjsBv8vXn7e23O13V/16j3CvWhuv+/l53+XYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpDxB2bVxDz7FuNBAAAAAElFTkSuQmCC">
+										<c:if test="${vendor.image==null }">
+											<img alt="300x200" data-src="holder.js/300x200"
+												style="width: 300px; height: 200px;"
+												src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAADICAYAAABS39xVAAAEsElEQVR4nO3bMVLjSABA0bn/UQgdOXLixKEP4DPoCjORqtqihakaWPZrXvASaCQZSr+6RevXsiy/AQp+/fQFAHyWYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYJ1MG9vb0/u9/t03P1+fxp3Op12j3k+n5/G3m63v77O0+n06fNvP9Pj8ZiOu16vT+Mul8uP/z34WoJ1EI/H492Nvbper09jb7fb7tjtcbdh2TvmV1znNkYfjd2G+HK5TMedz+cf/9vwdQTrIMYbdr3px5nROHaN0Hgzz2YlY9jWQIyzmL2Zzmevcz3mGKbx/OPY9WvrZxpnZOPPryEdZ5BfMSPk/0GwDmIWodkNP97I4yxlHTuGYI3DeMwxDmsIxrCNwRnjtoZkdp3jucbzz2Zz47nWYI7nmf1OLA2PQ7AObLYs2pshzUKw9yxoFoJx6fh4PJ7C9tHzqdU2WHszpFkwZ7FblnmEaROsAxqjtHcTb2cj2+XfbJm1ms2SxsBcLpen5ejeg//Zz67HnC1Hl2W+/Nubte19VroE64C2D6BnS7+vDtbsvJ9djo3jZ8tMwWIlWAc2zrTWm/47g7Us77cgvLrGvf/oCRYzgnVw25nOdwdrPP6r2dUYq+3SVbCYEayD28bjux66L8v7zagfPb96NRPz0J0ZwTqA8eYeZ0Oz/U3fsa1hNdtkOovFdtze55p9Jtsa/m2CdRCzAMw2aY5jX20cnT0D25uhjV+/3W7TPVjbca+WarONr7PZ1CzYNo4ek2AdxEev23z3qzl7e662e7M+Ot7sGryaw5ZgHcjsBv8vXn7e23O13V/16j3CvWhuv+/l53+XYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpAhWECGYAEZggVkCBaQIVhAhmABGYIFZAgWkCFYQIZgARmCBWQIFpDxB2bVxDz7FuNBAAAAAElFTkSuQmCC">
 
+										</c:if>
+										<c:if test="${vendor.image!=null }">
+											<img alt="300x200" data-src="holder.js/300x200"
+												style="width: 300px; height: 200px;"
+												src="/cs490/admin/vendor/profile/picture">
+
+										</c:if>
 									</div>
 								</td>
 								<td valign="top" style="padding-left: 20px;">
@@ -55,6 +64,12 @@
 											<td style="width: 10px;">:</td>
 											<td><springForm:input path="email" /></td>
 											<td><springForm:errors path="email" cssClass="error" /></td>
+										</tr>
+										<tr>
+											<td style="width: 130px">Password</td>
+											<td style="width: 10px;">:</td>
+											<td><springForm:input path="password" type="password" /></td>
+											<td><springForm:errors path="password" cssClass="error" /></td>
 										</tr>
 										<tr>
 											<td style="width: 130px">Street</td>
