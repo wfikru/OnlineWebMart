@@ -60,7 +60,9 @@ public class Product {
 	@Transient 
 	private MultipartFile productImage;
 
-	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "vendor_id", nullable = false)
+	private Vendor vendor;
 	
 
 	public byte[] getImage() {
@@ -135,6 +137,14 @@ public class Product {
 
 	public void setCategory(Category category) {
 		this.category = category;
+	}
+
+	public Vendor getVendor() {
+		return vendor;
+	}
+
+	public void setVendor(Vendor vendor) {
+		this.vendor = vendor;
 	}
 	
 	

@@ -28,7 +28,9 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Category;
+import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CategoryService;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
@@ -49,9 +51,19 @@ public class ProductController {
 	
 	
 	@RequestMapping("/admin/vendor/product")
-	public String showProducList(Model model){
-		model.addAttribute("products", productService.getAllProducts());
+	public String showProducList(Model model, HttpServletRequest request){
+		SystemUser user = (SystemUser) request.getSession()
+				.getAttribute("user");
+		
+		if (user.getRole().equals("vendor")){
+		
+			int vendorId = user.getUserId();
+
+		model.addAttribute("products", productService.getAllProductsByVendor(vendorId));
 		return "/admin/vendor/product";
+		
+		}
+		else return "redirect:/";
 	}
 	@RequestMapping(value="/admin/vendor/product/edit", method = RequestMethod.GET)
 	public String showProductEdit(Model model, @RequestParam("pid") String productId, HttpServletRequest request){				
