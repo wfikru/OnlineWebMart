@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
@@ -272,15 +273,24 @@ public class CartController {
 
 			// Customer user = (SystemUser) request.getSession()
 			// .getAttribute("user");
+			
+			
+			
+			boolean is_guest = true;
+			if (user!=null){
+				if (user.getUserId()!=0){
+					if (user.getRole().equalsIgnoreCase("customer")){
+						is_guest = true;
+					}
+				}
+			}
 
-			if (user != null) {
+			if (!is_guest) {
 
 				Customer customer = customerService.getCustomerById(user
 						.getUserId());
 
-				// .getUserById(user.getUserId());
-
-				customer.setAddress(address);
+				//customer.setAddress(address);
 				creditCard.setCustomer(customer);
 				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
@@ -325,16 +335,16 @@ public class CartController {
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
-				creditCard.setGuest(guest);
-				guest.setCreditCard(creditCard);
-				guestservice.addGuestr(guest);
+//				creditCard.setGuest(guest);
+//				guest.setCreditCard(creditCard);
+				guestservice.addGuestr(guest); 
 				Order order = new Order();
 				order.setCustomer_address(address);
 				List<Product> cartProducts = homeController.getShoppingCart()
 						.getProducts();
 
 				order.setProducts(cartProducts);
-				order.setSystemUser((SystemUser) request.getSession().getAttribute("user"));
+				//order.setSystemUser((SystemUser) session.getAttribute("user"));
 				order.setDate(new Date());
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
