@@ -102,13 +102,22 @@ public class UserController {
 	}
 
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(Locale locale, ModelMap map) {
+	public String logout(Locale locale, ModelMap map, HttpSession session) {
 		boolean status;
 		SystemUser user = new SystemUser();
 		// newUser.setRole("default");
 		map.put("user", user);
 		map.remove("status");
 		map.put("status", false);
+		List<Product> cartProducts = new ArrayList<Product>();
+		cartProducts.clear();
+		map.addAttribute("cartProducts", cartProducts);
+		
+		session.setAttribute("user", null);
+		session.setAttribute("status", false);
+		session.setAttribute("cartProducts", cartProducts);
+		
+		
 		status = false;
 		return "home2";
 

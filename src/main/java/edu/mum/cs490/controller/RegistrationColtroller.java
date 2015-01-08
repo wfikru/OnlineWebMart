@@ -80,16 +80,17 @@ public class RegistrationColtroller {
 			// authUser = (Vendor) authUser;
 
 			session.setAttribute("user", user);
-			session.setAttribute("status", true);
+			
 			map.addAttribute("user", user);
 			map.addAttribute("status", true);
 
 			System.out.print(user.getUsername());
 
 			if (user.getRole().equals("customer")) {
-				Customer c = customerService.getCustomerById(user.getUserId());
-				map.addAttribute("loggedIn", c);
-				return "redirect:/admin/customer";
+				session.setAttribute("status", true);
+				//Customer c = customerService.getCustomerById(user.getUserId());
+				//map.addAttribute("loggedIn", c);
+				return "redirect:/product/search_all";
 			} else if (user.getRole().equals("vendor")) {
 				return "redirect:/admin/vendor/product";
 			} else {
@@ -159,9 +160,10 @@ public class RegistrationColtroller {
 				c.setRole("customer");
 				systemUserService.addUser(c);
 				session.setAttribute("user", c);
+				session.setAttribute("status", true);
 				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
 
-				return "redirect:/";
+				return "redirect:/product/search_all";
 			} else {
 				Vendor c = new Vendor();
 				c.setEmail(reg_user.getEmail());

@@ -23,6 +23,7 @@ public class CategoryDAOImpl implements CategoryDAO,  java.io.Serializable {
 		Session session = this.sessionFactory.getCurrentSession();
 		ArrayList<Category> cList = (ArrayList<Category>) session.createCriteria(Category.class).list();
 		System.out.print(cList);
+		System.out.println("" + cList.size());
 		return cList;
 
 	}
@@ -38,6 +39,7 @@ public class CategoryDAOImpl implements CategoryDAO,  java.io.Serializable {
 	public List<Category> getAllCategories() {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Category> categoryList = session.createCriteria(Category.class).list();
+		System.out.println("" + categoryList.size());
 
 		return categoryList;
 	}

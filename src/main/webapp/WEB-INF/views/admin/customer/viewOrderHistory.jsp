@@ -6,8 +6,15 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 
-
-<div class="span9">
+<div class="span2">
+	<!--Sidebar content-->
+	<ul class="nav nav-list">
+		<li class="nav-header">Administrative</li>
+		<li class="active"><a href="/cs490/admin/customer/viewHistory">View
+				order history</a></li>
+	</ul>
+</div>
+<div class="span10">
 	<table class="table table-bordered">
 		<thead>
 			<tr>
@@ -23,8 +30,8 @@
 			<c:forEach items="${orders}" var="order">
 
 				<tr>
-									<td>${order.id }</td>
-			
+					<td>${order.id }</td>
+
 					<td>${order.date }</td>
 					<td>
 						<table class="table table-bordered">

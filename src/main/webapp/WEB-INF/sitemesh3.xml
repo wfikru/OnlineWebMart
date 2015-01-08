@@ -7,8 +7,6 @@
 	<mapping path="/cart" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/cart/payment" decorator="/WEB-INF/decorators/defaultDecorator.jsp" />
 
-	<mapping path="/admin/customer" decorator="/WEB-INF/decorators/customerDecorator.jsp" />
-	<mapping path="/admin/customer/*" decorator="/WEB-INF/decorators/customerDecorator.jsp" />
 	<mapping path="/admin/vendor/*" decorator="/WEB-INF/decorators/vendorDecorator.jsp" />
 	<mapping path="/error/*" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />
 	<mapping path="/admin/vendor/waiting" decorator="/WEB-INF/decorators/registrationDecorator.jsp" />

@@ -94,7 +94,9 @@ public class CartController implements Serializable {
 		Product searchProduct = new Product();
 
 		map.addAttribute("searchProduct", searchProduct);
+
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
+
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
 			if (p.getId() == product.getId()) {
@@ -132,7 +134,9 @@ public class CartController implements Serializable {
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
+
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
+
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -155,7 +159,9 @@ public class CartController implements Serializable {
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
+
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
+
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -192,7 +198,9 @@ public class CartController implements Serializable {
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
+
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
+
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -307,10 +315,12 @@ public class CartController implements Serializable {
 						message);
 
 				Order order = new Order();
+
 				order.setCustomer_address(creditCard.getAddress());
 				order.setTotal(getGrandTotal);
 				order.setProfit_total(profit);
 				order.setProfit_for_mycompany(myprofit);
+
 				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
@@ -333,10 +343,12 @@ public class CartController implements Serializable {
 				guest.setCreditCard(creditCard);
 				guestservice.addGuestr(guest);
 				Order order = new Order();
+
 				order.setCustomer_address(creditCard.getAddress());
 				order.setTotal(getGrandTotal);
 				order.setProfit_total(profit);
 				order.setProfit_for_mycompany(myprofit);
+
 				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
