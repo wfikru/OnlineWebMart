@@ -30,7 +30,7 @@
 					action="update?pid=${product.id}" enctype="multipart/form-data">
 					<fieldset>
 						<legend>Product details</legend>
-						<table>
+						<table class="mytbl">
 							<tr>
 								<td style="width: 130px">Product Name:</td>
 								<td><springForm:input path="name" /></td>
@@ -38,7 +38,7 @@
 							</tr>
 							<tr>
 								<td>Description:</td>
-								<td><springForm:input path="description" /></td>
+								<td><springForm:textarea path="description" /></td>
 								<td><springForm:errors path="description" cssClass="error" /></td>
 							</tr>
 							<tr>

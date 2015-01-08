@@ -15,11 +15,11 @@ import edu.mum.cs490.model.Vendor;
 @Transactional
 public class VendordaoImpl implements Vendordao {
 
-	private SessionFactory sessionFactory;
-
 	@Autowired
-	public void setSessionFactory(SessionFactory sessionFactory) {
-		this.sessionFactory = sessionFactory;
+	private SessionFactory sessionFactory;
+	
+	public void setSessionFactory(SessionFactory sf) {
+		this.sessionFactory = sf;
 	}
 
 	@Override

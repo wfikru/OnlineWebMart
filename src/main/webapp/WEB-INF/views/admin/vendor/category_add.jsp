@@ -32,7 +32,7 @@
 						element="div" />
 					<fieldset>
 						<legend>Category details</legend>
-						<table>
+						<table class="mytbl">
 							<tr>
 								<td style="width: 130px">Category Name:</td>
 								<td><springForm:input id="name" path="name" type="text" /></td>
@@ -40,7 +40,7 @@
 							</tr>
 							<tr>
 								<td>Description:</td>
-								<td><springForm:input id="description" path="description"
+								<td><springForm:textarea id="description" path="description"
 										type="text" /></td>
 								<td><springForm:errors path="description" cssClass="error" /></td>
 							</tr>

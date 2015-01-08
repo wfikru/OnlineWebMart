@@ -31,7 +31,7 @@
 
 					<fieldset>
 						<legend>Product details</legend>
-						<table>
+						<table class="mytbl">
 							<tr>
 								<td style="width: 130px">Product Name:</td>
 								<td><springForm:input id="name" path="name" type="text" /></td>
@@ -39,7 +39,7 @@
 							</tr>
 							<tr>
 								<td>Description:</td>
-								<td><springForm:input id="description" path="description"
+								<td><springForm:textarea id="description" path="description"
 										type="text" /></td>
 								<td><springForm:errors path="description" cssClass="alert alert-danger" /></td>
 							</tr>
