@@ -33,7 +33,7 @@ public class Order implements Serializable{
 	@Embedded
 	private Address customer_address;
 	
-	@OneToMany(fetch=FetchType.EAGER, mappedBy="order")
+	@OneToMany(fetch=FetchType.EAGER)//, mappedBy="order")
 	private List<Product> products = new ArrayList<Product>();
 	
 	public SystemUser getSystemUser() {

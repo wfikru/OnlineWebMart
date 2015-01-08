@@ -255,7 +255,8 @@ public class CartController implements Serializable {
 		RestTemplate restTemplate = new RestTemplate();
 
 		String url = "http://localhost:8080/gateway/validate?ccn="
-				+ creditCard.getCardNo() + "&amount=" + getGrandTotal + "";
+				+ creditCard.getCardNo() + "&amount=" + (int) getGrandTotal
+				+ "";
 
 		// String url =
 		// "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
@@ -373,13 +374,15 @@ public class CartController implements Serializable {
 					+ "&profit=" + profit + "&total=" + getGrandTotal
 					+ "&myprofit=" + myprofit + "";
 
+			System.out.println(url2
+					+ "*********************************************");
 			// String url2 =
 			// "http://localhost:8080/myfinance/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
 
 			try {
 				restTemplate.postForObject(url2, null, String.class);
 			} catch (Exception e) {
-				// return "serviceError";
+				return "serviceError";
 			}
 
 			return "paymentSucces";
