@@ -48,7 +48,7 @@
 				<div class="span6">
 					<div class="pull-right">
 						<a
-							href="/cs490/logout"><span
+							href="/cs490/registration/logout"><span
 							class="btn btn-mini btn-primary">Logout </span> </a>
 
 					</div>

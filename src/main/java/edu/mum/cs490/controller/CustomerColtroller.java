@@ -75,7 +75,8 @@ public class CustomerColtroller {
 		int id= customer.getUserId();
 		ArrayList<Order> orders= orderService.getOrdersByCustomer(id);
 		model.addAttribute("orders", orders);
-		System.out.println("customer");
+		System.out.println("orders" + orders.size());
+//		System.out.println("customer");
 		return "/admin/customer/viewOrderHistory";
 	}
 }

@@ -6,6 +6,7 @@ package edu.mum.cs490.controller;
 
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.io.File;
 import java.io.FileInputStream;
@@ -47,7 +48,7 @@ import edu.mum.cs490.service.ProductService;
 
 @Controller
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
-		"listCategories", "size", "cartProducts", "user" })
+		"listCategories", "size", "cartProducts", "user", "status"})
 public class CartController {
 	//
 	// private List<String> productList ;
@@ -296,10 +297,11 @@ public class CartController {
 
 				Order order = new Order();
 				order.setCustomer_address(address);
-				List<Product> cartProducts = homeController.shoppingCart
-						.getProducts();
+				List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
 				order.setProducts(cartProducts);
+				order.setSystemUser((SystemUser) request.getSession().getAttribute("user"));
+				order.setDate(new Date());
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;
@@ -319,6 +321,8 @@ public class CartController {
 						.getProducts();
 
 				order.setProducts(cartProducts);
+				order.setSystemUser((SystemUser) request.getSession().getAttribute("user"));
+				order.setDate(new Date());
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;

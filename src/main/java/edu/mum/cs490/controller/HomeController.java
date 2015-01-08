@@ -34,7 +34,7 @@ import edu.mum.cs490.service.ProductService;
  */
 @Controller
 @SessionAttributes({ "listCategories", "searchProduct", "name", "allProducts",
-		"shoppingCart", "size", "cartProducts", "total" })
+		"shoppingCart", "size", "cartProducts", "total","status" })
 public class HomeController {
 
 	CategoryService categoryService;
@@ -66,7 +66,8 @@ public class HomeController {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		SystemUser user;
 		try{
-			user = (SystemUser)session.getAttribute("user");	
+			user = (SystemUser)session.getAttribute("user");
+			boolean status = (Boolean) session.getAttribute("status");
 			System.out.println("User role is : " + user.getRole());
 			if (user.getRole().equals("vendor")){
 				
