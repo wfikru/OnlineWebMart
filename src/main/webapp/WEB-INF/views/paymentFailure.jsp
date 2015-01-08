@@ -8,7 +8,17 @@
 		<div class="span5">
 			<legend>Error</legend>
 
-			<h4>Not sufficient amount in your account</h4>
+			<%!String errorMessage = null;%>
+			<%
+				String result = (String) request.getSession()
+						.getAttribute("result");
+				if (result.equals("n")) {
+					errorMessage = "Not sufficient amount in your account";
+				} else if (result.equals("N")) {
+					errorMessage = "Invalid Credit card number. Please fill out correctly";
+				}
+			%>
+			<h4><%=errorMessage%></h4>
 
 			<div class=" spacer">
 				<a href="payment" class="btn pull-right ">Back</a>

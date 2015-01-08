@@ -21,21 +21,29 @@ import edu.mum.cs490.model.Order;
 import edu.mum.cs490.model.Registered;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
+
+import edu.mum.cs490.service.SystemUserService;
+
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.OrderService;
+
 
 @Controller
 @SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
 public class CustomerColtroller {
 
-	private CustomerService customerService;
+
+	private SystemUserService customerService;
+
+
 	
 	@Autowired
 	OrderService orderService;
 
+
 	// List<Customer> productList = new ArrayList<Customer>();
 	@Autowired
-	public void setCustomerService(CustomerService customerService) {
+	public void setCustomerService(SystemUserService customerService) {
 		this.customerService = customerService;
 	}
 	
@@ -47,7 +55,7 @@ public class CustomerColtroller {
 
 	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
 	public String addCustomeraction(
-			@ModelAttribute("customer") @Valid Registered customer,
+			@ModelAttribute("customer") @Valid Customer customer,
 			BindingResult result) {
 
 		if (result.hasErrors()) {
@@ -55,7 +63,7 @@ public class CustomerColtroller {
 		}
 
 		customer.setRole("customer");
-		customerService.addCustomer(customer);
+		customerService.addUser(customer);
 
 		return "customerRegSuccess";
 	}

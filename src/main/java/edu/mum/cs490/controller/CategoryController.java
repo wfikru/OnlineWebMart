@@ -23,7 +23,6 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
 import edu.mum.cs490.model.Category;
-import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.CategoryService;
 
 

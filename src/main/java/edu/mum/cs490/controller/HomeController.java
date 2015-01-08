@@ -16,7 +16,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.ui.ModelMap;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -24,10 +28,12 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 import antlr.collections.List;
 import edu.mum.cs490.model.Cart;
 import edu.mum.cs490.model.Category;
+import edu.mum.cs490.model.Visitor;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CategoryService;
 import edu.mum.cs490.service.ProductService;
+import edu.mum.cs490.service.SystemUserService;
 
 /**
  * Handles requests for the application home page.
@@ -37,21 +43,24 @@ import edu.mum.cs490.service.ProductService;
 		"shoppingCart", "size", "cartProducts", "total" })
 public class HomeController {
 
-	CategoryService categoryService;
+	private CategoryService categoryService;
 
 	@Autowired
 	public void setCategoryService(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
 
-	ProductService productService;
+	private ProductService productService;
 
 	@Autowired
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
 
-	Cart shoppingCart = new Cart();
+	@Autowired
+	private SystemUserService systemUserService;
+
+	private Cart shoppingCart = new Cart();
 	int size;
 	int total;
 
@@ -65,21 +74,21 @@ public class HomeController {
 	public String home(Locale locale, ModelMap map, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		SystemUser user;
-		try{
-			user = (SystemUser)session.getAttribute("user");	
+		try {
+			user = (SystemUser) session.getAttribute("user");
 			System.out.println("User role is : " + user.getRole());
-			if (user.getRole().equals("vendor")){
-				
+			if (user.getRole().equals("vendor")) {
+
 				return "redirect:/admin/vendor/product";
-			}else if (user.getRole().equals("admin")){
+			} else if (user.getRole().equals("admin")) {
 				return "redirect:/admin/system";
-			}else{
-//				return "redirect:/admin/customer";
+			} else {
+				return "redirect:/admin/customer";
+
 			}
-		}catch(Exception ex){
-			
+		} catch (Exception ex) {
+
 		}
-		
 
 		Date date = new Date();
 		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG,
@@ -111,5 +120,17 @@ public class HomeController {
 	public Cart getShoppingCart() {
 		return shoppingCart;
 	}
-	
+
+	@RequestMapping(value = "/contactus", method = RequestMethod.GET)
+	public String contactUsPage(Model model) {
+		model.addAttribute("contact", new Visitor());
+		return "contactus";
+	}
+
+	@RequestMapping(value = "/contactus", method = RequestMethod.POST)
+	public String contactUsAction(@ModelAttribute("model") Visitor message) {
+
+		this.systemUserService.addUser(message);
+		return "home2";
+	}
 }

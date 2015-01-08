@@ -29,25 +29,24 @@ import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
-import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.SystemUserService;
-import edu.mum.cs490.service.VendorService;
 import edu.mum.cs490.validator.RegistrationUser;
 import edu.mum.cs490.validator.RegistrationValidator;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct",
+		"size", "shoppingCart", "cartProducts", "total" })
 public class RegistrationColtroller {
 
 	@Autowired
 	SystemUserService userService;
-	@Autowired
-	CustomerService customerService;
-	@Autowired
-	VendorService vendorService;
+
 	@Autowired
 	private MailService mailService;
+
+	@Autowired
+	private SystemUserService systemUserService;
 
 	@RequestMapping("/registration")
 	public String showRegistrationPage(ModelMap map) {
@@ -64,7 +63,7 @@ public class RegistrationColtroller {
 	public String doLogin(@ModelAttribute("user") SystemUser userLogin,
 			BindingResult result, ModelMap map, HttpSession session) {
 
-		SystemUser user = userService.loginCheck(userLogin.getEmail(),
+		SystemUser user = userService.checkLogin(userLogin.getEmail(),
 				userLogin.getPassword());
 		boolean status;
 		boolean login_error;
@@ -102,14 +101,16 @@ public class RegistrationColtroller {
 	}
 
 	@RequestMapping("/registration/register")
-	public String doRegister(ModelMap map, @Valid @ModelAttribute RegistrationUser reg_user, BindingResult result, HttpSession session){
+	public String doRegister(ModelMap map,
+			@Valid @ModelAttribute RegistrationUser reg_user,
+			BindingResult result, HttpSession session) {
 
-		String rootDirectory = session.getServletContext().
-				getRealPath("/");
-		String message=null;
+		String rootDirectory = session.getServletContext().getRealPath("/");
+		String message = null;
 		FileInputStream fisTargetFile = null;
-		try {			
-			fisTargetFile = new FileInputStream(new File(rootDirectory+"\\resources\\message\\greeting"));
+		try {
+			fisTargetFile = new FileInputStream(new File(rootDirectory
+					+ "\\resources\\message\\greeting"));
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
@@ -119,7 +120,7 @@ public class RegistrationColtroller {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		RegistrationValidator userValidator = new RegistrationValidator();
 		userValidator.validate(reg_user, result);
 		if (result.hasErrors()) {
@@ -134,10 +135,10 @@ public class RegistrationColtroller {
 				c.setEmail(reg_user.getEmail());
 				c.setPassword(reg_user.getPassword());
 				c.setRole("customer");
-				customerService.addCustomer(c);
+				systemUserService.addUser(c);
 				session.setAttribute("user", c);
-				mailService.sendMail(reg_user.getEmail(), "Greeting",
-						message);
+				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
+
 				return "redirect:/";
 			} else {
 				Vendor c = new Vendor();
@@ -145,10 +146,10 @@ public class RegistrationColtroller {
 				c.setPassword(reg_user.getPassword());
 				c.setRole("vendor");
 				c.setVendorName(reg_user.getEmail());
-				vendorService.addVendor(c);
+				systemUserService.addUser(c);
 				session.setAttribute("user", c);
-				mailService.sendMail(reg_user.getEmail(), "Greeting",
-						message);
+				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
+
 				return "redirect:/admin/vendor/product";
 			}
 

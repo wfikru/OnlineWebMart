@@ -36,7 +36,7 @@ import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
-import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.SystemUserService;
 import edu.mum.cs490.service.VendorService;
 import edu.mum.cs490.validator.RegistrationUser;
 
@@ -45,7 +45,7 @@ import edu.mum.cs490.validator.RegistrationUser;
 public class AdminController {
 
 	@Autowired
-	private CustomerService customerService;
+	private SystemUserService customerService;
 
 	@Autowired
 	private VendorService vendorService;
@@ -58,13 +58,15 @@ public class AdminController {
 
 	@RequestMapping("/customers")
 	public String allCustomers(Model model) {
-		List<Customer> customers = customerService.allCustomers();
+		List<Customer> customers = customerService.allCustomerUsers();
 		model.addAttribute("customers", customers);
 		return "manageCustomers";
 	}
 
+
 	@RequestMapping("/admin/system/vendors")
 	public String allVendors(Model model, HttpServletRequest request, HttpSession session) {
+
 		
 		try {
 			Admin admin = (Admin)session.getAttribute("user");
@@ -74,6 +76,7 @@ public class AdminController {
 			
 					List<Vendor> vendors = vendorService.allVendors();
 			
+						
 					model.addAttribute("vendors", vendors);
 
 					return "manageVendors";

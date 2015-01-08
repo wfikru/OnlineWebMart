@@ -7,7 +7,6 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 <!-- body================================== -->
-
 <div id="sidebar" class="span3">
 	<ul id="sideManu" class="nav nav-tabs nav-stacked">
 		<li class="subMenu open"><a>Category</a>
@@ -60,4 +59,3 @@
 	</ul>
 
 </div>
-

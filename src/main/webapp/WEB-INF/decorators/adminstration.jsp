@@ -1,7 +1,3 @@
-
-
-
-
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -87,11 +83,9 @@
 				<sitemesh:write property='body' />
 			</div>
 			<!-- Side bar ======================================= -->
-			<div id="sidebar" class="span3">
-				test
-			</div>
+			<div id="sidebar" class="span3">test</div>
 			<!-- End of side bar========================================= -->
-			
+
 		</div>
 	</div>
 	<script

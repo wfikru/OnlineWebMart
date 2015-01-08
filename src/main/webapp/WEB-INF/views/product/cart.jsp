@@ -66,7 +66,7 @@
 		</tbody>
 	</table>
 	<div style="">
-		<a href="payment"><span class="btn btn-primary"><i
+		<a href="/cs490/payment"><span class="btn btn-primary"><i
 				class="icon-shopping-cart icon-white"></i>&nbsp;&nbsp; Check Out
 				&nbsp;&nbsp;</span> </a>
 	</div>

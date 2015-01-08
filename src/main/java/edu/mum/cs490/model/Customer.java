@@ -47,17 +47,9 @@ public class Customer extends SystemUser {
 //		this.orders = orders;
 //	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
 	@OneToOne(cascade = CascadeType.PERSIST)
 	private CreditCard creditCard;
-	
+
 	public CreditCard getCreditCard() {
 		return creditCard;
 	}
@@ -65,6 +57,14 @@ public class Customer extends SystemUser {
 	public void setCreditCard(CreditCard creditCard) {
 		this.creditCard = creditCard;
 	}
+	
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}	
 
 	public Date getDateOfBirth() {
 		return dateOfBirth;

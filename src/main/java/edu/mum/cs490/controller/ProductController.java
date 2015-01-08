@@ -35,7 +35,6 @@ import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CategoryService;
-import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
