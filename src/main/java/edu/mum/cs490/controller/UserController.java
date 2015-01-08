@@ -33,6 +33,7 @@ import edu.mum.cs490.service.SystemUserService;
 
 @Controller
 @SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total","userId"})
+
 public class UserController {
 
 	@Autowired
@@ -51,7 +52,7 @@ public class UserController {
 	public String loginCheck(@ModelAttribute("user") SystemUser userLogin,
 			BindingResult result, ModelMap map, HttpSession session) {
 
-		SystemUser user = userService.loginCheck(userLogin.getEmail(),
+		SystemUser user = userService.checkLogin(userLogin.getEmail(),
 				userLogin.getPassword());
 		boolean status;
 		boolean error;
@@ -88,6 +89,7 @@ public class UserController {
 	public String home() {
 		
 		return "home2";
+
 	}
 
 	@RequestMapping(value = "/login")
@@ -110,5 +112,36 @@ public class UserController {
 		status = false;
 		return "home2";
 
+	}
+
+	@RequestMapping(value = "/productPerCategory")
+	public String listProducts(@ModelAttribute("catId") int categoryId,
+			BindingResult result, ModelMap map) {
+		ArrayList<Product> listOfProducts = productService
+				.listProductsByCriteria(categoryId);
+		map.addAttribute("productsByCat", listOfProducts);
+		return "listProductsByCategory";
+
+	}
+
+	@RequestMapping(value = "/productByName", method = RequestMethod.POST)
+	public String searchProductsByName(
+			@ModelAttribute("searchProduct") Product p, BindingResult result,
+			ModelMap map) {
+		ArrayList<Product> products = productService.getProductsByName(p
+				.getName());
+		map.addAttribute("products", products);
+		if (products.size() == 0)
+			return "noItem";
+		else
+			return "searchProductsByName";
+	}
+
+	@RequestMapping(value = "/allProducts", method = RequestMethod.GET)
+	public String getAllProducts(Model model) {
+		ArrayList<Product> allProducts = (ArrayList<Product>) productService
+				.getAvailableProducts();
+		model.addAttribute("allProducts", allProducts);
+		return "allProducts";
 	}
 }

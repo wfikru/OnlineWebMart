@@ -19,27 +19,33 @@ import javax.imageio.ImageReadParam;
 import javax.imageio.ImageReader;
 import javax.imageio.stream.ImageInputStream;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
+import edu.mum.cs490.model.Admin;
 import edu.mum.cs490.model.Customer;
+import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
-import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.SystemUserService;
 import edu.mum.cs490.service.VendorService;
 import edu.mum.cs490.validator.RegistrationUser;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total"})
+@SessionAttributes({ "user"})
 public class AdminController {
 
 	@Autowired
-	private CustomerService customerService;
+	private SystemUserService customerService;
 
 	@Autowired
 	private VendorService vendorService;
@@ -47,41 +53,65 @@ public class AdminController {
 	@RequestMapping("/admin/system")
 	public String showAdminPage(ModelMap map) {
 
-		return "/admin/system/home";
+		return "redirect:/admin/system/vendors";
 	}
 
 	@RequestMapping("/customers")
 	public String allCustomers(Model model) {
-		List<Customer> customers = customerService.allCustomers();
+		List<Customer> customers = customerService.allCustomerUsers();
 		model.addAttribute("customers", customers);
 		return "manageCustomers";
 	}
 
-	@RequestMapping("/vendors")
-	public String allVendors(Model model, HttpServletRequest request) {
-		List<Vendor> vendors = vendorService.allVendors();
+
+	@RequestMapping("/admin/system/vendors")
+	public String allVendors(Model model, HttpServletRequest request, HttpSession session) {
+
 		
+		try {
+			Admin admin = (Admin)session.getAttribute("user");
+			if(admin!=null){
+				
+				if (admin.getRole().equals("admin")){
 			
-		for (Vendor vendor : vendors) {
-
-			String path = request.getSession().getServletContext()
-					.getRealPath("/");
-			path += "\\resources\\images\\" + vendor.getVendorName() + ".png";
-
-			byte[] bytes = vendor.getImage();
-
-			try {
-				BufferedImage img = ImageIO.read(new ByteArrayInputStream(bytes));
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+					List<Vendor> vendors = vendorService.allVendors();
 			
-			vendor.setFilePath(path);
+						
+					model.addAttribute("vendors", vendors);
+
+					return "manageVendors";
+				}else return "/";
+			}else return "/";
+		} catch (Exception e1) {
+			
+			return "redirect:/";
 		}
-
-		model.addAttribute("vendors", vendors);
-
-		return "manageVendors";
+		
+		
 	}
+	
+	
+	@RequestMapping("/admin/system/disable")
+	public String disableVendor(Model model, @ModelAttribute("vendor") Vendor vendor, BindingResult result, @RequestParam("vid") String vendorId, HttpServletRequest request) {
+		
+		int id = Integer.parseInt(vendorId);
+		Vendor v = vendorService.getVendorById(id);
+		v.setStatus(2);
+	
+		vendorService.updateVendor(v);
+		return "redirect:/admin/system/vendors";
+	}
+	
+	
+	@RequestMapping("/admin/system/activate")
+	public String activateVendor(Model model, @ModelAttribute("vendor") Vendor vendor, BindingResult result, @RequestParam("vid") String vendorId, HttpServletRequest request) {
+		
+		int id = Integer.parseInt(vendorId);
+		Vendor v = vendorService.getVendorById(id);
+		v.setStatus(1);
+	
+		vendorService.updateVendor(v);
+		return "redirect:/admin/system/vendors";
+	}
+	
 }

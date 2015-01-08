@@ -13,14 +13,19 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
-import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
+import edu.mum.cs490.service.ProductService;
+import edu.mum.cs490.service.SystemUserService;
+import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.VendorService;
 
 @Controller
 @SessionAttributes({ "user" })
 public class VendorController {
 
+	@Autowired
+	private SystemUserService systemService;
+	
 	@Autowired
 	private VendorService vendorService;
 
@@ -104,5 +109,4 @@ public class VendorController {
 			return "/admin/vendor/profile";
 		}
 	}
-
 }

@@ -41,6 +41,18 @@ public class CreditCard {
 	@OneToOne
 	private Customer customer;
 	
+	@OneToOne
+	private Guest guest;
+	
+	
+	public Guest getGuest() {
+		return guest;
+	}
+
+	public void setGuest(Guest guest) {
+		this.guest = guest;
+	}
+
 	public Customer getCustomer() {
 		return customer;
 	}
