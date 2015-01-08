@@ -11,7 +11,7 @@
 			<h4>Your orders will be shipped to you soon.</h4>
 			
 			<div class=" spacer">
-				<a href="" class="btn pull-right ">Back to home page</a>
+				<a href="/cs490" class="btn pull-right ">Back to home page</a>
 			</div>
 		</div>
 	</div>

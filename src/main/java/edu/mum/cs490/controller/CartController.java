@@ -16,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -159,7 +160,6 @@ public class CartController implements Serializable {
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
 		Product product = new Product();
@@ -197,7 +197,6 @@ public class CartController implements Serializable {
 	@RequestMapping(value = "/product/plusOne")
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
-
 
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
@@ -267,6 +266,7 @@ public class CartController implements Serializable {
 		try {
 			result = restTemplate.postForObject(url, null, String.class);
 			request.getSession().setAttribute("result", result);
+
 		} catch (Exception e) {
 			return "serviceError";
 		}
@@ -337,11 +337,12 @@ public class CartController implements Serializable {
 				map.addAttribute("size", size);
 
 			} else {
+
+				request.getSession().removeAttribute("user");
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());
-				creditCard.setGuest(guest);
 				guest.setCreditCard(creditCard);
-				guestservice.addGuestr(guest);
+				guestservice.addGuest(guest);
 				Order order = new Order();
 
 				order.setCustomer_address(creditCard.getAddress());

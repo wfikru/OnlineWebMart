@@ -17,12 +17,6 @@ public class GuestserviceImpl implements Guestservice {
 	private Guestdao guestDao;
 
 	@Override
-	public void addGuestr(Guest g) {
-		guestDao.addGuestr(g);
-
-	}
-
-	@Override
 	public void updateGuest(Guest g) {
 		guestDao.updateGuest(g);
 
@@ -41,6 +35,12 @@ public class GuestserviceImpl implements Guestservice {
 	@Override
 	public void removeGuest(int id) {
 		guestDao.removeGuest(id);
+	}
+
+	@Override
+	public void addGuest(Guest g) {
+		this.guestDao.addGuestr(g);
+		
 	}
 
 }

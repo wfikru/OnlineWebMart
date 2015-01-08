@@ -6,7 +6,7 @@ import edu.mum.cs490.model.Guest;
 
 public interface Guestservice {
 
-	public void addGuestr(Guest g);
+	public void addGuest(Guest g);
 
 	public void updateGuest(Guest g);
 

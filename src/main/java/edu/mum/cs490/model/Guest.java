@@ -1,5 +1,7 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
@@ -9,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity(name = "GUEST")
-public class Guest {
+public class Guest implements Serializable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
