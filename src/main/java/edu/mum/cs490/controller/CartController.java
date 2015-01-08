@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
@@ -45,14 +46,14 @@ import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.Guestservice;
 import edu.mum.cs490.service.MailService;
+import edu.mum.cs490.service.OrderService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
 
 @Controller
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
 		"listCategories", "size", "cartProducts", "user", "status", "result" })
-
-public class CartController {
+public class CartController implements Serializable {
 
 	@Autowired
 	private HomeController homeController;
@@ -71,6 +72,10 @@ public class CartController {
 
 	@Autowired
 	ProductService productService;
+
+	@Autowired
+	private OrderService orderService;
+
 	double total;
 	int size;
 
@@ -89,8 +94,7 @@ public class CartController {
 		Product searchProduct = new Product();
 
 		map.addAttribute("searchProduct", searchProduct);
-		List<Product> cartProducts = homeController.getShoppingCart()
-				.getProducts();
+		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
 			if (p.getId() == product.getId()) {
@@ -128,8 +132,7 @@ public class CartController {
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
-		List<Product> cartProducts = homeController.getShoppingCart()
-				.getProducts();
+		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -152,8 +155,7 @@ public class CartController {
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart()
-				.getProducts();
+		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -190,8 +192,7 @@ public class CartController {
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart()
-				.getProducts();
+		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -234,10 +235,11 @@ public class CartController {
 			return "payment";
 		}
 
-		Cart cart = (Cart) request.getSession().getAttribute("shoppingCart");
-
 		double getGrandTotal = (Double) request.getSession().getAttribute(
 				"total");
+
+		double profit = getGrandTotal * 0.2;
+		double myprofit = profit * 0.1;
 
 		creditCard.setCardNo(creditCard.getFirst(), creditCard.getSecond(),
 				creditCard.getThird(), creditCard.getFourth());
@@ -250,6 +252,9 @@ public class CartController {
 
 		// String url =
 		// "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
+		System.out.println(url
+				+ " ***********************************************");
+
 		String result = null;
 		try {
 			result = restTemplate.postForObject(url, null, String.class);
@@ -260,27 +265,13 @@ public class CartController {
 
 		if (result.equals("y")) {
 
-			Address address = new Address();
-			address.setState(request.getParameter("state"));
-			address.setStreet(request.getParameter("street"));
-			address.setZip(request.getParameter("zip"));
-
 			SystemUser user = (SystemUser) request.getSession().getAttribute(
 					"user");
-
-			// Customer user = customerService.getCustomerById(systemuser
-			// .getUserId());
-
-			// Customer user = (SystemUser) request.getSession()
-			// .getAttribute("user");
-			
-			
-			
 			boolean is_guest = true;
-			if (user!=null){
-				if (user.getUserId()!=0){
-					if (user.getRole().equalsIgnoreCase("customer")){
-						is_guest = true;
+			if (user != null) {
+				if (user.getUserId() != 0) {
+					if (user.getRole().equalsIgnoreCase("customer")) {
+						is_guest = false;
 					}
 				}
 			}
@@ -290,10 +281,8 @@ public class CartController {
 				Customer customer = customerService.getCustomerById(user
 						.getUserId());
 
-				// .getUserById(user.getUserId());
-
-				customer.setAddress(address);
-//				customer.setCreditCard(creditCard);
+				customer.setAddress(creditCard.getAddress());
+				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
 
 				String rootDirectory = request.getSession().getServletContext()
@@ -318,14 +307,18 @@ public class CartController {
 						message);
 
 				Order order = new Order();
-				order.setCustomer_address(address);
-
-				List<Product> cartProducts = homeController.getShoppingCart()
+				order.setCustomer_address(creditCard.getAddress());
+				order.setTotal(getGrandTotal);
+				order.setProfit_total(profit);
+				order.setProfit_for_mycompany(myprofit);
+				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
 				order.setProducts(cartProducts);
-				order.setSystemUser((SystemUser) request.getSession().getAttribute("user"));
+				order.setSystemUser((SystemUser) request.getSession()
+						.getAttribute("user"));
 				order.setDate(new Date());
+				orderService.addOrder(order);
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;
@@ -335,18 +328,23 @@ public class CartController {
 
 			} else {
 				Guest guest = new Guest();
-				guest.setAddress(address);
-//				creditCard.setGuest(guest);
-//				guest.setCreditCard(creditCard);
+				guest.setAddress(creditCard.getAddress());
+				creditCard.setGuest(guest);
+				guest.setCreditCard(creditCard);
 				guestservice.addGuestr(guest);
 				Order order = new Order();
-				order.setCustomer_address(address);
-				List<Product> cartProducts = homeController.getShoppingCart()
+				order.setCustomer_address(creditCard.getAddress());
+				order.setTotal(getGrandTotal);
+				order.setProfit_total(profit);
+				order.setProfit_for_mycompany(myprofit);
+				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
 				order.setProducts(cartProducts);
-				//order.setSystemUser((SystemUser) session.getAttribute("user"));
+				order.setSystemUser((SystemUser) request.getSession()
+						.getAttribute("user"));
 				order.setDate(new Date());
+				orderService.addOrder(order);
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;
@@ -355,22 +353,20 @@ public class CartController {
 				map.addAttribute("size", size);
 			}
 
-			double profit = getGrandTotal * 0.2;
-			double myprofit = profit * 0.1;
+			String strAddress = creditCard.getAddress().getZip();
 
-			String strAddress = "STATE:" + address.getState() + "_STREET:"
-					+ address.getStreet() + "_ZIP:" + address.getZip();
-			String url2 = "http://localhost:8080/payment/finance?ccn="
+			String url2 = "http://localhost:8080/myfinance/finance?ccn="
 					+ creditCard.getCardNo() + "&address=" + strAddress
 					+ "&profit=" + profit + "&total=" + getGrandTotal
 					+ "&myprofit=" + myprofit + "";
 
 			// String url2 =
-			// "http://localhost:8082/payment/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
+			// "http://localhost:8080/myfinance/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
+
 			try {
 				restTemplate.postForObject(url2, null, String.class);
 			} catch (Exception e) {
-				return "serviceError";
+				// return "serviceError";
 			}
 
 			return "paymentSucces";

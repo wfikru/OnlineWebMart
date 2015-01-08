@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -28,9 +29,11 @@ public class Order implements Serializable{
 	
 	@Temporal(TemporalType.DATE)
 	private Date date;
+	
+	@Embedded
 	private Address customer_address;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.EAGER, mappedBy="order")
 	private List<Product> products = new ArrayList<Product>();
 	
 	public SystemUser getSystemUser() {

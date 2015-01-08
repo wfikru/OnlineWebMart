@@ -5,7 +5,9 @@ import java.util.ArrayList;
 import edu.mum.cs490.model.Order;
 
 public interface OrderService {
-public ArrayList<Order> getOrdersByCustomer(int custId);
-public ArrayList<Order> getAllOrders();
+	public ArrayList<Order> getOrdersByCustomer(int custId);
 
+	public ArrayList<Order> getAllOrders();
+
+	public void addOrder(Order o);
 }

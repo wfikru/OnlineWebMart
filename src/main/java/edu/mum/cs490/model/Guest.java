@@ -34,15 +34,15 @@ public class Guest {
 		this.address = address;
 	}
 
-//	@OneToOne//(cascade = CascadeType.PERSIST)
-//	@Embedded
-//	private CreditCard creditCard;
-//
-//	public CreditCard getCreditCard() {
-//		return creditCard;
-//	}
-//
-//	public void setCreditCard(CreditCard creditCard) {
-//		this.creditCard = creditCard;
-//	}
+	@OneToOne(cascade = CascadeType.ALL)
+	@Embedded
+	private CreditCard creditCard;
+
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
 }

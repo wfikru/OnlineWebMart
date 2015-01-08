@@ -47,7 +47,7 @@ public class CustomerdaoImpl implements Customerdao {
 	public Customer getCustomerById(int id) {
 		Session session = this.sessionFactory.getCurrentSession();
 		Customer c = (Customer) session.load(Customer.class, new Integer(id));
-
+		System.out.println(c.getUserId());
 		return c;
 	}
 

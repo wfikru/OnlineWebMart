@@ -3,8 +3,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container">
-	<div class="row">
+<div class="span12">
+	<div >
 		<div class="span5">
 
 			<form:form modelAttribute="creditCard" class="form-horizontal"
@@ -17,17 +17,23 @@
 					<label class="control-label">State</label>
 					<div class="controls">
 						<form:input id="state" type="text" class="input-block-level"
-							title="Fill your first and last name"
-							path="customer.address.state" />
+							title="Fill your first and last name" path="address.state" />
 					</div>
 				</div>
 
 				<div class="control-group">
+					<label class="control-label">City</label>
+					<div class="controls">
+						<form:input id="city" type="text" class="input-block-level"
+							title="Fill your first and last name" path="address.city" />
+					</div>
+				</div>
+				
+				<div class="control-group">
 					<label class="control-label">Street</label>
 					<div class="controls">
 						<form:input id="street" type="text" class="input-block-level"
-							title="Fill your first and last name"
-							path="customer.address.street" />
+							title="Fill your first and last name" path="address.street" />
 					</div>
 				</div>
 
@@ -35,7 +41,7 @@
 					<label class="control-label">ZIP</label>
 					<div class="controls">
 						<form:input id="zip" type="text" class="input-block-level"
-							pattern="\d{5}" path="customer.address.zip" />
+							pattern="\d{5}" path="address.zip" />
 					</div>
 				</div>
 

@@ -39,19 +39,7 @@ public class Customer extends SystemUser implements Serializable{
 	
 	@OneToOne
 	private Cart cart;
-	
-//	@OneToMany
-//
-//	ArrayList<Order> orders= new ArrayList<Order>();
-//	
-//	
-//	public ArrayList<Order> getOrders() {
-//		return orders;
-//	}
-//
-//	public void setOrders(ArrayList<Order> orders) {
-//		this.orders = orders;
-//	}
+
 	@Transient
 	private String filePath;
 	
@@ -73,17 +61,16 @@ public class Customer extends SystemUser implements Serializable{
 		this.image = image;
 	}
 
-//	@OneToOne//(cascade = CascadeType.PERSIST)
-//	@Embedded
-//	private CreditCard creditCard;
-//
-//	public CreditCard getCreditCard() {
-//		return creditCard;
-//	}
-//
-//	public void setCreditCard(CreditCard creditCard) {
-//		this.creditCard = creditCard;
-//	}
+	@OneToOne(cascade = CascadeType.ALL)
+	private CreditCard creditCard;
+
+	public CreditCard getCreditCard() {
+		return creditCard;
+	}
+
+	public void setCreditCard(CreditCard creditCard) {
+		this.creditCard = creditCard;
+	}
 	
 	public Cart getCart() {
 		return cart;

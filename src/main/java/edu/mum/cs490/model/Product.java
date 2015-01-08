@@ -12,59 +12,59 @@ import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.Transient;
-import javax.xml.bind.annotation.XmlRootElement;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
-import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
-
 @Entity(name = "PRODUCT")
-public class Product implements Serializable{
-	
+public class Product implements Serializable {
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "product_id")
 	private int id;
-	
+
 	@Column(name = "product_name")
 	@NotEmpty
 	private String name;
-	
+
 	@Column(name = "product_image_path")
 	private String imagePath;
-	
+
+	@ManyToOne
+//	@JoinColumn(name="")
+	private Order order;
+
 	@Lob
 	@Column(name = "product_image")
 	private byte[] image;
-	
+
 	@Column(name = "product_description")
 	private String description;
 
-	@Column(name= "product_price")
-	@Range(min = 0)
+	@Column(name = "product_price")
+	// @Range(min = 0)
 	private double price;
-	
-	@Column(name= "quantity")
-	@Range(min = 0)
+
+	@Column(name = "quantity")
+	// @Range(min = 0)
 	private int quantity;
-	
+
 	@Transient
 	private int cartQuantity;
-	
+
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "cat_id", nullable = false)
 	private Category category;
-	
+
 	@JsonIgnore
-	@Transient 
+	@Transient
 	private MultipartFile productImage;
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "vendor_id", nullable = false)
 	private Vendor vendor;
-	
 
 	public byte[] getImage() {
 		return image;
@@ -113,7 +113,6 @@ public class Product implements Serializable{
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
 
 	public int getQuantity() {
 		return quantity;
@@ -122,7 +121,6 @@ public class Product implements Serializable{
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
 
 	public int getCartQuantity() {
 		return cartQuantity;
@@ -147,6 +145,5 @@ public class Product implements Serializable{
 	public void setVendor(Vendor vendor) {
 		this.vendor = vendor;
 	}
-	
-	
+
 }

@@ -10,10 +10,19 @@ import edu.mum.cs490.dao.OrderDao;
 import edu.mum.cs490.model.Order;
 
 @Service
+@Transactional
 public class OrderServiceImpl implements OrderService{
-@Autowired
-OrderDao orderDao;
 
+	@Autowired
+	private OrderDao orderDao;
+
+	@Override
+	@Transactional
+	public void addOrder(Order o) {
+		this.orderDao.addOrder(o);
+		
+	}
+	
 	@Override
 	@Transactional
 	public ArrayList<Order> getOrdersByCustomer(int custId)
@@ -27,6 +36,6 @@ OrderDao orderDao;
 	{
 		return orderDao.allOrders();
 	}
-	
 
+	
 }
