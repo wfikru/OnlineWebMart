@@ -154,11 +154,22 @@ public class ProductController {
 			
 			
 		} else {
-			product.setId(Integer.parseInt(productId));
+			Product p = productService.getProductById(Integer.parseInt(productId));
+			p.setName(product.getName());
+			p.setDescription(product.getDescription());
+			p.setPrice(product.getPrice());
+			p.setQuantity(product.getQuantity());
+			p.setCategory(product.getCategory());
+			
+			byte[] img = product.getImage();
+			
+			if (img.length>0) p.setImage(product.getImage());
+			
+
 			Vendor user = (Vendor) session.getAttribute("user");
-			//Vendor v = vendorService.getVendorById(user.getUserId());
+
 			product.setVendor(user);
-			productService.updateProduct(product);
+			productService.updateProduct(p);
 			return "redirect:/admin/vendor/product";
 		}
 		
