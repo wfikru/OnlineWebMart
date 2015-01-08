@@ -279,7 +279,7 @@ public class CartController {
 				// .getUserById(user.getUserId());
 
 				customer.setAddress(address);
-				creditCard.setCustomer(customer);
+//				creditCard.setCustomer(customer);
 				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
 
@@ -320,7 +320,7 @@ public class CartController {
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
-				creditCard.setGuest(guest);
+//				creditCard.setGuest(guest);
 				guest.setCreditCard(creditCard);
 				guestservice.addGuestr(guest);
 				Order order = new Order();

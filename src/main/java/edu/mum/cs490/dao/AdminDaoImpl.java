@@ -17,10 +17,6 @@ public class AdminDaoImpl implements AdminDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 
-	public void setSessionFactory(SessionFactory sf) {
-		this.sessionFactory = sf;
-	}
-
 	@Override
 	public void addAdmin(Admin c) {
 		Session session = this.sessionFactory.getCurrentSession();

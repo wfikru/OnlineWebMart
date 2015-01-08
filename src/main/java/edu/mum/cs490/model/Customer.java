@@ -1,5 +1,6 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
 import javax.validation.constraints.Size;
 
 @Entity(name = "CUSTOMER")
-public class Customer extends SystemUser {
+public class Customer extends SystemUser implements Serializable{
 	
 	@Column(name = "firstname")
 	private String firstName;
@@ -47,7 +48,8 @@ public class Customer extends SystemUser {
 //		this.orders = orders;
 //	}
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+//	@OneToOne//(cascade = CascadeType.PERSIST)
+	@Embedded
 	private CreditCard creditCard;
 
 	public CreditCard getCreditCard() {

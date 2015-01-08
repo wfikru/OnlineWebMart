@@ -9,12 +9,14 @@ import org.hibernate.SessionFactory;
 //import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 
 @Repository
+@Transactional
 public class SystemUserDAOImpl implements SystemUserDAO {
 
 	@Autowired
