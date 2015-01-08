@@ -64,8 +64,7 @@
 							src="/cs490/resources/themes/images/logo.png" alt="Bootsshop" /></a>
 						
 						<ul class="nav nav-pills pull-right">
-							<li class=""><a href="normal.html">Home</a></li>
-							<li class=""><a href="normal.html">Profile</a></li>
+							<li class=""><a href="/cs490">Home</a></li>
 						</ul>
 					</div>
 				</div>
