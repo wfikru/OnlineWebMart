@@ -6,13 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity(name = "GUEST")
-public class Guest extends Customer{
-
-	public void setCreditCard(CreditCard creditCard) {
-		// TODO Auto-generated method stub
-		
-	}
-	
-
+public class Guest extends Customer {
 
 }

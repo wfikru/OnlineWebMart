@@ -60,7 +60,7 @@ public class HomeController {
 	@Autowired
 	private SystemUserService systemUserService;
 
-	Cart shoppingCart = new Cart();
+	private Cart shoppingCart = new Cart();
 	int size;
 	int total;
 
