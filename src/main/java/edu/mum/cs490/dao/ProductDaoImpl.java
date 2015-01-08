@@ -36,7 +36,7 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		List<Product> productList = session.createCriteria(Product.class)
 				.list();
-
+		System.out.println("" + productList.size());
 		return productList;
 	}
 
@@ -46,7 +46,7 @@ public class ProductDaoImpl implements ProductDao {
 		Criteria cr = session.createCriteria(Product.class);
 		List<Product> productList = cr.add(Restrictions.gt("quantity", 0))
 				.list();
-
+		System.out.println("" + productList.size());
 		return productList;
 	}
 
@@ -134,6 +134,7 @@ public class ProductDaoImpl implements ProductDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		Criteria cr = session.createCriteria(Product.class);
 		ArrayList<Product> products =(ArrayList<Product>) cr.add(Restrictions.ilike("name", "%"+query+"%")).list();
+		System.out.println("" + products.size());
 		return products;
 
 	}

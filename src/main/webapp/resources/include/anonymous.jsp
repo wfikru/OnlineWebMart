@@ -8,7 +8,7 @@
 				</a>
 				<div class="navbar-inner">
 					<!-- Logo Image -->
-					<a class="brand" href=""><img
+					<a class="brand" href="/cs490"><img
 						src="/cs490/resources/themes/images/logo.png" alt="Mercato" /></a>
 
 					<form:form action="/cs490/product/search" methodParam="query"

@@ -38,7 +38,8 @@ import edu.mum.cs490.service.SystemUserService;
  */
 @Controller
 @SessionAttributes({ "listCategories", "searchProduct", "name", "allProducts",
-		"shoppingCart", "size", "cartProducts", "total" })
+		"shoppingCart", "size", "cartProducts", "total", "user", "status" })
+
 public class HomeController implements Serializable{
 
 	private CategoryService categoryService;
@@ -58,7 +59,7 @@ public class HomeController implements Serializable{
 	@Autowired
 	private SystemUserService systemUserService;
 
-	private Cart shoppingCart = new Cart();
+	public Cart shoppingCart = new Cart();
 	int size;
 	int total;
 
@@ -81,7 +82,7 @@ public class HomeController implements Serializable{
 			} else if (user.getRole().equals("admin")) {
 				return "redirect:/admin/system";
 			} else {
-				return "redirect:/admin/customer";
+//				return "redirect:/product/search_all";
 
 			}
 		} catch (Exception ex) {
@@ -113,10 +114,6 @@ public class HomeController implements Serializable{
 	public String backToHome() {
 
 		return "home2";
-	}
-
-	public Cart getShoppingCart() {
-		return shoppingCart;
 	}
 
 	@RequestMapping(value = "/contactus", method = RequestMethod.GET)

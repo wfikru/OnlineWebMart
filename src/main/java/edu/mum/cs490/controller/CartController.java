@@ -89,7 +89,7 @@ public class CartController {
 		Product searchProduct = new Product();
 
 		map.addAttribute("searchProduct", searchProduct);
-		List<Product> cartProducts = homeController.getShoppingCart()
+		List<Product> cartProducts = homeController.shoppingCart
 				.getProducts();
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
@@ -128,7 +128,7 @@ public class CartController {
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
-		List<Product> cartProducts = homeController.getShoppingCart()
+		List<Product> cartProducts = homeController.shoppingCart
 				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
@@ -152,7 +152,7 @@ public class CartController {
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart()
+		List<Product> cartProducts = homeController.shoppingCart
 				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
@@ -190,7 +190,7 @@ public class CartController {
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart()
+		List<Product> cartProducts = homeController.shoppingCart
 				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
@@ -320,7 +320,7 @@ public class CartController {
 				Order order = new Order();
 				order.setCustomer_address(address);
 
-				List<Product> cartProducts = homeController.getShoppingCart()
+				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
 				order.setProducts(cartProducts);
@@ -341,7 +341,7 @@ public class CartController {
 				guestservice.addGuestr(guest);
 				Order order = new Order();
 				order.setCustomer_address(address);
-				List<Product> cartProducts = homeController.getShoppingCart()
+				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
 
 				order.setProducts(cartProducts);
