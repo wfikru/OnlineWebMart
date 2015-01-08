@@ -293,7 +293,7 @@ public class CartController {
 				// .getUserById(user.getUserId());
 
 				customer.setAddress(address);
-				customer.setCreditCard(creditCard);
+//				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
 
 				String rootDirectory = request.getSession().getServletContext()

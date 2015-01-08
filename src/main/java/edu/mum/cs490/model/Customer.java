@@ -74,16 +74,16 @@ public class Customer extends SystemUser implements Serializable{
 	}
 
 //	@OneToOne//(cascade = CascadeType.PERSIST)
-	@Embedded
-	private CreditCard creditCard;
-
-	public CreditCard getCreditCard() {
-		return creditCard;
-	}
-
-	public void setCreditCard(CreditCard creditCard) {
-		this.creditCard = creditCard;
-	}
+//	@Embedded
+//	private CreditCard creditCard;
+//
+//	public CreditCard getCreditCard() {
+//		return creditCard;
+//	}
+//
+//	public void setCreditCard(CreditCard creditCard) {
+//		this.creditCard = creditCard;
+//	}
 	
 	public Cart getCart() {
 		return cart;

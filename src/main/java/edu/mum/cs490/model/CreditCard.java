@@ -16,8 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-//@Entity
-@Embeddable
+@Entity
+//@Embeddable
 public class CreditCard {
 
 	@Id
