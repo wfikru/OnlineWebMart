@@ -11,14 +11,19 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity(name = "CUSTOMER")
 public class Customer extends SystemUser implements Serializable{
+	
+	@Lob
+	private byte[] image;
 	
 	@Column(name = "firstname")
 	private String firstName;
@@ -47,6 +52,26 @@ public class Customer extends SystemUser implements Serializable{
 //	public void setOrders(ArrayList<Order> orders) {
 //		this.orders = orders;
 //	}
+	@Transient
+	private String filePath;
+	
+	
+	public String getFilePath() {
+		return filePath;
+	}
+
+	public void setFilePath(String filePath) {
+		this.filePath = filePath;
+	}
+
+
+	public byte[] getImage() {
+		return image;
+	}
+
+	public void setImage(byte[] image) {
+		this.image = image;
+	}
 
 //	@OneToOne//(cascade = CascadeType.PERSIST)
 	@Embedded

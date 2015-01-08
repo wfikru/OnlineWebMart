@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -29,19 +30,23 @@ import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
+import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.SystemUserService;
 import edu.mum.cs490.validator.RegistrationUser;
 import edu.mum.cs490.validator.RegistrationValidator;
 
 @Controller
-@SessionAttributes({ "user", "status", "listCategories", "searchProduct",
-		"size", "shoppingCart", "cartProducts", "total" })
+@SessionAttributes({ "user", "status", "listCategories", "searchProduct" ,"size","shoppingCart","cartProducts", "total","loggedIn"})
+
 public class RegistrationColtroller {
 
 	@Autowired
 	SystemUserService userService;
-
+	
+	@Autowired
+	CustomerService customerService;
+	
 	@Autowired
 	private MailService mailService;
 
@@ -82,6 +87,8 @@ public class RegistrationColtroller {
 			System.out.print(user.getUsername());
 
 			if (user.getRole().equals("customer")) {
+				Customer c = customerService.getCustomerById(user.getUserId());
+				map.addAttribute("loggedIn", c);
 				return "redirect:/admin/customer";
 			} else if (user.getRole().equals("vendor")) {
 				return "redirect:/admin/vendor/product";
@@ -97,6 +104,21 @@ public class RegistrationColtroller {
 			map.addAttribute("reg_user", new RegistrationUser());
 			return "registration/login_reg";
 		}
+
+	}
+	
+	@RequestMapping(value = "/registration/logout", method = RequestMethod.GET)
+	public String logout(Locale locale, ModelMap map, HttpSession session) {
+		boolean status;
+		SystemUser user = new SystemUser();
+		// newUser.setRole("default");
+		map.put("user", user);
+		map.remove("status");
+		map.put("status", false);
+		session.setAttribute("user", user);
+		session.setAttribute("status", false);
+		status = false;
+		return "redirect:/";
 
 	}
 

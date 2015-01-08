@@ -1,6 +1,7 @@
 package edu.mum.cs490.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.bouncycastle.asn1.isismtt.x509.Restriction;
 import org.hibernate.Criteria;
@@ -37,5 +38,14 @@ public class OrderDaoImpl implements OrderDao {
 
 		return (ArrayList<Order>) cr.add(Restrictions.eq("user", c)).list();
 	}
+	
+	@Override
+	public ArrayList<Order> allOrders() {
+		Session session = this.sessionFactory.getCurrentSession();
+		ArrayList<Order> orders = (ArrayList<Order>) session.createCriteria(Order.class).list();
+		System.out.print("&&&&&&&&"+orders.get(0).getTotal());
+		return orders;
+	}
+
 
 }

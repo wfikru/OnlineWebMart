@@ -7,7 +7,7 @@
                 <li><a href="/studio/editProfile">Update profile</a></li>
               </ul>
             </li>
-            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="#">Shopping<span class="caret"></span></a>
+            <li class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="">Shopping<span class="caret"></span></a>
               <ul class="dropdown-menu">
                 <li><a href="/studio/browseProducts">Buy product</a></li>
               </ul>

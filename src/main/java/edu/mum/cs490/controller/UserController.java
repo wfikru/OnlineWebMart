@@ -84,10 +84,12 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "home")
-	public String home() {
 
-		return "redirect:/";
+	@RequestMapping(value = "/home2")
+	public String home() {
+		
+		return "home2";
+
 	}
 
 	@RequestMapping(value = "/login")

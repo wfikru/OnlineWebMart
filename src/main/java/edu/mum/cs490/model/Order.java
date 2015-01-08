@@ -1,6 +1,7 @@
 package edu.mum.cs490.model;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity(name = "ORDERT")
 public class Order implements Serializable{
@@ -22,9 +25,12 @@ public class Order implements Serializable{
 	private double total;
 	private double profit_total;
 	private double profit_for_mycompany;
+	
+	@Temporal(TemporalType.DATE)
+	private Date date;
 	private Address customer_address;
 	
-	@OneToMany
+	@OneToMany(fetch=FetchType.EAGER)
 	private List<Product> products = new ArrayList<Product>();
 	
 	public SystemUser getSystemUser() {
@@ -54,6 +60,19 @@ public class Order implements Serializable{
 	}
 	public void setTotal(double total) {
 		this.total = total;
+	}
+	
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
+	}
+	public SystemUser getUser() {
+		return user;
+	}
+	public void setUser(SystemUser user) {
+		this.user = user;
 	}
 	public double getProfit_total() {
 		return profit_total;

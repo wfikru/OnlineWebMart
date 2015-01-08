@@ -40,7 +40,7 @@ import edu.mum.cs490.service.VendorService;
 
 
 @Controller
-@SessionAttributes({ "user", "shoppingCart"})
+@SessionAttributes({ "user", "shoppingCart", "status"})
 public class ProductController {
 	
 

@@ -6,24 +6,46 @@
 <%@ taglib uri="http://www.springframework.org/tags/form"
 	prefix="springForm"%>
 
-<div class="span9">
-	<table class="table table-bordered" value="${orders}" var="order">
-		<thead>
-			<th>Date</th>
-			<th>Purchased Products</th>
-			<th>Amount Paid</th>
 
+<div class="span9">
+	<table class="table table-bordered">
+		<thead>
+			<tr>
+				<th>Order Number</th>
+				<th>Purchase Date</th>
+				<th>Purchased Products</th>
+				<th>Total Amount Paid</th>
+			</tr>
 		</thead>
 
 
 		<tbody>
-			<tr>${order.date }</tr>
-			<tr>
-			<c:forEach items="${order.products}" var="product" varStatus="loopCounter">
+			<c:forEach items="${orders}" var="order">
 
-			<li class="span3">${product.name }
-			</li></c:forEach>
-			</tr>
+				<tr>
+									<td>${order.id }</td>
+			
+					<td>${order.date }</td>
+					<td>
+						<table class="table table-bordered">
+							<thead>
+								<tr>
+									<th>Product</th>
+									<th>Price</th>
+
+								</tr>
+							</thead>
+							<c:forEach items="${order.products}" var="product">
+								<tr>
+									<td>${product.name}</td>
+									<td>${product.price}</td>
+								</tr>
+							</c:forEach>
+						</table>
+					</td>
+					<td>${order.total }</td>
+				</tr>
+			</c:forEach>
 		</tbody>
 	</table>
 </div>

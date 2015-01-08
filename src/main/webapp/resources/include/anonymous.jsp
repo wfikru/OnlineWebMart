@@ -2,28 +2,24 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 
 <div id="logoArea" class="navbar">
-	<a id="smallScreen" data-target="#topMenu" data-toggle="collapse"
-		class="btn btn-navbar"> <span class="icon-bar"></span> <span
-		class="icon-bar"></span> <span class="icon-bar"></span>
-	</a>
-	<div class="navbar-inner">
-		<!-- Logo Image -->
-		<a class="brand" href="home"><img
-			src="/cs490/resources/themes/images/logo.png" alt="Bootsshop" /></a>
+				<a id="smallScreen" data-target="#topMenu" data-toggle="collapse"
+					class="btn btn-navbar"> <span class="icon-bar"></span> <span
+					class="icon-bar"></span> <span class="icon-bar"></span>
+				</a>
+				<div class="navbar-inner">
+					<!-- Logo Image -->
+					<a class="brand" href=""><img
+						src="/cs490/resources/themes/images/logo.png" alt="Mercato" /></a>
 
-		<form:form action="productByName" methodParam="name"
-			modelAttribute="searchProduct" class="form-inline navbar-search"
-			method="POST">
-			<form:input path="name" type="text" />
-			<button type="submit" id="submitButton" class="btn btn-primary">Search</button>
-		</form:form>
-		<ul id="topMenu" class="nav pull-right">
-
-
-			<li class=""><a href="/cs490/contactus"> ConatctUs</a></li>
-			<li class=""><a href="/cs490/registration">Login / Register</a></li>
-		</ul>
-	</div>
-</div>
-</div>
-</div>
+					<form:form action="/cs490/product/search" methodParam="query"
+					 	class="form-inline navbar-search"
+						method="POST">
+						<input type="text" name="query" value="${query}" />
+						<button type="submit" id="submitButton" class="btn btn-primary">Search</button>
+					</form:form>
+					<ul id="topMenu" class="nav pull-right">
+						<li class=""><a href="/cs490/registration">Login /
+								Register</a></li>
+					</ul>
+				</div>
+			</div>

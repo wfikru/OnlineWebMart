@@ -20,5 +20,13 @@ OrderDao orderDao;
 	{
 		return orderDao.getOrdersByCustomer(custId);
 	}
+	
+	@Override
+	@Transactional
+	public ArrayList<Order> getAllOrders()
+	{
+		return orderDao.allOrders();
+	}
+	
 
 }
