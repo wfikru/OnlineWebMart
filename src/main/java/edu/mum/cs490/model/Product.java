@@ -32,9 +32,9 @@ public class Product implements Serializable {
 	@Column(name = "product_image_path")
 	private String imagePath;
 
-	@ManyToOne
-//	@JoinColumn(name="")
-	private Order order;
+//	@ManyToOne
+////	@JoinColumn(name="")
+//	private Order order;
 
 	@Lob
 	@Column(name = "product_image")
