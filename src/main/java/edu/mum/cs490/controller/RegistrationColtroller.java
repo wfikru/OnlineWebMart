@@ -87,9 +87,9 @@ public class RegistrationColtroller {
 			System.out.print(user.getUsername());
 
 			if (user.getRole().equals("customer")) {
-				Customer c = customerService.getCustomerById(user.getUserId());
-				map.addAttribute("loggedIn", c);
-				return "redirect:/admin/customer";
+				//Customer c = customerService.getCustomerById(user.getUserId());
+				//map.addAttribute("loggedIn", c);
+				return "redirect:/product/search_all";
 			} else if (user.getRole().equals("vendor")) {
 				return "redirect:/admin/vendor/product";
 			} else {
