@@ -14,14 +14,15 @@ import edu.mum.cs490.service.SystemUserService;
 public class StartupController implements
 		ApplicationListener<ContextRefreshedEvent> {
 	@Autowired
-	AdminService adminService;
+	private AdminService adminService;
 	@Autowired
-	SystemUserService userService;
+	private SystemUserService userService;
+
 	@Override
 	public void onApplicationEvent(final ContextRefreshedEvent event) {
 		System.out.println("Initialize admin user ");
-		SystemUser user = userService.checkLogin("admin","123");
-		if (user==null){
+		SystemUser user = userService.checkLogin("admin", "123");
+		if (user == null) {
 			Admin c = new Admin();
 			c.setEmail("admin");
 			c.setPassword("123");

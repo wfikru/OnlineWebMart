@@ -34,7 +34,8 @@ public class Guest {
 		this.address = address;
 	}
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+//	@OneToOne//(cascade = CascadeType.PERSIST)
+	@Embedded
 	private CreditCard creditCard;
 
 	public CreditCard getCreditCard() {

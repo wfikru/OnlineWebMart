@@ -290,8 +290,9 @@ public class CartController {
 				Customer customer = customerService.getCustomerById(user
 						.getUserId());
 
-				//customer.setAddress(address);
-				creditCard.setCustomer(customer);
+				// .getUserById(user.getUserId());
+
+				customer.setAddress(address);
 				customer.setCreditCard(creditCard);
 				customerService.updateCustomer(customer);
 
@@ -337,7 +338,7 @@ public class CartController {
 				guest.setAddress(address);
 //				creditCard.setGuest(guest);
 //				guest.setCreditCard(creditCard);
-				guestservice.addGuestr(guest); 
+				guestservice.addGuestr(guest);
 				Order order = new Order();
 				order.setCustomer_address(address);
 				List<Product> cartProducts = homeController.getShoppingCart()

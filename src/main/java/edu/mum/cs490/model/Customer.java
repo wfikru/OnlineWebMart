@@ -1,5 +1,6 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 @Entity(name = "CUSTOMER")
-public class Customer extends SystemUser {
+public class Customer extends SystemUser implements Serializable{
 	
 	@Lob
 	private byte[] image;
@@ -72,7 +73,8 @@ public class Customer extends SystemUser {
 		this.image = image;
 	}
 
-	@OneToOne(cascade = CascadeType.PERSIST)
+//	@OneToOne//(cascade = CascadeType.PERSIST)
+	@Embedded
 	private CreditCard creditCard;
 
 	public CreditCard getCreditCard() {

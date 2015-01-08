@@ -2,6 +2,7 @@ package edu.mum.cs490.controller;
 
 import groovyx.gpars.remote.netty.NettyTransportProvider.Client;
 
+import java.io.Serializable;
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -16,11 +17,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.ui.ModelMap;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -40,8 +38,8 @@ import edu.mum.cs490.service.SystemUserService;
  */
 @Controller
 @SessionAttributes({ "listCategories", "searchProduct", "name", "allProducts",
-		"shoppingCart", "size", "cartProducts", "total","status" })
-public class HomeController {
+		"shoppingCart", "size", "cartProducts", "total" })
+public class HomeController implements Serializable{
 
 	private CategoryService categoryService;
 
@@ -74,11 +72,8 @@ public class HomeController {
 	public String home(Locale locale, ModelMap map, HttpSession session) {
 		logger.info("Welcome home! The client locale is {}.", locale);
 		SystemUser user;
-
-		try{
-			user = (SystemUser)session.getAttribute("user");
-			boolean status = (Boolean) session.getAttribute("status");
-
+		try {
+			user = (SystemUser) session.getAttribute("user");
 			System.out.println("User role is : " + user.getRole());
 			if (user.getRole().equals("vendor")) {
 

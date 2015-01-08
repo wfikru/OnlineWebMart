@@ -3,6 +3,7 @@ package edu.mum.cs490.model;
 import java.util.Calendar;
 import java.util.Date;
 
+import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -15,7 +16,8 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
-@Entity
+//@Entity
+@Embeddable
 public class CreditCard {
 
 	@Id
@@ -34,32 +36,32 @@ public class CreditCard {
 		this.cardType = cardType;
 	}
 
-	@NotBlank	
+	//@NotBlank	
 	private String SecurityCode;
 
 
-	@OneToOne
-	private Customer customer;
+//	@OneToOne
+//	private Customer customer;
+//	
+//	@OneToOne
+//	private Guest guest;
+//	
 	
-	@OneToOne
-	private Guest guest;
-	
-	
-	public Guest getGuest() {
-		return guest;
-	}
-
-	public void setGuest(Guest guest) {
-		this.guest = guest;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
+//	public Guest getGuest() {
+//		return guest;
+//	}
+//
+//	public void setGuest(Guest guest) {
+//		this.guest = guest;
+//	}
+//
+//	public Customer getCustomer() {
+//		return customer;
+//	}
+//
+//	public void setCustomer(Customer customer) {
+//		this.customer = customer;
+//	}
 
 	
 	@Transient
