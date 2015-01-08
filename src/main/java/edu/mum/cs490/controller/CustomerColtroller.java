@@ -55,7 +55,7 @@ public class CustomerColtroller {
 
 	@RequestMapping(value = "/customer/add", method = RequestMethod.POST)
 	public String addCustomeraction(
-			@ModelAttribute("customer") @Valid Registered customer,
+			@ModelAttribute("customer") @Valid Customer customer,
 			BindingResult result) {
 
 		if (result.hasErrors()) {

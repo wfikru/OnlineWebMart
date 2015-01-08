@@ -41,6 +41,7 @@ import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.Registered;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CustomerService;
+import edu.mum.cs490.service.Guestservice;
 import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
@@ -58,6 +59,9 @@ public class CartController {
 
 	@Autowired
 	private CustomerService customerService;
+
+	@Autowired
+	private Guestservice guestservice;
 
 	@Autowired
 	private MailService mailService;
@@ -82,7 +86,8 @@ public class CartController {
 		Product searchProduct = new Product();
 
 		map.addAttribute("searchProduct", searchProduct);
-		List<Product> cartProducts = homeController.getShoppingCart().getProducts();
+		List<Product> cartProducts = homeController.getShoppingCart()
+				.getProducts();
 		int cartQuantity = 0;
 		for (Product p : cartProducts) {
 			if (p.getId() == product.getId()) {
@@ -120,7 +125,8 @@ public class CartController {
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
-		List<Product> cartProducts = homeController.getShoppingCart().getProducts();
+		List<Product> cartProducts = homeController.getShoppingCart()
+				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -143,7 +149,8 @@ public class CartController {
 	public String minusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart().getProducts();
+		List<Product> cartProducts = homeController.getShoppingCart()
+				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -180,7 +187,8 @@ public class CartController {
 	public String plusOneItem(@ModelAttribute("id") int id,
 			BindingResult result, ModelMap map) {
 
-		List<Product> cartProducts = homeController.getShoppingCart().getProducts();
+		List<Product> cartProducts = homeController.getShoppingCart()
+				.getProducts();
 		Product product = new Product();
 		for (Product p : cartProducts) {
 			if (p.getId() == id) {
@@ -265,15 +273,15 @@ public class CartController {
 
 			if (user != null) {
 
-				Registered customer = (Registered) customerService
-						.getCustomerById(user.getUserId());
+				Customer customer = customerService.getCustomerById(user
+						.getUserId());
 
 				// .getUserById(user.getUserId());
 
 				customer.setAddress(address);
 				creditCard.setCustomer(customer);
 				customer.setCreditCard(creditCard);
-				customerService.addCustomer(customer);
+				customerService.updateCustomer(customer);
 
 				String rootDirectory = request.getSession().getServletContext()
 						.getRealPath("/");
@@ -312,9 +320,9 @@ public class CartController {
 			} else {
 				Guest guest = new Guest();
 				guest.setAddress(address);
-				creditCard.setCustomer(guest);
+				creditCard.setGuest(guest);
 				guest.setCreditCard(creditCard);
-				customerService.addCustomer(guest);
+				guestservice.addGuestr(guest);
 				Order order = new Order();
 				order.setCustomer_address(address);
 				List<Product> cartProducts = homeController.getShoppingCart()
