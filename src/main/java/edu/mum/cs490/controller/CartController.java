@@ -118,8 +118,6 @@ public class CartController implements Serializable {
 				p.setQuantity(p.getQuantity() - 1);
 				p.setCartQuantity(p.getCartQuantity() + 1);
 				productService.updateProduct(p);
-				double total = (Double) session.getAttribute("total");
-				int size = (Integer) session.getAttribute("size");
 				total = total + p.getPrice();
 				System.out.println("+++++++++" + total + "++++++++");
 				map.addAttribute("cartProducts", cartProducts);
@@ -134,8 +132,6 @@ public class CartController implements Serializable {
 		product.setCartQuantity(product.getCartQuantity() + 1);
 		productService.updateProduct(product);
 		cartProducts.add(product);
-		double total = (Double) session.getAttribute("total");
-		int size = (Integer) session.getAttribute("size");
 		total = total + product.getPrice();
 		map.addAttribute("cartProducts", cartProducts);
 		size++;
@@ -295,6 +291,8 @@ public class CartController implements Serializable {
 		String url = "http://localhost:8080/gateway/validate?ccn="
 				+ creditCard.getCardNo() + "&amount=" + (int) getGrandTotal
 				+ "";
+		
+		System.out.println("Bonjour Uri : " + url);
 
 		// String url =
 		// "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
@@ -302,7 +300,7 @@ public class CartController implements Serializable {
 		String result = null;
 		try {
 			result = restTemplate.postForObject(url, null, String.class);
-			request.getSession().setAttribute("result", result);
+//			request.getSession().setAttribute("result", result);
 
 		} catch (Exception e) {
 			return "serviceError";
@@ -431,9 +429,9 @@ public class CartController implements Serializable {
 			// "http://localhost:8080/myfinance/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
 
 			try {
+				System.out.println("Sousdey : " + url2);
 				restTemplate.postForObject(url2, null, String.class);
 			} catch (Exception e) {
-				return "serviceError";
 			}
 
 			return "paymentSucces";

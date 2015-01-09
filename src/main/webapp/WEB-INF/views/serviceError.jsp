@@ -3,10 +3,11 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container">
-	<div class="row">
-		<div class="span5">
+<div class="span12">
+	<div class="">
+		<div class="">
 			<legend>Connection Error</legend>
+
 
 			<h4>We were unable to process your credit card payment due to connection problems!</h4>
 			<div class=" spacer">
