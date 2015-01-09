@@ -137,7 +137,7 @@
 					<div class="controls">
 						<div class="row-fluid">
 							<div class="span3">
-								<form:input id="SecurityCode" path="SecurityCode" type="text"
+								<form:input id="SecurityCode" path="SecurityCode" type="password"
 									class="input-block-level" autocomplete="off" maxlength="3"
 									pattern="\d{3}" title="Three digits at back of your card" />
 							</div>

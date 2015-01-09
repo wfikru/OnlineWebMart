@@ -15,13 +15,14 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity(name = "PRODUCT")
 public class Product implements Serializable {
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "product_id")
 	private int id;
 
@@ -32,9 +33,8 @@ public class Product implements Serializable {
 	@Column(name = "product_image_path")
 	private String imagePath;
 
-//	@ManyToOne
-////	@JoinColumn(name="")
-//	private Order order;
+	// @ManyToOne
+	// private Order order;
 
 	@Lob
 	@Column(name = "product_image")
@@ -44,11 +44,11 @@ public class Product implements Serializable {
 	private String description;
 
 	@Column(name = "product_price")
-	// @Range(min = 0)
+//	@Range(min = 0,max=1000)
 	private double price;
 
 	@Column(name = "quantity")
-	// @Range(min = 0)
+//	 @Range(min = 0, max=1000)
 	private int quantity;
 
 	@Transient

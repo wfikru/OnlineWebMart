@@ -16,6 +16,9 @@
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="/cs490/admin/system/vendors">Manage
 						vendors</a></li>
+
+				<li><a href="/cs490/admin/vendor/category">Manage
+						category</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -41,9 +44,11 @@
 							<td>${vendor.address.state}</td>
 							<td>${vendor.status}</td>
 							<td>
-								<button onclick="location.href = 'disable?vid=${vendor.userId}';"
+								<button
+									onclick="location.href = 'disable?vid=${vendor.userId}';"
 									id="disable" class="btn btn-mini btn-danger">Disable</button>
-								<button onclick="location.href = 'activate?vid=${vendor.userId}';"
+								<button
+									onclick="location.href = 'activate?vid=${vendor.userId}';"
 									id="activate" class="btn btn-mini btn-success">Activate</button>
 						</tr>
 

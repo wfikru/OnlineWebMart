@@ -92,10 +92,10 @@ public class CreditCard implements Serializable {
 		return expDate;
 	}
 
-	public void setExpDate(String month, String year) {
+	public void setExpDate() {
 		Calendar calendar = Calendar.getInstance();
-		calendar.set(Calendar.MONTH, Integer.parseInt(month));
-		calendar.set(Calendar.YEAR, Integer.parseInt(year));
+		calendar.set(Calendar.MONTH, Integer.parseInt(getMonth()));
+		calendar.set(Calendar.YEAR, Integer.parseInt(getYear()));
 		this.expDate = calendar.getTime();
 		// this.expDate = month+""+year;
 	}
@@ -120,8 +120,8 @@ public class CreditCard implements Serializable {
 		return cardNo;
 	}
 
-	public void setCardNo(String fn, String sn, String tn, String fon) {
-		this.cardNo = fn + sn + tn + fon;
+	public void setCardNo(String encrypted) {
+		this.cardNo = encrypted;
 
 	}
 

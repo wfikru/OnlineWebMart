@@ -22,6 +22,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.control.messages.SimpleMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -52,11 +54,15 @@ import edu.mum.cs490.service.OrderItemservice;
 import edu.mum.cs490.service.OrderService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
+import edu.mum.cs490.service.encryptionService;
 
 @Controller
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
 		"listCategories", "size", "cartProducts", "user", "status", "result" })
 public class CartController implements Serializable {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomeController.class);
 
 	@Autowired
 	private HomeController homeController;
@@ -82,6 +88,9 @@ public class CartController implements Serializable {
 	@Autowired
 	private OrderItemservice orderItemService;
 
+	@Autowired
+	private encryptionService encryptor;
+
 	double total;
 	int size;
 
@@ -92,7 +101,7 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/addtocart")
 	public String addItemToCart(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
 		Product product = productService.getProductById(id);
 		map.addAttribute("product", product);
 		System.out.println(product.getName());
@@ -109,6 +118,8 @@ public class CartController implements Serializable {
 				p.setQuantity(p.getQuantity() - 1);
 				p.setCartQuantity(p.getCartQuantity() + 1);
 				productService.updateProduct(p);
+				double total = (Double) session.getAttribute("total");
+				int size = (Integer) session.getAttribute("size");
 				total = total + p.getPrice();
 				System.out.println("+++++++++" + total + "++++++++");
 				map.addAttribute("cartProducts", cartProducts);
@@ -123,6 +134,8 @@ public class CartController implements Serializable {
 		product.setCartQuantity(product.getCartQuantity() + 1);
 		productService.updateProduct(product);
 		cartProducts.add(product);
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		total = total + product.getPrice();
 		map.addAttribute("cartProducts", cartProducts);
 		size++;
@@ -139,7 +152,7 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
 
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
@@ -150,6 +163,8 @@ public class CartController implements Serializable {
 				break;
 			}
 		}
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		size -= product.getCartQuantity();
 		cartProducts.remove(product);
 		total -= product.getPrice() * product.getCartQuantity();
@@ -163,8 +178,10 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/minusOne")
 	public String minusOneItem(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
-
+			BindingResult result, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
 		Product product = new Product();
@@ -201,7 +218,10 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/plusOne")
 	public String plusOneItem(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
@@ -241,7 +261,10 @@ public class CartController implements Serializable {
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String validateCard(
 			@ModelAttribute("creditCard") @Valid CreditCard creditCard,
-			BindingResult bindresult, HttpServletRequest request, ModelMap map) {
+			BindingResult bindresult, HttpServletRequest request, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 
 		if (bindresult.hasErrors()) {
 			return "payment";
@@ -253,19 +276,28 @@ public class CartController implements Serializable {
 		double profit = getGrandTotal * 0.2;
 		double myprofit = profit * 0.1;
 
-		creditCard.setCardNo(creditCard.getFirst(), creditCard.getSecond(),
-				creditCard.getThird(), creditCard.getFourth());
-		creditCard.setExpDate(creditCard.getMonth(), creditCard.getYear());
+		String plainCardNo = creditCard.getFirst() + creditCard.getSecond()
+				+ creditCard.getThird() + creditCard.getFourth();
+
+		try {
+			String encrypted = encryptor.encrypt(plainCardNo);
+			System.out.println(encrypted+"########################");
+			creditCard.setCardNo(encrypted);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		creditCard.setExpDate();
 
 		RestTemplate restTemplate = new RestTemplate();
 
 		String url = "http://localhost:8080/gateway/validate?ccn="
-				+ creditCard.getCardNo() + "&amount=" + getGrandTotal + "";
+				+ creditCard.getCardNo() + "&amount=" + (int) getGrandTotal
+				+ "";
 
 		// String url =
 		// "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
-		System.out.println(url
-				+ " ***********************************************");
 
 		String result = null;
 		try {
@@ -353,8 +385,6 @@ public class CartController implements Serializable {
 
 //				request.getSession().removeAttribute("user");
 				
-				
-				
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());
 				guest.setCreditCard(creditCard);
@@ -403,14 +433,13 @@ public class CartController implements Serializable {
 			try {
 				restTemplate.postForObject(url2, null, String.class);
 			} catch (Exception e) {
-				// return "serviceError";
+				return "serviceError";
 			}
 
 			return "paymentSucces";
-		} else if (result.equals("n")) {
-			return "paymentFailure";
 		} else {
 			return "paymentFailure";
-		}
+		}	
+		
 	}
 }

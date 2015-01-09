@@ -11,10 +11,8 @@
 			<!--Sidebar content-->
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
-				<li class="active"><a href="/cs490/admin/vendor/product">Manage my product</a></li>
-				<li><a href="#">Product Category</a></li>
-				<li class="nav-header">Reports</li>
-				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
+				<li><a href="/cs490/admin/system/vendors">Manage vendors</a></li>
+				<li class="active"><a href="#">Manage category</a></li>
 			</ul>
 		</div>
 		<div class="span10">
