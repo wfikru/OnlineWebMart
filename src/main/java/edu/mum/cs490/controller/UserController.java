@@ -117,9 +117,9 @@ public class UserController {
 		session.setAttribute("status", false);
 		session.setAttribute("cartProducts", cartProducts);
 		
-		
+
 		status = false;
-		return "home2";
+		return "redirect:/";
 
 	}
 
