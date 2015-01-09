@@ -11,7 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToOne;
 
 @Entity(name = "GUEST")
-public class Guest implements Serializable{
+public class Guest implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,7 +19,10 @@ public class Guest implements Serializable{
 
 	@Embedded
 	private Address address;
-
+	@OneToOne(cascade = CascadeType.ALL)
+	@Embedded
+	private CreditCard creditCard;
+	
 	public int getId() {
 		return id;
 	}
@@ -35,10 +38,6 @@ public class Guest implements Serializable{
 	public void setAddress(Address address) {
 		this.address = address;
 	}
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@Embedded
-	private CreditCard creditCard;
 
 	public CreditCard getCreditCard() {
 		return creditCard;

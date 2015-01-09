@@ -41,12 +41,14 @@ import edu.mum.cs490.model.CreditCard;
 import edu.mum.cs490.model.Customer;
 import edu.mum.cs490.model.Guest;
 import edu.mum.cs490.model.Order;
+import edu.mum.cs490.model.OrderItem;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.Registered;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.service.CustomerService;
 import edu.mum.cs490.service.Guestservice;
 import edu.mum.cs490.service.MailService;
+import edu.mum.cs490.service.OrderItemservice;
 import edu.mum.cs490.service.OrderService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
@@ -76,6 +78,9 @@ public class CartController implements Serializable {
 
 	@Autowired
 	private OrderService orderService;
+	
+	@Autowired
+	private OrderItemservice orderItemService;
 
 	double total;
 	int size;
@@ -285,6 +290,7 @@ public class CartController implements Serializable {
 			}
 
 			if (!is_guest) {
+				
 
 				Customer customer = customerService.getCustomerById(user
 						.getUserId());
@@ -320,15 +326,22 @@ public class CartController implements Serializable {
 				order.setTotal(getGrandTotal);
 				order.setProfit_total(profit);
 				order.setProfit_for_mycompany(myprofit);
-
-				List<Product> cartProducts = homeController.shoppingCart
-						.getProducts();
-
-				order.setProducts(cartProducts);
-				order.setSystemUser((SystemUser) request.getSession()
-						.getAttribute("user"));
+				order.setUser(customer);
 				order.setDate(new Date());
 				orderService.addOrder(order);
+				
+				List<Product> cartProducts = homeController.shoppingCart
+						.getProducts();
+				
+				for(Product prd : cartProducts){
+					OrderItem oitm = new OrderItem();
+					oitm.setProduct(prd);
+					oitm.setQuantity(prd.getCartQuantity());
+					oitm.setPrice(prd.getPrice());
+					oitm.setOrder(order);
+					orderItemService.addOrderItem(oitm);
+				}
+				
 				cartProducts.clear();
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;
@@ -338,27 +351,38 @@ public class CartController implements Serializable {
 
 			} else {
 
-				request.getSession().removeAttribute("user");
+//				request.getSession().removeAttribute("user");
+				
+				
+				
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());
 				guest.setCreditCard(creditCard);
 				guestservice.addGuest(guest);
+				
 				Order order = new Order();
 
 				order.setCustomer_address(creditCard.getAddress());
 				order.setTotal(getGrandTotal);
 				order.setProfit_total(profit);
 				order.setProfit_for_mycompany(myprofit);
-
+				order.setDate(new Date());
+				order.setGuest(guest);
+				orderService.addOrder(order);
+				
 				List<Product> cartProducts = homeController.shoppingCart
 						.getProducts();
-
-				order.setProducts(cartProducts);
-				order.setSystemUser((SystemUser) request.getSession()
-						.getAttribute("user"));
-				order.setDate(new Date());
-				orderService.addOrder(order);
+				
+				for(Product prd : cartProducts){
+					OrderItem oitm = new OrderItem();
+					oitm.setProduct(prd);
+					oitm.setQuantity(prd.getCartQuantity());
+					oitm.setPrice(prd.getPrice());
+					oitm.setOrder(order);
+					orderItemService.addOrderItem(oitm);
+				}
 				cartProducts.clear();
+				
 				map.addAttribute("cartProducts", cartProducts);
 				total = 0;
 				map.addAttribute("total", total);

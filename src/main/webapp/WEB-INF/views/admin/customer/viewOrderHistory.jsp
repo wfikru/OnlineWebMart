@@ -39,13 +39,18 @@
 								<tr>
 									<th>Product</th>
 									<th>Price</th>
-
+									<th>Quantity</th>
 								</tr>
 							</thead>
-							<c:forEach items="${order.products}" var="product">
+							<c:forEach items="${order.items}" var="item">
 								<tr>
-									<td>${product.name}</td>
-									<td>${product.price}</td>
+									<td>
+									<img
+						style="width: 100px; height: 100px;"
+						src="/cs490/admin/vendor/product/pic?pid=${item.product.id}" />
+						${item.product.name}</td>
+									<td>$ ${item.product.price}</td>
+									<td>${item.quantity}</td>
 								</tr>
 							</c:forEach>
 						</table>

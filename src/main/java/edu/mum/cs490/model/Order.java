@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -26,31 +27,29 @@ public class Order implements Serializable{
 	private double total;
 	private double profit_total;
 	private double profit_for_mycompany;
-	
-	@Temporal(TemporalType.DATE)
-	private Date date;
-	
-	@Embedded
-	private Address customer_address;
-	
-	@OneToMany(fetch=FetchType.EAGER)
-	private List<Product> products = new ArrayList<Product>();
-	
-	public SystemUser getSystemUser() {
-		return user;
-	}
-	public void setSystemUser(SystemUser user) {
-		this.user = user;
-	}
-	
 	@ManyToOne
 	private SystemUser user;
+	@Temporal(TemporalType.DATE)
+	private Date date;
+	@Embedded
+	private Address customer_address;
+	@OneToMany(mappedBy = "order", fetch=FetchType.EAGER)
+	private List<OrderItem> items;
 	
-	public List<Product> getProducts() {
-		return products;
+	@ManyToOne
+	private Guest guest;
+	
+	public Guest getGuest() {
+		return guest;
 	}
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setGuest(Guest guest) {
+		this.guest = guest;
+	}
+	public List<OrderItem> getItems() {
+		return items;
+	}
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
 	}
 	public int getId() {
 		return id;

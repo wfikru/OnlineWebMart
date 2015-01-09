@@ -1,5 +1,6 @@
 package edu.mum.cs490.model;
 
+import java.io.Serializable;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -19,7 +20,7 @@ import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 // @Embeddable
-public class CreditCard {
+public class CreditCard implements Serializable {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,53 +29,14 @@ public class CreditCard {
 	private String cardholderName;
 	// @NotNull(message = "Select card type")
 	private String cardType;
-
-	public String getCardType() {
-		return cardType;
-	}
-
-	public void setCardType(String cardType) {
-		this.cardType = cardType;
-	}
-
 	// @NotBlank
 	private String SecurityCode;
-
 	@OneToOne
 	private Customer customer;
-
-	
-	 @OneToOne
-	 private Guest guest;
-	
-
-	 public Guest getGuest() {
-	 return guest;
-	 }
-	
-	 public void setGuest(Guest guest) {
-	 this.guest = guest;
-	 }
-	
+	@OneToOne
+	private Guest guest;
 	@Embedded
 	private Address address;
-	
-	
-	public Address getAddress() {
-		return address;
-	}
-
-	public void setAddress(Address address) {
-		this.address = address;
-	}
-
-	public Customer getCustomer() {
-		return customer;
-	}
-
-	public void setCustomer(Customer customer) {
-		this.customer = customer;
-	}
 
 	@Transient
 	private String first;
@@ -93,6 +55,38 @@ public class CreditCard {
 	private String year;
 
 	private Date expDate;
+
+	public String getCardType() {
+		return cardType;
+	}
+
+	public void setCardType(String cardType) {
+		this.cardType = cardType;
+	}
+
+	public Guest getGuest() {
+		return guest;
+	}
+
+	public void setGuest(Guest guest) {
+		this.guest = guest;
+	}
+
+	public Address getAddress() {
+		return address;
+	}
+
+	public void setAddress(Address address) {
+		this.address = address;
+	}
+
+	public Customer getCustomer() {
+		return customer;
+	}
+
+	public void setCustomer(Customer customer) {
+		this.customer = customer;
+	}
 
 	public Date getExpDate() {
 		return expDate;
