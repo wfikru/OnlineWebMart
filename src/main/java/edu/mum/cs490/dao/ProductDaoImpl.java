@@ -123,10 +123,15 @@ public class ProductDaoImpl implements ProductDao {
 	@Override
 	public ArrayList<Product> allProducts() {
 		Session session = this.sessionFactory.getCurrentSession();
-		ArrayList<Product> productList = (ArrayList<Product>) session
+		/*ArrayList<Product> productList = (ArrayList<Product>) session
 				.createCriteria(Product.class).list();
-
-		return productList;
+		*/
+		
+		String sql = "SELECT p FROM PRODUCT p WHERE p.vendor.status='1'";
+		Query query = session.createQuery(sql);
+		return (ArrayList<Product>)query.list();
+		
+		//return productList;
 	}
 	
 	@Override
