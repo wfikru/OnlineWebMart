@@ -32,9 +32,9 @@
 
 			<li class="span3">
 				<div class="thumbnail" style="border: 0 none; box-shadow: none;">
-					<a href="product_details.html"><img
+					<img
 						style="width: 260px; height: 200px;"
-						src="/cs490/admin/vendor/product/pic?pid=${product.id}" /></a>
+						src="/cs490/admin/vendor/product/pic?pid=${product.id}" />
 					<div class="caption">
 						<h5>
 							<c:out value="${product.name}" />

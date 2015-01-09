@@ -177,7 +177,7 @@ public class ProductController {
 
 	}
 	@RequestMapping("/admin/vendor/product/doAdd")
-	public String doAddProduct( @Valid @ModelAttribute Product product, BindingResult result, HttpServletRequest request){
+	public String doAddProduct( Model model, @Valid @ModelAttribute Product product, BindingResult result, HttpServletRequest request){
 		
 		
 		MultipartFile productImage = product.getProductImage();
@@ -208,6 +208,7 @@ public class ProductController {
 		*/
 		
 		if (result.hasErrors()) {
+			model.addAttribute("categories", categoryService.listCategories());	
 			return "/admin/vendor/product_add";
 		} else {
 			Vendor vendor = (Vendor)request.getSession().getAttribute("user");

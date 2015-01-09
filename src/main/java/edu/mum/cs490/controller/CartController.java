@@ -96,7 +96,7 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/addtocart")
 	public String addItemToCart(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
 		Product product = productService.getProductById(id);
 		map.addAttribute("product", product);
 		System.out.println(product.getName());
@@ -113,6 +113,8 @@ public class CartController implements Serializable {
 				p.setQuantity(p.getQuantity() - 1);
 				p.setCartQuantity(p.getCartQuantity() + 1);
 				productService.updateProduct(p);
+				double total = (Double) session.getAttribute("total");
+				int size = (Integer) session.getAttribute("size");
 				total = total + p.getPrice();
 				System.out.println("+++++++++" + total + "++++++++");
 				map.addAttribute("cartProducts", cartProducts);
@@ -127,6 +129,8 @@ public class CartController implements Serializable {
 		product.setCartQuantity(product.getCartQuantity() + 1);
 		productService.updateProduct(product);
 		cartProducts.add(product);
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		total = total + product.getPrice();
 		map.addAttribute("cartProducts", cartProducts);
 		size++;
@@ -143,7 +147,7 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/removeFromCart")
 	public String removeItemFromCart(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
 
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
@@ -154,6 +158,8 @@ public class CartController implements Serializable {
 				break;
 			}
 		}
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		size -= product.getCartQuantity();
 		cartProducts.remove(product);
 		total -= product.getPrice() * product.getCartQuantity();
@@ -167,8 +173,10 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/minusOne")
 	public String minusOneItem(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
-
+			BindingResult result, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
 		Product product = new Product();
@@ -205,7 +213,10 @@ public class CartController implements Serializable {
 
 	@RequestMapping(value = "/product/plusOne")
 	public String plusOneItem(@ModelAttribute("id") int id,
-			BindingResult result, ModelMap map) {
+			BindingResult result, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 
 		List<Product> cartProducts = homeController.shoppingCart.getProducts();
 
@@ -245,7 +256,10 @@ public class CartController implements Serializable {
 	@RequestMapping(value = "/payment", method = RequestMethod.POST)
 	public String validateCard(
 			@ModelAttribute("creditCard") @Valid CreditCard creditCard,
-			BindingResult bindresult, HttpServletRequest request, ModelMap map) {
+			BindingResult bindresult, HttpServletRequest request, ModelMap map, HttpSession session) {
+		
+		double total = (Double) session.getAttribute("total");
+		int size = (Integer) session.getAttribute("size");
 
 		if (bindresult.hasErrors()) {
 			return "payment";

@@ -12,7 +12,6 @@
 			<ul class="nav nav-list">
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="#">Manage my product</a></li>
-				<li><a href="/cs490/admin/vendor/category">Product Category</a></li>
 				<li class="nav-header">Reports</li>
 				<li><a href="/cs490/admin/vendor/report">Generate reports</a></li>
 			</ul>

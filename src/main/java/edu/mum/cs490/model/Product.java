@@ -15,6 +15,7 @@ import javax.persistence.Transient;
 
 import org.codehaus.jackson.annotate.JsonIgnore;
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.Range;
 import org.springframework.web.multipart.MultipartFile;
 
 @Entity(name = "PRODUCT")
@@ -43,11 +44,11 @@ public class Product implements Serializable {
 	private String description;
 
 	@Column(name = "product_price")
-	// @Range(min = 0)
+	@Range(min = 0)
 	private double price;
 
 	@Column(name = "quantity")
-	// @Range(min = 0)
+	 @Range(min = 0)
 	private int quantity;
 
 	@Transient
