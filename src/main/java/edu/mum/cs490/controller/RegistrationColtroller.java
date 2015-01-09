@@ -123,7 +123,7 @@ public class RegistrationColtroller {
 
 	}
 
-	@RequestMapping("/registration/register")
+	@RequestMapping(value = "/registration/register", method = RequestMethod.POST)
 	public String doRegister(ModelMap map,
 			@Valid @ModelAttribute RegistrationUser reg_user,
 			BindingResult result, HttpSession session) {
@@ -159,6 +159,7 @@ public class RegistrationColtroller {
 				c.setPassword(reg_user.getPassword());
 				c.setRole("customer");
 				systemUserService.addUser(c);
+				map.addAttribute("user", c);
 				session.setAttribute("user", c);
 				session.setAttribute("status", true);
 				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
@@ -170,8 +171,11 @@ public class RegistrationColtroller {
 				c.setPassword(reg_user.getPassword());
 				c.setRole("vendor");
 				c.setVendorName(reg_user.getEmail());
+				
 				systemUserService.addUser(c);
+				map.addAttribute("user", c);
 				session.setAttribute("user", c);
+				
 				mailService.sendMail(reg_user.getEmail(), "Greeting", message);
 
 				return "redirect:/admin/vendor/product";

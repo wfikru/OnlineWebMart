@@ -84,6 +84,16 @@ public class HomeController implements Serializable{
 			} else {
 
 //				return "redirect:/product/search_all";
+				ArrayList<Product> products = productService.allProducts();
+				ArrayList<Category> categories = new ArrayList<Category>();
+				categories = categoryService.listCategories();
+
+				map.addAttribute("status", true);
+				map.addAttribute("products", products);
+				map.addAttribute("query", "");
+				map.addAttribute("categories", categories);
+
+				return "home2";
 
 
 			}
@@ -102,7 +112,6 @@ public class HomeController implements Serializable{
 		ArrayList<Product> products = productService.allProducts();
 		ArrayList<Category> categories = new ArrayList<Category>();
 		categories = categoryService.listCategories();
-		
 		
 		map.addAttribute("products", products);
 		map.addAttribute("query", "");

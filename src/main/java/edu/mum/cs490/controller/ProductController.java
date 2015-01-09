@@ -102,6 +102,7 @@ public class ProductController {
 	@RequestMapping("/admin/vendor/product")
 	public String showProducList(Model model, HttpSession session){
 		SystemUser user = (SystemUser) session.getAttribute("user");
+		System.out.println("Bonjour " + user.getEmail());
 		Vendor v = vendorService.getVendorById(user.getUserId());
 		if (v.getStatus()!=1) return "/admin/vendor/waiting";
 		

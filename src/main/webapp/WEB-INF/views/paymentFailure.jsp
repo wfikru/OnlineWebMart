@@ -3,10 +3,10 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
-<div class="container">
-	<div class="row">
-		<div class="span5">
-			<legend>Error</legend>
+<div class="span12">
+	<div class="">
+		<div class="">
+			<legend>Credit Card Problem</legend>
 
 
 			<%
@@ -22,7 +22,7 @@
 			<h4><%=errorMessage%></h4>
 
 			<div class=" spacer">
-				<a href="payment" class="btn pull-right ">Back</a>
+				<a href="payment" class="btn btn-warning">Back</a>
 			</div>
 		</div>
 	</div>

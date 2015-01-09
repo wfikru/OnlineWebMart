@@ -22,6 +22,8 @@ import javax.validation.Valid;
 
 import org.apache.commons.io.IOUtils;
 import org.codehaus.groovy.control.messages.SimpleMessage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.MailSender;
 import org.springframework.mail.SimpleMailMessage;
@@ -55,6 +57,9 @@ import edu.mum.cs490.service.SystemUserService;
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
 		"listCategories", "size", "cartProducts", "user", "status", "result" })
 public class CartController implements Serializable {
+
+	private static final Logger logger = LoggerFactory
+			.getLogger(HomeController.class);
 
 	@Autowired
 	private HomeController homeController;
@@ -260,8 +265,6 @@ public class CartController implements Serializable {
 
 		// String url =
 		// "http://localhost:8082/gateway/validate?ccn=1111111111111111&amount=100";
-		System.out.println(url
-				+ " ***********************************************");
 
 		String result = null;
 		try {
@@ -338,7 +341,7 @@ public class CartController implements Serializable {
 				map.addAttribute("size", size);
 
 			} else {
-
+				System.out.println("guest is here ##########################");
 				request.getSession().removeAttribute("user");
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());
@@ -386,8 +389,6 @@ public class CartController implements Serializable {
 			}
 
 			return "paymentSucces";
-		} else if (result.equals("n")) {
-			return "paymentFailure";
 		} else {
 			return "paymentFailure";
 		}

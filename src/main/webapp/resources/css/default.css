@@ -1,4 +1,5 @@
 .mytbl td{
 	padding-top:5px;
 	padding-bottom:5px;
+	vertical-align: top;
 }
