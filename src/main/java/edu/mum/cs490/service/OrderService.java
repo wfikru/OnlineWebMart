@@ -10,4 +10,7 @@ public interface OrderService {
 	public ArrayList<Order> getAllOrders();
 
 	public void addOrder(Order o);
+	
+	public ArrayList<Order> getOrdersByVendor(int vendorId);
+
 }

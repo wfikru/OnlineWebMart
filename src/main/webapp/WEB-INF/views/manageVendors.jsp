@@ -17,8 +17,10 @@
 				<li class="active"><a href="/cs490/admin/system/vendors">Manage
 						vendors</a></li>
 
-				<li><a href="/cs490/admin/vendor/category">Manage
-						category</a></li>
+				<li><a href="/cs490/admin/vendor/category">Manage category</a></li>
+
+				<li><a href="/cs490/admin/system/viewHistory">Generate
+						report</a></li>
 			</ul>
 		</div>
 		<div class="span10">

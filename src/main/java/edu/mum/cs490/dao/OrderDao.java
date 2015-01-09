@@ -10,4 +10,6 @@ public interface OrderDao {
 	public ArrayList<Order> allOrders();
 
 	public void addOrder(Order o);
+	
+	public ArrayList<Order> getOrdersByVendor(int vendorId);
 }

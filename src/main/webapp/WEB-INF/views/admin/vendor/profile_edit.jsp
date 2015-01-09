@@ -13,7 +13,7 @@
 				<li class="nav-header">Administrative</li>
 				<li><a href="/cs490/admin/vendor/product">Manage my product</a></li>
 				<li class="nav-header">Reports</li>
-				<li><a href="/cs490/admin/vendor/product">Generate reports</a></li>
+				<li><a href="/cs490/admin/vendor/viewHistory">Generate reports</a></li>
 			</ul>
 		</div>
 		<div class="span10">

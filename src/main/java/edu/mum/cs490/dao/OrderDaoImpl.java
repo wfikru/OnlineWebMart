@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.bouncycastle.asn1.isismtt.x509.Restriction;
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -62,6 +63,23 @@ public class OrderDaoImpl implements OrderDao {
 		Session session = this.sessionFactory.getCurrentSession();
 		session.persist(o);
 
+	}
+
+	@Override
+	public ArrayList<Order> getOrdersByVendor(int vendorId) {
+		// TODO Auto-generated method stub
+		Session session = this.sessionFactory.getCurrentSession();
+		
+		//String sql = "SELECT o FROM ordert o WHERE o.items.product.vendor.userId = " + vendorId;
+		String sql = "select o.* from ordert o inner join orderitem oi inner join product p "+
+				"where o.id = oi.order_id and oi.product_product_id = p.product_id "+
+				"and p.vendor_id = "+vendorId;
+		System.out.println(sql);
+		SQLQuery query = session.createSQLQuery(sql);
+		query.addEntity(Order.class);
+		List result = query.list();
+		
+		return (ArrayList<Order>)result;
 	}
 
 }

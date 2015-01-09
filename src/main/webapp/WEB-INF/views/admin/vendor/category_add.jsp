@@ -13,6 +13,8 @@
 				<li class="nav-header">Administrative</li>
 				<li><a href="/cs490/admin/system/vendors">Manage vendors</a></li>
 				<li class="active"><a href="#">Manage category</a></li>
+				<li><a href="/cs490/admin/system/viewHistory">Generate
+						report</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -38,8 +40,8 @@
 							</tr>
 							<tr>
 								<td>Description:</td>
-								<td><springForm:textarea id="description" path="description"
-										type="text" /></td>
+								<td><springForm:textarea id="description"
+										path="description" type="text" /></td>
 								<td><springForm:errors path="description" cssClass="error" /></td>
 							</tr>
 						</table>

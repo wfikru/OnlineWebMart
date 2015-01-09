@@ -13,6 +13,7 @@
 				<li class="nav-header">Administrative</li>
 				<li class="active"><a href="/cs490/admin/system/vendors">Manage vendors</a></li>
 				<li class="active"><a href="/cs490/admin/vendor/category">Manage category</a></li>
+				<li class="active"><a href="/cs490/admin/vendor/category">Generate report</a></li>
 			</ul>
 		</div>
 		<div class="span10">

@@ -31,10 +31,12 @@ import org.springframework.web.servlet.ModelAndView;
 
 import edu.mum.cs490.model.Category;
 import edu.mum.cs490.model.Customer;
+import edu.mum.cs490.model.Order;
 import edu.mum.cs490.model.Product;
 import edu.mum.cs490.model.SystemUser;
 import edu.mum.cs490.model.Vendor;
 import edu.mum.cs490.service.CategoryService;
+import edu.mum.cs490.service.OrderService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.VendorService;
 
@@ -53,7 +55,8 @@ public class ProductController {
 	@Autowired
 	private VendorService vendorService;
 	
-	
+	@Autowired
+	OrderService orderService;
 	
 	@RequestMapping(value = "/product/search")
 	public String doSearch(@ModelAttribute("query") String query,
@@ -261,6 +264,20 @@ public class ProductController {
 		int id = Integer.parseInt(productId);
 		productService.deleteProduct(id);
 		return "redirect:/admin/vendor/product";
+	}
+	
+	
+	@RequestMapping(value = "/admin/vendor/viewHistory", method = RequestMethod.GET)
+	public String viewCustomerHistory(Model model, HttpSession session) {
+		
+		SystemUser vendor = (SystemUser) session.getAttribute("user");
+		System.out.println("*********"+vendor.getEmail());
+		int id= vendor.getUserId();
+		ArrayList<Order> orders= orderService.getOrdersByVendor(id);
+		model.addAttribute("orders", orders);
+		System.out.println("orders" + orders.size());
+//		System.out.println("customer");
+		return "/admin/vendor/viewOrderHistory";
 	}
 
 }

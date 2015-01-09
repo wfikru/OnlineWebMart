@@ -37,5 +37,12 @@ public class OrderServiceImpl implements OrderService{
 		return orderDao.allOrders();
 	}
 
+	@Override
+	@Transactional
+	public ArrayList<Order> getOrdersByVendor(int vendorId) {
+		return orderDao.getOrdersByVendor(vendorId);
+		
+	}
+
 	
 }

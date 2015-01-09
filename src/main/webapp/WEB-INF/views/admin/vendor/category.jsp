@@ -13,6 +13,8 @@
 				<li class="nav-header">Administrative</li>
 				<li><a href="/cs490/admin/system/vendors">Manage vendors</a></li>
 				<li class="active"><a href="#">Manage category</a></li>
+				<li><a href="/cs490/admin/system/viewHistory">Generate
+						report</a></li>
 			</ul>
 		</div>
 		<div class="span10">
@@ -48,9 +50,11 @@
 								<td>${category.name}</td>
 								<td>${category.description}</td>
 								<td>
-									<button onclick="location.href = '/cs490/admin/vendor/category/edit?pid=${category.id}';"
+									<button
+										onclick="location.href = '/cs490/admin/vendor/category/edit?pid=${category.id}';"
 										id="btnEdit" class="btn btn-mini">Edit</button>
-									<button onclick="location.href = '/cs490/admin/vendor/category/delete?pid=${category.id}';"
+									<button
+										onclick="location.href = '/cs490/admin/vendor/category/delete?pid=${category.id}';"
 										id="btnDelete" class="btn btn-mini btn-danger">Delete</button>
 								</td>
 							</tr>
