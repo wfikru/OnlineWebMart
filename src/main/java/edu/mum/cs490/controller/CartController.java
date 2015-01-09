@@ -52,6 +52,7 @@ import edu.mum.cs490.service.MailService;
 import edu.mum.cs490.service.OrderService;
 import edu.mum.cs490.service.ProductService;
 import edu.mum.cs490.service.SystemUserService;
+import edu.mum.cs490.service.encryptionService;
 
 @Controller
 @SessionAttributes({ "productList", "searchProduct", "shoppingCart", "total",
@@ -81,6 +82,9 @@ public class CartController implements Serializable {
 
 	@Autowired
 	private OrderService orderService;
+
+	@Autowired
+	private encryptionService encryptor;
 
 	double total;
 	int size;
@@ -253,9 +257,19 @@ public class CartController implements Serializable {
 		double profit = getGrandTotal * 0.2;
 		double myprofit = profit * 0.1;
 
-		creditCard.setCardNo(creditCard.getFirst(), creditCard.getSecond(),
-				creditCard.getThird(), creditCard.getFourth());
-		creditCard.setExpDate(creditCard.getMonth(), creditCard.getYear());
+		String plainCardNo = creditCard.getFirst() + creditCard.getSecond()
+				+ creditCard.getThird() + creditCard.getFourth();
+
+		try {
+			String encrypted = encryptor.encrypt(plainCardNo);
+			System.out.println(encrypted+"########################");
+			creditCard.setCardNo(encrypted);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+
+		creditCard.setExpDate();
 
 		RestTemplate restTemplate = new RestTemplate();
 
@@ -341,7 +355,7 @@ public class CartController implements Serializable {
 				map.addAttribute("size", size);
 
 			} else {
-				System.out.println("guest is here ##########################");
+				
 				request.getSession().removeAttribute("user");
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());
@@ -377,8 +391,6 @@ public class CartController implements Serializable {
 					+ "&profit=" + profit + "&total=" + getGrandTotal
 					+ "&myprofit=" + myprofit + "";
 
-			System.out.println(url2
-					+ "*********************************************");
 			// String url2 =
 			// "http://localhost:8080/myfinance/finance?ccn=111&address=456&profit=100&total=1000&myprofit=50";
 
@@ -391,6 +403,7 @@ public class CartController implements Serializable {
 			return "paymentSucces";
 		} else {
 			return "paymentFailure";
-		}
+		}	
+		
 	}
 }

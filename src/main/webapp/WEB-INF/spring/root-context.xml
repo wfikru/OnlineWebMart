@@ -34,7 +34,7 @@
 			<props>
 				<prop key="hibernate.hbm2ddl.auto">update</prop>
 				<prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
-				
+
 			</props>
 		</property>
 	</bean>
@@ -52,7 +52,7 @@
 		<property name="maxUploadSize" value="10240000" />
 	</bean>
 
-	
+
 
 	<bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
 		<property name="host" value="smtp.gmail.com" />
@@ -71,5 +71,6 @@
 		</property>
 	</bean>
 
+	<bean id="encryptor" class="edu.mum.cs490.service.encryptionService"></bean>
 
 </beans>
