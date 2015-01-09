@@ -300,7 +300,6 @@ public class CartController implements Serializable {
 		String result = null;
 		try {
 			result = restTemplate.postForObject(url, null, String.class);
-//			request.getSession().setAttribute("result", result);
 
 		} catch (Exception e) {
 			return "serviceError";
@@ -381,7 +380,6 @@ public class CartController implements Serializable {
 
 			} else {
 
-//				request.getSession().removeAttribute("user");
 				
 				Guest guest = new Guest();
 				guest.setAddress(creditCard.getAddress());

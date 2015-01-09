@@ -8,18 +8,7 @@
 		<div class="">
 			<legend>Credit Card Problem</legend>
 
-
-			<%
-				String errorMessage = null;
-				String result = (String) request.getSession()
-						.getAttribute("result");
-				if (result.equals("n")) {
-					errorMessage = "Not sufficient amount in your account";
-				} else if (result.equals("N")) {
-					errorMessage = "Invalid Credit card number. Please fill out correctly";
-				}
-			%>
-			<h4><%=errorMessage%></h4>
+			<h4>Invalid Credit card information. Refer to issuer</h4>
 
 			<div class=" spacer">
 				<a href="payment" class="btn btn-warning">Back</a>
