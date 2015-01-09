@@ -61,7 +61,7 @@ public class HomeController implements Serializable{
 
 	public Cart shoppingCart = new Cart();
 	int size;
-	int total;
+	double total;
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
@@ -86,6 +86,7 @@ public class HomeController implements Serializable{
 //				return "redirect:/product/search_all";
 				ArrayList<Product> products = productService.allProducts();
 				ArrayList<Category> categories = new ArrayList<Category>();
+//				Cart shoppingCart = new Cart();
 				categories = categoryService.listCategories();
 
 				map.addAttribute("status", true);

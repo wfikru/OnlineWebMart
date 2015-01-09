@@ -82,38 +82,38 @@
 							<div class="carousel-inner">
 								<div class="item active">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/3.png"
 										alt="special offers" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/2.png" alt="" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/1.png" alt="" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/4.png" alt="" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/5.png" alt="" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/6.png" alt="" /></a>
 								</div>
 								<div class="item">
 
-									<a href="register.html"><img
+									<a href="registration"><img
 										src="/cs490/resources/themes/images/carousel/7.png" alt="" /></a>
 								</div>
 							</div>
