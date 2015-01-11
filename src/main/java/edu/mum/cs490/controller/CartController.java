@@ -288,7 +288,7 @@ public class CartController implements Serializable {
 
 		RestTemplate restTemplate = new RestTemplate();
 
-		String url = "http://localhost:8080/gateway/validate?ccn="
+		String url = "http://localhost:8080/team6_paymentgateway/validate?ccn="
 				+ creditCard.getCardNo() + "&amount=" + (int) getGrandTotal
 				+ "";
 		
@@ -418,7 +418,7 @@ public class CartController implements Serializable {
 
 			String strAddress = creditCard.getAddress().getZip();
 
-			String url2 = "http://localhost:8080/myfinance/finance?ccn="
+			String url2 = "http://localhost:8080/team6_myfinance/finance?ccn="
 					+ creditCard.getCardNo() + "&address=" + strAddress
 					+ "&profit=" + profit + "&total=" + getGrandTotal
 					+ "&myprofit=" + myprofit + "";

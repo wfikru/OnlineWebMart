@@ -24,7 +24,7 @@ import edu.mum.cs490.model.SystemUser;
 @Repository
 @Transactional
 public class OrderDaoImpl implements OrderDao {
-	
+
 	@Autowired
 	SessionFactory sessionFactory;
 
@@ -40,22 +40,26 @@ public class OrderDaoImpl implements OrderDao {
 	public ArrayList<Order> getOrdersByCustomer(int custId) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
-		
+
 		String sql = "SELECT * FROM ordert WHERE user_userId = " + custId;
 		SQLQuery query = session.createSQLQuery(sql);
 		query.addEntity(Order.class);
 		List result = query.list();
-		
-		return (ArrayList<Order>)result;
+
+		return (ArrayList<Order>) result;
 	}
 
 	@Override
 	public ArrayList<Order> allOrders() {
-		Session session = this.sessionFactory.getCurrentSession();
-		ArrayList<Order> orders = (ArrayList<Order>) session.createCriteria(
-				Order.class).list();
-		System.out.print("&&&&&&&&" + orders.get(0).getTotal());
-		return orders;
+		try {
+			Session session = this.sessionFactory.getCurrentSession();
+			ArrayList<Order> orders = (ArrayList<Order>) session
+					.createCriteria(Order.class).list();
+			System.out.print("&&&&&&&&" + orders.get(0).getTotal());
+			return orders;
+		} catch (Exception e) {
+			return new ArrayList<Order>();
+		}
 	}
 
 	@Override
@@ -69,17 +73,19 @@ public class OrderDaoImpl implements OrderDao {
 	public ArrayList<Order> getOrdersByVendor(int vendorId) {
 		// TODO Auto-generated method stub
 		Session session = this.sessionFactory.getCurrentSession();
-		
-		//String sql = "SELECT o FROM ordert o WHERE o.items.product.vendor.userId = " + vendorId;
-		String sql = "select o.* from ordert o inner join orderitem oi inner join product p "+
-				"where o.id = oi.order_id and oi.product_product_id = p.product_id "+
-				"and p.vendor_id = "+vendorId;
+
+		// String sql =
+		// "SELECT o FROM ordert o WHERE o.items.product.vendor.userId = " +
+		// vendorId;
+		String sql = "select o.* from ordert o inner join orderitem oi inner join product p "
+				+ "where o.id = oi.order_id and oi.product_product_id = p.product_id "
+				+ "and p.vendor_id = " + vendorId;
 		System.out.println(sql);
 		SQLQuery query = session.createSQLQuery(sql);
 		query.addEntity(Order.class);
 		List result = query.list();
-		
-		return (ArrayList<Order>)result;
+
+		return (ArrayList<Order>) result;
 	}
 
 }
